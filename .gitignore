@@ -37,6 +37,7 @@ cmake-build-release/
 
 ## Plugin-specific files:
 
+
 # IntelliJ
 out/
 
@@ -186,3 +187,14 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Pycharm
+.idea/misc.xml
+.idea/markdown-navigator.xml
+.idea/markdown-navigator/
+.idea/modules.xml
+.idea/vcs.xml
+.idea/welkin.iml
+
+# Welkin artifacts
+output/
