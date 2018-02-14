@@ -1,4 +1,21 @@
-# Welkin
+# welkin
+
+
+## Table of Contents
++ [What is Welkin?](#what-is-welkin)
++ [Installing Welkin](#Installing-welkin)
++ [Running Welkin](#running-welkin)
+    + [Base Command](#base-command)
+    + [Controlling The Collected Tests](#controlling-the-collected-tests)
+    + [Collecting Tests Without Running Them](#collecting-tests-without-running-them)
+    + [Killing a Test Run](#killing-a-test-run)
+    + [Command Line Arguments](#command-line-arguments)
+    + [Logging](#logging)
++ [Troubleshooting](#troubleshooting)
+    + [No module named welkin.framework](#no-module-named-welkin.framework)
+
+
+## What is Welkin?
 Welkin is a test automation framework shell written in Python and using the
 pytest test runner.
 
@@ -40,13 +57,25 @@ export PYTHONPATH=$PYTHONPATH:~/dev/welkin
 Activate the virtualenv ~/dev/venv.
 
 
-
-## Executing tests
+## Running Welkin
 Welkin is typically run from the command line. Pytest handles test collection
 and the reporting of errors.
 
 ### Base Command
-The base command (which runs all tests in the tests directory) is:
+While pytest is typically run with a command like the following:
+````
+$ pwd
+/Users/yourname/dev/welkin
+# Don't run this command for welkin (even though it is a valid pytest command)
+$ pytest welkin/tests
+````
+
+That won't work with Welkin because I use a wrapper that adds some extra information to the test run.
+Runner.py is a wrapper for pytest that adds a timestamp to a test run, creates an html
+report for test results, allows for combined keyword and marker specifications for test
+collection.
+
+The base command for welkin (which runs all tests in the tests directory) is:
 
 ````
 $ pwd
@@ -54,12 +83,8 @@ $ pwd
 $ python runner.py welkin/tests
 ````
 
-However, I use a wrapper that adds some extra information to the test run.
-Runner.py is a wrapper for pytest that adds a timestamp to a test run, creates an html
-report for test results, allows for combined keyword and marker specifications for test
-collection.
 
-### Test Collection
+### Controlling The Collected Tests
 Pytest supports several ways to control test collection.
 
 1. string matches in the name path for the test methods
@@ -80,7 +105,9 @@ $ python runner.py welkin/tests -m example
 $ python runner.py welkin/tests -m example -k simple
 ````
 
-4. collecting the tests without running them
+
+### Collecting Tests Without Running Them
+Sometimes you'll need to collect but not run tests:
 ````
 # collect every test marked with the pytest.marker "example" AND containing the string "simple"
 $ python runner.py welkin/tests -m example -k simple --collect-only
@@ -92,15 +119,27 @@ collected 7 items
       <Function 'test_simple_fail'>
 ````
 
+
 ### Killing a Test Run
 To stop a test run, hit CTRL + C.
 
 
-## Command Line Arguments
+### Command Line Arguments
 Optional command line arguments you can pass to welkin:
 * *env* is the environment to run the tests against; the choices are 'local',
 'qa', 'staging'; defaults to 'qa'. These don't work out of the box; they are placeholders
 that need to be configured with the actual name and URLs.
+
+
+### Logging
+Welkin is intended to be verbose in its logging; however, that's up to you to implement
+as you build out your own framework.
+
+By default, Welkin creates an output folder at welkin/output, and then for each test run
+Welkin creates a folder in _output_ named with the testrun's timestamp; this folder gets the
+HTML test results page, plus the text log of test run activity. This output is not automatically
+cleaned up. You'll have to define a workflow for this, if you want.
+
 
 
 # Troubleshooting
