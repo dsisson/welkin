@@ -3,7 +3,7 @@
 
 ## Table of Contents
 + [What is Welkin?](#what-is-welkin)
-+ [Installing Welkin](#Installing-welkin)
++ [Installing Welkin](#installing-welkin)
 + [Running Welkin](#running-welkin)
     + [Base Command](#base-command)
     + [Controlling The Collected Tests](#controlling-the-collected-tests)
@@ -12,7 +12,7 @@
     + [Command Line Arguments](#command-line-arguments)
     + [Logging](#logging)
 + [Troubleshooting](#troubleshooting)
-    + [No module named welkin.framework](#no-module-named-welkin.framework)
+    + [No module named welkin.framework](#no-module-named-welkinframework)
 
 
 ## What is Welkin?
@@ -27,7 +27,7 @@ test data models, custom application wrappers, and the tests. Welkin is intended
 tool for beginning test automators; welkin is NOT a general test framdework or test tool.
 
 
-## Installing welkin
+## Installing Welkin
 Welkin is intended to be a starting point for your automation code framework, so while
 there is a range of ways the code could be packaged and distributed cleanly, just fork
 this project and set it up locally.
