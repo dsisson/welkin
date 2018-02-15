@@ -38,6 +38,18 @@ def init(request):
     logger.info('Initialization fixture called.')
 
 
+@pytest.yield_fixture(scope="function")
+def driver(request):
+    from selenium import webdriver
+    driver = webdriver.Chrome()
+    driver.implicitly_wait(10)  # default wait for 10 seconds
+    logger.info('Starting driver.')
+    yield driver
+    driver.quit()
+    logger.info('Quiting driver.')
+
+
 # markers, used for flagging tests for marks-based collection
 example = pytest.mark.NAME  # for tests used as examples for this framework
 smoke = pytest.mark.NAME
+selenium = pytest.mark.NAME  # for tests requiring selenium
