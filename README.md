@@ -3,6 +3,7 @@
 
 ## Table of Contents
 + [What is Welkin?](#what-is-welkin)
+    + [Wait, what?](#wait-what)
 + [Installing Welkin](#installing-welkin)
 + [Running Welkin](#running-welkin)
     + [Base Command](#base-command)
@@ -24,7 +25,24 @@ or more apps in an ecosystem, as well as end-to-end testing across these apps.
 
 Welkin provides a basic starting point for building a custom test framework; you add the
 test data models, custom application wrappers, and the tests. Welkin is intended as a teaching
-tool for beginning test automators; welkin is NOT a general test framdework or test tool.
+tool for beginning test automators; welkin is NOT a general test framework or test tool.
+
+### Wait, what?
+Ok, here's the context behind welkin:
++ A robust and useful test automation framework requires a test runner
+to collect, execute, and report on tests. _Welkin is built around the pytest test runner,
+and relies on pytest for test collection, test execution, and the reporting of test results._
++ A test framework needs to manage how and where the test results are reported,
+along with managing the logging of test activity. _Welkin creates date and timestamped
+logs and html test results into a testrun-specific output folder._
++ A test framework needs a body of tests in a place where the test runner can find them.
+_Welkin is just a scaffolding, so it provides some example tests to show
+how this all works together._
++ A test framework probably should provide support for abstracting out some test logic
+so that tests can be written at higher level.
++ A test framework should provide a mechanism for abstracting out test data from the tests.
++ A test framework should provide tools and utilities to support test activities,
+and to abstract out repeated supportig actions from the tests.
 
 
 ## Installing Welkin
@@ -55,6 +73,11 @@ export PYTHONPATH=$PYTHONPATH:~/dev/welkin
 ````
 
 Activate the virtualenv ~/dev/venv.
+
+### And Then There's ChromeDriver
+You will need to install the ChromeDriver executable (see https://sites.google.com/a/chromium.org/chromedriver/downloads) in your virtualenv, specifically in:
+
+```~/dev/venv/bin```
 
 
 ## Running Welkin
