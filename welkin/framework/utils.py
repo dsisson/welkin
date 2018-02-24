@@ -1,7 +1,8 @@
 import logging
 import os
+import json
 
-logger = logging.getLogger('Utils')
+logger = logging.getLogger(__name__)
 
 
 def generate_output_path(folder_name):
@@ -46,3 +47,23 @@ def create_output_folder(path_to_output):
 
     return path_to_output
 
+
+def plog(content):
+    """
+        Format json content for pretty printing to the logger.
+
+        :param content: json content
+        :return:
+
+        The typical usage will look like this:
+        >>> from welkin.framework import utils
+        >>> my_json = res.json()
+        >>> logger.info(utils.plog.my_json)
+    """
+    formatted_content = None
+    try:
+        formatted_content = json.dumps(content, indent=4, sort_keys=True)
+    except (ValueError, TypeError):
+        # oops, this wasn't actually json
+        formatted_content = content
+    return formatted_content
