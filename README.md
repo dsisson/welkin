@@ -3,6 +3,7 @@
 
 ## Table of Contents
 + [What is Welkin?](#what-is-welkin)
+    + [What Welkin is Not](#what-welkin-is-not)
     + [Wait, what?](#wait-what)
 + [Installing Welkin](#installing-welkin)
 + [Running Welkin](#running-welkin)
@@ -12,8 +13,6 @@
     + [Killing a Test Run](#killing-a-test-run)
     + [Command Line Arguments](#command-line-arguments)
     + [Logging](#logging)
-+ [Troubleshooting](#troubleshooting)
-    + [No module named welkin.framework](#no-module-named-welkinframework)
 
 
 ## What is Welkin?
@@ -26,6 +25,13 @@ or more apps in an ecosystem, as well as end-to-end testing across these apps.
 Welkin provides a basic starting point for building a custom test framework; you add the
 test data models, custom application wrappers, and the tests. Welkin is intended as a teaching
 tool for beginning test automators; welkin is NOT a general test framework or test tool.
+
+### What Welkin is Not
+Welkin is not test framework, because
++ it doesn't have a body of tests beyond simple demonstration examples;
++ it doesn't have any application models or wrappers.
+
+Welkin is a scaffolding on which a custom test automation framework can be built.
 
 ### Wait, what?
 Ok, here's the context behind welkin:
@@ -42,7 +48,9 @@ how this all works together._
 so that tests can be written at higher level.
 + A test framework should provide a mechanism for abstracting out test data from the tests.
 + A test framework should provide tools and utilities to support test activities,
-and to abstract out repeated supportig actions from the tests.
+and to abstract out repeated supporting actions from the tests.
+
+A test framework should be customized to the specific business domain you are working in, and to the applications under test.
 
 
 ## Installing Welkin
@@ -85,25 +93,11 @@ Welkin is typically run from the command line. Pytest handles test collection
 and the reporting of errors.
 
 ### Base Command
-While pytest is typically run with a command like the following:
+The base command to collect and run tests with pytest is the following:
 ````
-$ pwd
-/Users/yourname/dev/welkin
-# Don't run this command for welkin (even though it is a valid pytest command)
+$ cd <path_to_welkin>
+# you should be in the top-level welkin folder
 $ pytest welkin/tests
-````
-
-That won't work with Welkin because I use a wrapper that adds some extra information to the test run.
-Runner.py is a wrapper for pytest that adds a timestamp to a test run, creates an html
-report for test results, allows for combined keyword and marker specifications for test
-collection.
-
-The base command for welkin (which runs all tests in the tests directory) is:
-
-````
-$ pwd
-/Users/yourname/dev/welkin
-$ python runner.py welkin/tests
 ````
 
 
@@ -113,19 +107,19 @@ Pytest supports several ways to control test collection.
 1. string matches in the name path for the test methods
 ````
 # collect and run every test with the string "example" in filename, classname, method name
-$ python runner.py welkin/tests -k example
+$ pytest welkin/tests -k example
 ````
 
 2. marker matches for test classes or methods
 ````
 # collect and run every test class or test method marked with the pytest.marker "example"
-$ python runner.py welkin/tests -m example
+$ pytest welkin/tests -m example
 ````
 
 3. combined marker matches AND string matches
 ````
 # collect and run every test marked with the pytest.marker "example" AND containing the string "simple"
-$ python runner.py welkin/tests -m example -k simple
+$ pytest welkin/tests -m example -k simple
 ````
 
 
@@ -133,7 +127,7 @@ $ python runner.py welkin/tests -m example -k simple
 Sometimes you'll need to collect but not run tests:
 ````
 # collect every test marked with the pytest.marker "example" AND containing the string "simple"
-$ python runner.py welkin/tests -m example -k simple --collect-only
+$ pytest welkin/tests -m example -k simple --collect-only
 collected 7 items
 <Module 'examples/test_examples.py'>
   <Class 'ExampleTests'>
@@ -164,16 +158,3 @@ HTML test results page, plus the text log of test run activity. This output is n
 cleaned up. You'll have to define a workflow for this, if you want.
 
 
-
-# Troubleshooting
-## No module named welkin.framework
-If you see something like the following when you try to run your first tests, then you either
-need to add the appropriate paths to your .bash_profile, or you need to refresh your terminal
-instance to pull in the changes to .bash_profile
-```
-(venv) MacBook:welkin derek$ python runner.py tests/functional
-Traceback (most recent call last):
-  File "runner.py", line 8, in <module>
-    from welkin.framework import utils
-ImportError: No module named welkin.framework
-```
