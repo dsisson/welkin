@@ -27,11 +27,13 @@ test data models, custom application wrappers, and the tests. Welkin is intended
 tool for beginning test automators; welkin is NOT a general test framework or test tool.
 
 ### What Welkin is Not
-Welkin is not test framework, because
+Welkin is not a test framework, because
 + it doesn't have a body of tests beyond simple demonstration examples;
 + it doesn't have any application models or wrappers.
 
 Welkin is a scaffolding on which a custom test automation framework can be built.
+
+And Welkin is not a turn-key tool; you will need to modify Welkin to make it useful for your test needs.
 
 ### Wait, what?
 Ok, here's the context behind welkin:
