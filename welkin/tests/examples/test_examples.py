@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 @pytest.mark.example
 class ExampleTests(object):
 
-    def test_simple_pass(self, init):
+    def test_simple_pass(self):
         """
             A simple test method that looks for the presence of a string in a list of strings.
 
@@ -19,7 +19,7 @@ class ExampleTests(object):
         logger.info('Looking for "%s".' % expected_element)
         assert expected_element in testdata, 'FAIL: "%s" not in "%s".' % (expected_element, testdata)
 
-    def test_simple_fail(self, init):
+    def test_simple_fail(self):
         """
             A simple test method that looks for the presence of a string in a list of strings, but fails.
 
@@ -36,7 +36,7 @@ class ExampleTests(object):
                                       'pear',
                                       'berry',
                                       pytest.mark.xfail('kumquat')])
-    def test_parametrized(self, init, fruit):
+    def test_parametrized(self, fruit):
         """
             A parametrized test method that looks for the presence of a string in a list of strings.
             A test instance is created for each parameter in the supplied list; one of these instances
@@ -51,7 +51,7 @@ class ExampleTests(object):
         logger.info('Looking for "%s".' % expected_element)
         assert expected_element in testdata, 'FAIL: "%s" not in "%s".' % (expected_element, testdata)
 
-    def test_zero_division(self, init):
+    def test_zero_division(self):
         """
             Looking for the correct exception to be raised when dividing by zero.
 
