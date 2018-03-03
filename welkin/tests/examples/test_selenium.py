@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 class ExampleSeleniumTests(object):
 
     @pytest.mark.selenium
-    def test_google(self, init, driver):
+    def test_google(self, driver):
         """
             Using a correctly-spelled query string, validate some structural test points on the search
             results page.
@@ -52,7 +52,7 @@ class ExampleSeleniumTests(object):
                                                          % checkpoints['results_list'][1]
 
     @pytest.mark.selenium
-    def test_google_typo(self, init, driver):
+    def test_google_typo(self, driver):
         """
             Using query string with a mispelled word, validate some structural test points on the search
             results page.
