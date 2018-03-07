@@ -48,7 +48,7 @@ class SearchResultsPage(PageObject):
         try:
             count = int(assumed_count.replace(',', ''))
         except ValueError:
-            msg = 'FAIL: expected the value "%s" to be a number; full result: %s%.' % (assumed_count, raw_text)
+            msg = 'FAIL: expected the value "%s" to be a number; full result: %s.' % (assumed_count, raw_text)
             logger.error(msg)
             raise GoogleResultsCountException(msg)
 
