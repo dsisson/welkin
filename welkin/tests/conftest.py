@@ -33,7 +33,7 @@ def pytest_configure(config):
     filename = '%s/log.txt' % output_path
     logging.basicConfig(filename=filename,
                         level=logging.INFO,
-                        format='%(asctime)s %(name)s.py::%(funcName)s() [%(levelname)s] %(message)s')
+                        format='%(asctime)s %(name)s::%(funcName)s() [%(levelname)s] %(message)s')
 
     initial_report_path = Path(config.option.htmlpath)
     report_path_parts = list(initial_report_path.parts)
