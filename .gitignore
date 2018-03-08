@@ -199,3 +199,4 @@ Temporary Items
 
 # Welkin artifacts
 output/
+.pytest_cache/
