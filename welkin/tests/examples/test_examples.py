@@ -11,7 +11,6 @@ class ExampleTests(object):
         """
             A simple test method that looks for the presence of a string in a list of strings.
 
-            :param init: pytest fixture that turns on logging
             :return: None
         """
         testdata = ['apple', 'pear', 'berry']
@@ -23,13 +22,20 @@ class ExampleTests(object):
         """
             A simple test method that looks for the presence of a string in a list of strings, but fails.
 
-            :param init: pytest fixture that turns on logging
             :return: None
         """
         testdata = ['apple', 'pear', 'berry']
         expected_element = 'cherry'
         logger.info('Looking for "%s".' % expected_element)
         assert expected_element in testdata, 'FAIL: "%s" not in "%s".' % (expected_element, testdata)
+
+    def test_simple_error(self):
+        """
+            A simple test method that demonstrates that a non-assertion exception is considered as a FAIL.
+
+            :return: None
+        """
+        raise ValueError
 
     @pytest.mark.parametrize('fruit', [
                                       'apple',
@@ -42,8 +48,7 @@ class ExampleTests(object):
             A test instance is created for each parameter in the supplied list; one of these instances
             will fail.
 
-            :param init: pytest fixture that turns on logging
-            :fruit: str, item in the parametrized list to test for
+            :param fruit: str, item in the parametrized list to test for
             :return: None
         """
         testdata = ['apple', 'pear', 'berry']
@@ -55,7 +60,6 @@ class ExampleTests(object):
         """
             Looking for the correct exception to be raised when dividing by zero.
 
-            :param init: pytest fixture that turns on logging
             :return: None
         """
         with pytest.raises(ZeroDivisionError) as excinfo:
