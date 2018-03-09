@@ -6,6 +6,10 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+class JsonPayloadException(Exception):
+    pass
+
+
 class UnexpectedStatusCodeException(Exception):
     """
         Raise this exception when the server response code from an http request is not a success code.
