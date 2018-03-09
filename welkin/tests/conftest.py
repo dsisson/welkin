@@ -68,7 +68,7 @@ def configure_test_session(request):
     """
     logger.info('--------------')
     logger.info('request.session.__dict__: %s' % request.session.__dict__)
-    logger.info('request.config.__dict__: %s' % request.config.__dict__)
+    # logger.info('request.config.__dict__: %s' % request.config.__dict__)
     logger.info('sys.argv: %s' % sys.argv)
     logger.info('--------------')
 
@@ -88,3 +88,4 @@ def driver(request):
 example = pytest.mark.NAME  # for tests used as examples for this framework
 smoke = pytest.mark.NAME
 selenium = pytest.mark.NAME  # for tests requiring selenium
+api = pytest.mark.NAME

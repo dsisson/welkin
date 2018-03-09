@@ -19,7 +19,7 @@ class PageObject(object):
             Perform a Google search for string `text`.
 
             :param text: str, query string
-            :return: None
+            :return page: page Welkin page object for the search results page
         """
         # grab the search field
         search_input = self.driver.find_element_by_name('q')
