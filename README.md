@@ -160,3 +160,10 @@ HTML test results page, plus the text log of test run activity. This output is n
 cleaned up. You'll have to define a workflow for this, if you want.
 
 
+## Automation Examples
+
+Some examples of solving particular automation challenges.
+
+### Single-Endpoint API
+
+see [Wrapper for genderizer API](tree/master/welkin/apps/examples/genderizer/README.md)
