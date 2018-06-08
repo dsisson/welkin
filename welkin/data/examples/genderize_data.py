@@ -13,7 +13,11 @@ good_names_single = [
 good_names_multiple = [
     (('Bob', 'Joe'), ('male', 'male')),
     (('Bob', 'Joe', 'Sue'), ('male', 'male', 'female')),
-    (('Bob', 'Joe', 'Sue', 'Bob'), ('male', 'male', 'female', 'male')),
+    (('Bob', 'Joe', 'Sue', 'Spencer'), ('male', 'male', 'female', 'male')),
+    (  # 10 is the upper limit for names in one request
+        ('Bob', 'Joe', 'Sue', 'Spencer', 'Steve', 'John', 'Mary', 'Jane', 'Henry', 'Juan'),
+        ('male', 'male', 'female', 'male', 'male', 'male', 'female', 'female', 'male', 'male')
+    ),
 ]
 
 
@@ -29,6 +33,13 @@ bad_names_multiple = [
     (('Bob', 'Sue', 'smersh'), ('male', 'female', None)),
 ]
 
+too_many_names = [
+    (  # 11 names should return error
+        ('Bob', 'Joe', 'Sue', 'Spencer', 'Steve', 'John', 'Mary', 'Jane', 'Henry', 'Juan', 'Pat'),
+        ('male', 'male', 'female', 'male', 'male', 'male', 'female', 'female', 'male', 'male', 'male')
+    ),
+
+]
 
 invalid_inputs = [
     (None, 422, "Missing 'name' parameter"),

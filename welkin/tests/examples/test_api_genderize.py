@@ -8,6 +8,7 @@ from welkin.data.examples.genderize_data import good_names_multiple
 from welkin.data.examples.genderize_data import bad_names_single
 from welkin.data.examples.genderize_data import bad_names_multiple
 from welkin.data.examples.genderize_data import invalid_inputs
+from welkin.data.examples.genderize_data import too_many_names
 
 logger = logging.getLogger(__name__)
 
@@ -182,3 +183,43 @@ class ExampleApiTests(object):
         assert res.json()['name'] == str(data['name']), \
             'expected %s, but got %s.' % (str(data['name']), res.json()['name'])
 
+    @pytest.mark.parametrize('more_than_11_names', [n for n in too_many_names],
+                             ids=['+'.join(l[0]) for l in too_many_names])
+    def test_exceed_multiple_request_limit(self, more_than_11_names):
+        """
+            Request 11 names in one API call; the limit is 10 so any name after the tenth gets ignored.
+
+            :param more_than_11_names: tuple, list of str names and list of str genders
+            :return: None
+        """
+        data = {'name': more_than_11_names[0]}
+
+        res = self.gender_endpoint.get(verbose=True, **data)
+
+        # test point: verify the correct response for a correct api call
+        assert res.status_code == 200
+        logger.info(utils.plog(res.json()))
+
+        # convert the param from list of names + list of genders to list of name + gender pairs
+        expected = list(zip(more_than_11_names[0], more_than_11_names[1]))[:10]  # keep list to ten
+        logger.info('expected: %s' % expected)
+
+        # convert the returned json into a list of name + gender pairs
+        actual = [(n['name'], n['gender']) for n in res.json()]
+        logger.info('actual: %s' % actual)
+
+        # test point: verify that the json keys are correct for the first item
+        assert self.gender_endpoint.verify_keys_in_response(res.json()[0].keys())
+
+        # test point: verify a results item for each name passed to the API
+        assert len(expected) == len(actual), 'FAIL: got %s results but expected %s.' \
+                                             % (len(actual), len(expected))
+
+        # loop over the results and validate each name/gender pair
+        for i, item in enumerate(actual):
+
+            # test point: verify that we get back the same name that we requested
+            assert item[0] == expected[i][0], 'expected "%s", but got "%s"' % (expected[i][0], item[0])
+
+            # test point: verify the expected gender for the name
+            assert item[1] == expected[i][1], 'expected "%s", but got "%s"' % (expected[i][1], item[1])
