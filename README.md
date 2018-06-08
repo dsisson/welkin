@@ -168,4 +168,4 @@ Some examples of solving particular automation challenges.
 
 ### Single-Endpoint API
 
-see [Wrapper for genderizer API](master/welkin/apps/examples/genderize/README.md)
+see [Wrapper for genderizer API](welkin/apps/examples/genderize/README.md)
