@@ -13,6 +13,8 @@
     + [Killing a Test Run](#killing-a-test-run)
     + [Command Line Arguments](#command-line-arguments)
     + [Logging](#logging)
++ [Automation Examples](#automation-examples)
+    + [Single-Endpoint API](#single-endpoint-api)
 
 
 ## What is Welkin?
@@ -166,4 +168,4 @@ Some examples of solving particular automation challenges.
 
 ### Single-Endpoint API
 
-see [Wrapper for genderizer API](tree/master/welkin/apps/examples/genderizer/README.md)
+see [Wrapper for genderizer API](master/welkin/apps/examples/genderize/README.md)
