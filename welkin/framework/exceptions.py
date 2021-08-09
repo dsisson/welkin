@@ -32,11 +32,6 @@ class PageIdentityException(Exception):
     """
         Raise this exception when a page fails its self validation of identity.
     """
-    pass
-
-
-class GoogleResultsCountException(Exception):
-    """
-        What we thought was a resulst count apparently was NOT.
-    """
-    pass
+    def __init__(self, errors=None):
+        Exception.__init__(self, errors)
+        self.errors = errors
