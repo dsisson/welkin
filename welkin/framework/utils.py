@@ -1,52 +1,84 @@
 import logging
 import os
 import json
+import pathlib
 import pprint
 
 logger = logging.getLogger(__name__)
 
 
-def generate_output_path(folder_name):
+def create_testrun_folder(timestamped_name):
     """
-        Take the supplied folder_name and generate the path to that folder (for output files).
+        Every pytest invocation triggers a bunch of logging actions. During
+        the pytest start up routines, logging is enabled and configured,
+        including the creation of timestamped folders for the output, which is
+        managed below.
 
-        :param folder_name: str, name of target folder
+        :param timestamped_name:
+        :return: tuple, welkin_root_path & testrun_path
     """
-    # get the absolute path to the current directory
-    raw_path_to_here = os.path.abspath(os.curdir)
+    # Get the absolute path to the current local directory.
+    # This Path object will look like
+    # PosixPath('/Users/<<name>>/devc/welkin/welkin')
+    base_path = pathlib.Path.cwd()
 
-    # convert it to a list
-    path_elements = raw_path_to_here.split('/')
+    # Get the path parts up to and including the first instance of `welkin`.
+    # We can't be certain that we are in the correct directory for running
+    # welkin, so focus on the first "welkin" instance and build from there.
+    parts = base_path.parts[:base_path.parts.index('welkin') + 1]
 
-    # find the index for 'welkin'
-    index = path_elements.index('welkin')
+    # generate the path to the output folder
+    welkin_root_path = pathlib.Path('/').joinpath(*list(parts)) / 'welkin'
+    output_path = pathlib.Path('/').joinpath(*list(parts)) / 'welkin/output'
+    testrun_path = output_path / timestamped_name
 
-    # chop off everything from the first 'welkin' rightward
-    first_part = path_elements[:index]
+    # create the output path if it doesn't exist
+    if not output_path.exists():
+        output_path.mkdir()
 
-    # expect the output file to be in welkin/welkin/output
-    first_part.extend(['welkin', 'output', folder_name])
+    # create the testrun folder (it won't already exist)
+    if not testrun_path.exists():
+        testrun_path.mkdir()
 
-    # convert the list back into a string
-    path_to_output = '/'.join(first_part)
-    logger.info('Generated output path "%s".' % path_to_output)
-
-    return path_to_output
+    return welkin_root_path, testrun_path
 
 
-def create_output_folder(path_to_output):
+def create_testrun_subfolder(path, folder):
     """
-        Take the supplied path and create a folder for that path.
+        Create a folder `folder` at path `path`.
 
-        :param path_to_output: str, name of target folder
+        :param path:
+        :param folder:
+        :return:
     """
-    if not os.path.isdir(path_to_output):
-        os.makedirs(path_to_output)
-        logger.info('created output folder at "%s".' % path_to_output)
+    # generate the path to the output subfolder
+    folder_path = path / folder
+    if not folder_path.exists():
+        folder_path.mkdir()
+    logger.info(f"Created sub-folder: {str(folder)}")
+    return folder_path
+
+
+def path_proof_name(name):
+    """
+        Some characters used in naming page objects or screenshots are
+        not safe for paths, so clean up those names.
+
+        :param name: str, name to be used for a file
+        :return clean_name: transformed and presumed safe name
+    """
+    if not name:
+        clean_name = 'None'
     else:
-        logger.info('output folder "%s" already exists.' % path_to_output)
+        # the most common problems are a slash
+        clean_name = name.replace('/', '-')
+        # and spaces
+        clean_name = clean_name.replace(' ', '_')
+        # and quotes
+        clean_name = clean_name.replace('"', '')
+        clean_name = clean_name.replace("'", '')
 
-    return path_to_output
+    return clean_name
 
 
 def plog(content):
