@@ -15,6 +15,7 @@
     + [Logging](#logging)
 + [Automation Examples](#automation-examples)
     + [Single-Endpoint API](#single-endpoint-api)
++ [See Also](#see-also)
 
 
 ## What is Welkin?
@@ -169,3 +170,6 @@ Some examples of solving particular automation challenges.
 ### Single-Endpoint API
 
 see [Wrapper for genderizer API](welkin/apps/examples/genderize/README.md)
+
+# See Also
+* [understanding Welkin's page object model](welkin/apps/README_ageobject_model.md)
