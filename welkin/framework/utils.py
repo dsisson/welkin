@@ -1,8 +1,10 @@
 import logging
 import os
 import json
+import time
 import pathlib
 import pprint
+import pytest
 
 logger = logging.getLogger(__name__)
 
@@ -126,7 +128,7 @@ def plog(content):
             else:
                 # no, this is some other kind of byte string
                 msg = f"Unable to pretty print the content that starts with {content[:20]}"
-                logger.warn(msg)
+                logger.warning(msg)
                 pass
 
         formatted_content = content
