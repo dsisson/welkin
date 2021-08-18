@@ -221,19 +221,16 @@ class ExampleDuckduckgoTests(object):
         query = 'test case design in python'
 
         # instantiate the home page object
-        home_page = POs.HomePage(driver)
+        home_page = POs.HomePage(driver, firstload=True)
+        home_page.save_screenshot('home initialization')  # should be blank
 
         # load home page in browser and refresh the PO instace
         home_page = home_page.load()
-
-        # verify that we are on the correct page
-        # home_page.verify_self()
+        home_page.save_screenshot('home loaded')
 
         # perform search, which returns a page object for the results page
         results_page = home_page.search_for(query)
-
-        # verify that we are on the correct page
-        # results_page.verify_self()
+        results_page.save_screenshot('results after search')
 
         # get the search results titles
         result_titles = results_page.scrape_results_list()

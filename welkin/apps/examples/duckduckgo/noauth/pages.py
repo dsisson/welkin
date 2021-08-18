@@ -58,11 +58,44 @@ class HomePage(BasePage):
 
     name = 'duckduckgo home page'
     identity_checks = ['check_url', 'check_title']
+    load_checks = [
+        (True, By.ID, 'search_form_input_homepage')
+    ]
+    unload_checks = [
+        (False, By.ID, 'search_form_input_homepage')
+        # title check dynamically added by __init__()
+    ]
 
-    def __init__(self, driver):
+    def __init__(self, driver, firstload=False):
+        """
+            Because this is a start page for the application, it needs
+            some special handling:
+            1. an __init__ arg `firstload` that has to be set as True
+               from the test code for the first invocation of the POM.
+            2. clearing out the unload_checks if firstload=True
+
+            This special handling works around the fact that the start
+            page gets double-loaded, and so the first load can't perform
+            unload checks!
+
+            :param driver: webdriver instance
+            :param firstload: bool, True if this is a start page first load
+        """
         self.url = 'https://' + self.domain
         self.driver = driver
         self.title = f"{self.appname} — Privacy, simplified."
+        if firstload:
+            self.unload_checks = None
+            msg = f"Because this is the first load, do NOT check for unload!"
+            logger.warning(msg)
+        else:
+            # because the title is set in __init__(),
+            # the check also has to be set and added here
+            # note that title is used for the identity check, so we
+            # probably don't need ot for a load check
+            titlecheck = (False, By.XPATH, f"//title[text()='{self.title}']")
+            self.unload_checks.append(titlecheck)
+        logger.info(f"\n-----> unload checks: {self.unload_checks}")
         logger.info('\n' + INIT_MSG % self.name)
 
     def load(self):
@@ -90,13 +123,21 @@ class SearchResultsPage(BasePage):
 
     name = 'duckduckgo search results page'
     identity_checks = ['check_url', 'check_title']
+    load_checks = [
+        (True, By.ID, 'search_form_input')
+        # title check dynamically added by __init__()
+    ]
+    unload_checks = []
 
     def __init__(self, driver, text):
         self.driver = driver
         self.search_text = text
         self.title = f"{self.search_text} at {self.appname}"
         self.url = f"https://{self.domain}/?q={self.search_text.replace(' ', '+')}"
-        time.sleep(4)  # wait for page to load
+        # because the title is set in __init__(),
+        # the check also has to be set and added here
+        titlecheck = (False, By.XPATH, f"//title[text()='{self.title}']")
+        self.load_checks.append(titlecheck)
         logger.info('\n' + INIT_MSG % self.name)
 
     def scrape_results_list(self):

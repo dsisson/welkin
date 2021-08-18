@@ -28,6 +28,29 @@ class UnexpectedStatusCodeException(Exception):
         self.response = response
 
 
+# ######################################
+# page-object-focused exceptions
+# ######################################
+class PageLoadException(Exception):
+    """
+        Raise this exception when a page fails its load validations.
+        Capture the errors and make them available.
+    """
+    def __init__(self, errors=None):
+        Exception.__init__(self, errors)
+        self.errors = errors
+
+
+class PageUnloadException(Exception):
+    """
+        Raise this exception when a page fails its unload validation.
+        Capture the errors and make them available.
+    """
+    def __init__(self, errors=None):
+        Exception.__init__(self, errors)
+        self.errors = errors
+
+
 class PageIdentityException(Exception):
     """
         Raise this exception when a page fails its self validation of identity.

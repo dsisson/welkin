@@ -4,6 +4,8 @@ import time
 
 from selenium.common.exceptions import NoSuchElementException
 
+from welkin.framework.exceptions import PageUnloadException
+from welkin.framework.exceptions import PageLoadException
 from welkin.framework.exceptions import PageIdentityException
 from welkin.framework import checks
 from welkin.framework import utils, utils_selenium
@@ -40,6 +42,12 @@ class RootPageObject(object):
             it's cleaner to have __init__s that only require a webdriver
             instance.
 
+            Note: this method controls the change between an old (current)
+            page object and the *next* page object. Up until the new class is
+            instantiated, `self` refers to the old (current) page object; once
+            the new has been instantiated, you must use class instance methods
+            and properties of that new page object.
+
             :param po_id: str, key for the page object in the POM data model
             :param cross_auth_boundary: bool, true to trigger a switch between
                                         auth and noath routing, or vice versa
@@ -51,7 +59,7 @@ class RootPageObject(object):
         last_page = self.name
 
         # unload steps, if needed
-        # TODO
+        self.verify_unload(screenshot=True, verbose=True)
 
         # import the routings module for the appropriate wrapper
         # the path (minus the file name) lives in this wrapper's BasePageObject
@@ -105,27 +113,168 @@ class RootPageObject(object):
         # to the PO's class
         pageobject_class = getattr(path_to_module, page_object_data['object'])
 
-        # instantiate a class instance for the PageObject
+        # instantiate a class instance for the PageObject.
+        # Note: at this point, in this method, `self` refers to the old PO
         new_pageobject_instance = pageobject_class(self.driver, **opts)
 
         # perform any page load checks that are specified in the PO class
-        # TODO
+        # >> using the new page object! <<
+        new_pageobject_instance.verify_load(screenshot=True, verbose=True)
 
         # perform any page identity checks that are specified in the PO class
-        new_pageobject_instance.verify_self()
+        # >> using the new page object! <<
+        new_pageobject_instance.verify_self(verbose=True)
 
         return new_pageobject_instance
 
-    def verify_self(self, take_screenshot=True):
+    def verify_unload(self, screenshot=False, verbose=False):
+        """
+            Check that the current page displayed in the browser has unloaded.
+
+            Each page object *may* have a list of specific unload validation
+            checks, called `load_checks`. This list contains tuples of methods
+            and selectors in the format:
+            [(False, By.CSS_SELECTOR, '#layoutVnsContent ul')]
+
+            Remember that the page object model gets out of sync with the
+            browser, and this method is a step in re-syncing it by verifying
+            that the page that the POM thinks is present has in fact been
+            changed.
+
+            The order of events is:
+            1. test code calls a PO action which triggers a change in the
+               browser, making the PO out of sync with the browser
+            2. load_pageobject() is called
+            3. unload checks are performed for the current PO <<this method>>
+            4. the new PO is instantiated
+            5. load checks are performed on the new PO
+            6. identity checks are performed on the new PO
+            7. the new PO is returned to the test code caller
+
+            :param screenshot: bool, whether to take screenshot if check fails
+            :param verbose: bool, determines whether to output additional logging
+            :return: True if no problems, else raise PageUnloadException
+        """
+        # end quickly if no declared unload_checks for this PO
+        try:
+            self.unload_checks
+            if not self.unload_checks:
+                # property exists but is empty
+                msg = f"\nno unload checks found for {self.name}"
+                logger.warning(msg)
+                return None
+        except AttributeError:
+            # property doesn't exist
+            msg = f"\nunload checks not found for {self.name}"
+            logger.warning(msg)
+            return False
+
+        # set up list of found problems; staying empty means no problems found
+        found_problems = []
+        unload_checks = self.unload_checks
+        logger.info(f"\nUnload checks for '{self.name}':\n{unload_checks}.")
+
+        # loop over the unload checks and collect the results
+        for check in unload_checks:
+            if verbose:
+                logger.info(f"\n====> unload check: {check}")
+            # `self` below refers to the pageobject
+            res = checks.expect_element_to_be_gone(self, check)
+            if res:
+                # there's problem, so add the check to our collection
+                found_problems.append(res)
+
+        if found_problems:
+            # loop over the errors and set up PageLoadException object
+            errors = {}
+            for validation in found_problems:
+                errors[validation[0]] = validation[1:]
+            if screenshot:
+                self.save_screenshot(f"problem unloading {self.name}")
+
+            # finally, raise that exception
+            raise PageUnloadException(errors=errors)
+        else:
+            self.save_screenshot(f"unloaded {self.name}")
+            return True
+
+    def verify_load(self, waitfor=30, screenshot=False, verbose=False):
+        """
+            Check that the current page displayed in the browser
+            has completed loading.
+
+            Each page object *may* have a list of specific load validation
+            checks, called `load_checks`. This list contains tuples of methods
+            and selectors in the format:
+            [(False, By.CSS_SELECTOR, '#layoutVnsContent ul')]
+
+            The available load checks are:
+                checks.expect_element_to_be_present(): Triggered by `True` as the first value in the self.load_checks
+                checks.expect_element_to_be_gone(): Triggered by `False` as the first value in the self.load_checks
+
+            :param waitfor: int, wait time page load verification, defaults to 30 seconds
+            :param screenshot: bool, whether to take screenshot if check fails
+            :param verbose: bool, determines whether to output additional logging
+            :return: True if no problems, else raise PageLoadException
+        """
+        # end quickly if no declared load_checks for this PO
+        try:
+            self.load_checks
+            if not self.load_checks:
+                # property exists but is empty
+                msg = f"\nno load checks found for {self.name}"
+                logger.warning(msg)
+                return None
+        except AttributeError:
+            # property doesn't exist
+            msg = f"\nload checks not found for {self.name}"
+            logger.warning(msg)
+            return False
+
+        # set up list of found problems; staying empty means no problems found
+        found_problems = []
+        load_checks = self.load_checks
+        logger.info(f"\nLoad checks for '{self.name}':\n{load_checks}.")
+
+        # loop over the load checks and collect the results
+        for check in load_checks:
+            if verbose:
+                logger.info(f"\n====> load check: {check} for '{self.name}'")
+            # not pythonic, but also not ambiguous: 'True' means "should be present"
+            if check[0] == True:
+                res = checks.expect_element_to_be_present(self, check, waitfor)
+                if res:
+                    # there's problem, so add the check to our collection
+                    found_problems.append(res)
+            else:  # 'False' means "should NOT be present"
+                res = checks.expect_element_to_be_gone(self, check, waitfor)
+                if res:
+                    # there's problem, so add the check to our collection
+                    found_problems.append(res)
+
+        # loop over the errors and set up the PageLoadException object
+        if found_problems:
+            # save the logs
+            logger.info(f"Writing special logs because of load errors")
+            # self.get_and_write_logs_to_file()
+            payload = {'page': f"Failed to load page '{self.name}'", 'errors': dict()}
+            for validation in found_problems:
+                payload['errors'][validation[0]] = validation[1:]
+            if screenshot:
+                self.save_screenshot('load failure')
+
+            # if this is a SPA, we should grab the session storage and save it
+
+            # finally, raise that exception
+            raise PageLoadException(errors=payload)
+        else:
+            # self.get_and_write_logs_to_file()
+            return True
+
+    def verify_self(self, verbose=False):
         """
             Check that we are on the expected page by looking at a list of
             possible checks for page elements and values.
-
-            Before any checks are made, we use the loading of the terms link
-            in the page footer as a weak validation that the shell of the page
-            has loaded. We should find a better proxy, because this will not
-            catch if the elements in the body of the page have not loaded
-            or rendered.
 
             Each page object sets a list of checks, called `checks`. This list
             contains strings corresponding to individual validations to perform
@@ -141,27 +290,17 @@ class RootPageObject(object):
             PageIdentityException. These messages indicate that the page
             reloaded on submit.
 
-            :param take_screenshot: bool, whether to take a screenshot on
-                                          validation error
+            :param verbose: bool, determines whether to output additional logging
             :return: True if valid, else raise exception
         """
-        logger.info(f"Verifying '{self.name}': '{self.driver.current_url}'.")
-
-        # write the cookies to a file
-        # self.save_cookies()
+        logger.info(f"\nAttempting to verify identity for '{self.name}': '{self.driver.current_url}'.")
 
         # set up list of validation results
         validations = []
         identity_checks = self.identity_checks
-
-        # check for an error page
-        if 'Error' in self.driver.title:
-            # self.take_screenshot(name=f"{self.name}_error")
-            logger.error(f"Instead of '{self.name}' page got error page; check screenshot.")
-            raise PageIdentityException
-
-        # check whether the page has finished loading; this will raise an exception if not loaded
-        # self.verify_load(waitfor=WAITFOR, take_screenshot=take_screenshot)
+        if verbose:
+            logger.info(f"\nIdentity checks for page '{self.name}':"
+                        f"\n{identity_checks}")
 
         # collect the results of the checks
         for id_check in identity_checks:
@@ -173,21 +312,20 @@ class RootPageObject(object):
                 elif id_check == 'check_exact_url':
                     validations.append(checks.check_exact_url(self))
                 elif id_check == 'check_url_chunks':
-                    validations.extend(checks.check_url_chunks(self))  # dealing with a returned list
-            except NoSuchElementException as e:  # this will exit on the first exception
+                    validations.extend(checks.check_url_chunks(self))  # returns list
+            except NoSuchElementException as e:  # exits on first exception
                 # we couldn't even find the element we want to use to validate
                 # identity, which is a bad sign
-                msg = f"Validation checks failed because couldn't find the element." \
+                msg = f"\nXXX-> Validation checks failed because couldn't find the element." \
                       f" Probably not on the expected page '{self.name}'; see logs."
                 logger.error(msg)
                 logger.exception(e)
                 self.save_screenshot()
-
                 raise PageIdentityException(errors=msg)
 
         if False in validations:
             errors = {}
-            msg = f"Self validation checks for page '{self.name}' failed; see logs."
+            msg = f"\nXXX-> Self validation checks for page '{self.name}' failed; see logs."
             logger.error(msg)
             logger.info(validations)
             errors['validation'] = msg
@@ -197,7 +335,8 @@ class RootPageObject(object):
             # finally, raise that exception
             raise PageIdentityException(errors=errors)
         else:
-            event = f"page load for {self.name}"
+            if verbose:
+                logger.info(f"\nSuccessfully verified identity for '{self.name}'")
             return True
 
     def save_screenshot(self, name=''):
@@ -205,7 +344,7 @@ class RootPageObject(object):
             Wrap the driver's screenshot functionality to generate and save
             the screenshot.
 
-            See welkin/framework/utils.selenium.py::take_and_save_screenshot
+            See welkin/framework/utils.selenium.py::take_and_save_screenshot()
             for more details.
 
             :param name: str filename for the screenshot (not including
@@ -214,5 +353,21 @@ class RootPageObject(object):
         """
         fname = name if name else self.name
         clean_name = utils.path_proof_name(fname)
-        logger.info(f"Generating screenshot for '{clean_name}'")
+        logger.info(f"Generating screenshot for '{clean_name}'.")
         utils_selenium.take_and_save_screenshot(self.driver, clean_name)
+
+    def save_source(self, name=''):
+        """
+            Extract and save the page source.
+
+            See welkin/framework/utils.selenium.py::get_and_save_source()
+            for more details.
+
+            :param name: str filename for the source HTML file (not including
+                             the path)
+            :return: None
+        """
+        fname = name if name else self.name
+        clean_name = utils.path_proof_name(fname)
+        logger.info(f"Saving page source for '{clean_name}'.")
+        utils_selenium.get_and_save_source(self.driver, clean_name)
