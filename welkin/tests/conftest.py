@@ -479,17 +479,11 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
         pytest.welkin_namespace['testrun_downloads_log_folder'] = downloads_folder
         logger.info(f"created folder 'downloads': {downloads_folder}")
 
-        # set up handling for webstorage
-        if len(set(fixturenames).intersection(web_apps[3:])):  # just apps that have this
-            # create the web storage logging folder
-            webstorage_folder = str(utils.create_testrun_subfolder(output_path, 'webstorage'))
-            pytest.welkin_namespace['testrun_webstorage_log_folder'] = webstorage_folder
-            logger.info(f"created folder 'webstorage': {webstorage_folder}")
-
-            # create a container for an initial webstorage record, and initialize it
-            pytest.welkin_namespace['old_webstorage'] = None
-        else:
-            logger.info(f"did NOT create 'webstorage' folder.")
+        # set up handling for webstorage (for all right now)
+        # create the web storage logging folder
+        webstorage_folder = str(utils.create_testrun_subfolder(output_path, 'webstorage'))
+        pytest.welkin_namespace['testrun_webstorage_log_folder'] = webstorage_folder
+        logger.info(f"created folder 'webstorage': {webstorage_folder}")
 
         logger.info(f"\nnamespace:\n{utils.plog(pytest.welkin_namespace)}")
         if 'chrome' in pytest.welkin_namespace['browser']:

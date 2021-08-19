@@ -1,12 +1,6 @@
 import logging
 import pytest
 import time
-import pprint
-import os
-import re
-import json
-import hashlib
-from io import BytesIO
 
 from welkin.framework import utils
 
@@ -73,3 +67,90 @@ def write_console_log_to_file(log, url, fname=''):
     with open(path, 'a') as f:
         f.write(utils.plog(log))
     logger.info(f"\nSaved console logs (and bad headers): {path}.")
+
+
+def write_webstorage_to_files(data, current_url, pageobject_name,
+                              filename, event=None):
+    """
+        Write the localStorage and sessionStorage content to a log file.
+
+        Note 1: the data is a cleaned up representation of the json data;
+                however, the file is NOT json.
+        Note 2: the timing of when the content is written may be significant.
+
+        :param data: list, localStorage dict and sessionStorage dict
+        :param current_url: str, url for the current page
+        :param pageobject_name: str, name for the current pageobject
+        :param filename: str, custom filename, if provided
+        :param event: str, descriptor for an interaction with the React app
+        :return: None
+    """
+    if filename:
+        # use the specified custom filename
+        base_filename = f"{time.strftime('%H%M%S')}_{filename}"
+    else:
+        # generate a filename
+        base_filename = f"/{time.strftime('%H%M%S')}_" \
+                        f"{utils.path_proof_name(pageobject_name)}"
+    path = pytest.welkin_namespace['testrun_webstorage_log_folder'] + base_filename
+
+    # unpack the data
+    local_storage, session_storage = data
+
+    # write the local storage
+    local_filename = f"{path}_local.json"
+    _write_local_to_file(local_storage, event, pageobject_name,
+                         current_url, local_filename)
+
+    # write the session storage
+    session_filename = f"{path}_session.json"
+    _write_session_to_file(session_storage, event, pageobject_name,
+                           current_url, session_filename)
+
+
+def _write_local_to_file(data, event, pageobject_name, source_url, output_url):
+    """
+        Write the local storage to a json file in the webstorage folder.
+
+        Note: several sweord key-value pairs will be inserted into that data.
+
+        :param data: dict of local storage log pulled from the browser
+        :param event: str, descriptor for an interaction with the React app
+        :param pageobject_name: str, name of pageobject
+        :param source_url: str, full url of the page that generated the logs
+        :param output_url: str, full local path for the output file
+        :return: None
+    """
+    # add key/value for the page url
+    data.update({'_storage type': 'local'})
+    data.update({'_page': source_url})
+    data.update({'_page object name': pageobject_name})
+    data.update({'_precipitating event': event})
+
+    with open(output_url, 'a') as f:
+        f.write(utils.plog(data))
+    logger.info(f"Saved local storage log: {output_url}.")
+
+
+def _write_session_to_file(data, event, pageobject_name, source_url, output_url):
+    """
+        Write the session storage to a json file in the webstorage folder.
+
+        Note: several sweord key-value pairs will be inserted into that data.
+
+        :param data: dict of session storage log pulled from the browser
+        :param event: str, descriptor for an interaction with the React app
+        :param pageobject_name: str, name of pageobject
+        :param source_url: str, full url of the page that generated the logs
+        :param output_url: str, full local path for the output file
+        :return: None
+    """
+    # add key/value for the page url
+    data.update({'_storage type': 'session'})
+    data.update({'_page': source_url})
+    data.update({'_page object name': pageobject_name})
+    data.update({'_precipitating event': event})
+
+    with open(output_url, 'a') as f:
+        f.write(utils.plog(data))
+    logger.info(f"Saved session storage log: {output_url}.")

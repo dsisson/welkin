@@ -122,6 +122,7 @@ class RootPageObject(object):
         # perform any page load checks that are specified in the PO class
         # >> using the new page object! <<
         new_pageobject_instance.verify_load(screenshot=True, verbose=True)
+        event = f"loaded page '{po_id}'"
 
         # perform any page identity checks that are specified in the PO class
         # >> using the new page object! <<
@@ -132,6 +133,9 @@ class RootPageObject(object):
 
         # write browser logs to files
         new_pageobject_instance.save_browser_logs()
+
+        # write webstorage to files
+        new_pageobject_instance.save_webstorage(event_name=event)
 
         return new_pageobject_instance
 
@@ -297,7 +301,7 @@ class RootPageObject(object):
             PageIdentityException. These messages indicate that the page
             reloaded on submit.
 
-            :param verbose: bool, determines whether to output additional logging
+            :param verbose: bool, whether to output additional logging
             :return: True if valid, else raise exception
         """
         logger.info(f"\nAttempting to verify identity for '{self.name}': '{self.driver.current_url}'.")
@@ -346,7 +350,7 @@ class RootPageObject(object):
                 logger.info(f"\nSuccessfully verified identity for '{self.name}'")
             return True
 
-    def save_screenshot(self, name=''):
+    def save_screenshot(self, filename=''):
         """
             Wrap the driver's screenshot functionality to generate and save
             the screenshot.
@@ -354,27 +358,27 @@ class RootPageObject(object):
             See welkin/framework/utils.selenium.py::take_and_save_screenshot()
             for more details.
 
-            :param name: str filename for the screenshot (not including
+            :param filename: str filename for the screenshot (not including
                              the path)
             :return: None
         """
-        fname = name if name else self.name
+        fname = filename if filename else self.name
         clean_name = utils.path_proof_name(fname)
         logger.info(f"Generating screenshot for '{clean_name}'.")
         utils_selenium.take_and_save_screenshot(self.driver, clean_name)
 
-    def save_source(self, name=''):
+    def save_source(self, filename=''):
         """
             Extract and save the page source.
 
             See welkin/framework/utils.selenium.py::get_and_save_source()
             for more details.
 
-            :param name: str filename for the source HTML file (not including
+            :param filename: str filename for the source HTML file (not including
                              the path)
             :return: None
         """
-        fname = name if name else self.name
+        fname = filename if filename else self.name
         clean_name = utils.path_proof_name(fname)
         logger.info(f"Saving page source for '{clean_name}'.")
         utils_selenium.get_and_save_source(self.driver, clean_name)
@@ -421,3 +425,45 @@ class RootPageObject(object):
         else:
             logger.warning(f"Cannot access chrome logs for "
                            f"{pytest.welkin_namespace['browser']}.")
+
+    def save_webstorage(self, event_name, filename=None):
+        """
+            Get the localStorage and sessionStorage for the current page (if
+            available), and then write them to logfiles.
+
+            Some data will be stripped out or otherwise cleaned up from the
+            output written to the file in the webstorage folder; those rules
+            are set in react_utils.py::clean_snapshot_for_react_log()
+
+            :param event_name: str, name of the event
+            :param filename: str, custom name for file, if provided
+            :return: None
+        """
+        data = utils_selenium.get_webstorage(self)
+        self.set_event(event_name)
+        utils_file.write_webstorage_to_files(data,
+                                             current_url=self.url,
+                                             pageobject_name=self.name,
+                                             filename=filename,
+                                             event=event_name)
+
+    def set_event(self, event_name):
+        """
+            Add an event to the current page object's properties.
+
+            An `event` is an interaction with the browser and/or site that
+            MAY cause a change in page state by triggering Javascript logic
+            to manipulate the DOM.
+
+            For now, we just log the fact of the event.
+
+            :param event_name: str, name of the event
+            :return: None
+        """
+        this_event = {
+            '_timestamp': time.time(),
+            'event': event_name,
+            'page': self.name
+        }
+
+        logger.info(f"\nbrowser interaction event:\n{utils.plog(this_event)}")
