@@ -1,5 +1,6 @@
 import logging
 import time
+import json
 import pytest
 
 logger = logging.getLogger(__name__)
@@ -65,3 +66,44 @@ def extract_text_with_javascript(driver, element):
     """
     text = driver.execute_script("return arguments[0].textContent;", element)
     return text
+
+
+def get_console_logs(pageobject_instance):
+    """
+        Get the console for the browser, which may be empty, and write it to
+        a file in output/<<testrun>>/<<testcase>>/scanlogs
+
+        :param pageobject_instance:
+        :return console_logs: list of dicts, see above example
+    """
+    console_logs = {}
+
+    logger.info(f"\nGetting browser logs for page {pageobject_instance.url}.")
+    console_logs['console'] = pageobject_instance.driver.get_log('browser')
+
+    return console_logs
+
+
+def get_network_traffic_logs(pageobject_instance):
+    """
+        Get the performance logs (aka network traffic logs) for the current
+        page from the browser.
+
+        :param pageobject_instance:
+        :return jlogs: list of dicts
+    """
+    driver = pageobject_instance.driver
+    url = pageobject_instance.url
+    fname = pageobject_instance.name
+
+    logger.info(f"\nGetting network logs for page '{fname}' at {url}.")
+    raw_perflogs = driver.get_log('performance')
+
+    # the messages are actually a string, which doesn't help as dig into
+    # the logs, so we need to rewrite the network log entries as a dict
+    jlogs = [{'message': json.loads(x['message']),
+              'level': x['level'],
+              'timestamp': x['timestamp']}
+             for x in raw_perflogs]
+
+    return jlogs

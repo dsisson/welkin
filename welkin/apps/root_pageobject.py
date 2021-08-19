@@ -1,6 +1,7 @@
 import logging
 import importlib
 import time
+import pytest
 
 from selenium.common.exceptions import NoSuchElementException
 
@@ -8,7 +9,8 @@ from welkin.framework.exceptions import PageUnloadException
 from welkin.framework.exceptions import PageLoadException
 from welkin.framework.exceptions import PageIdentityException
 from welkin.framework import checks
-from welkin.framework import utils, utils_selenium
+from welkin.framework import utils, utils_file
+from welkin.framework import utils_selenium
 
 logger = logging.getLogger(__name__)
 
@@ -124,6 +126,12 @@ class RootPageObject(object):
         # perform any page identity checks that are specified in the PO class
         # >> using the new page object! <<
         new_pageobject_instance.verify_self(verbose=True)
+
+        # write the cookies to a file
+        new_pageobject_instance.save_cookies()
+
+        # write browser logs to files
+        new_pageobject_instance.save_browser_logs()
 
         return new_pageobject_instance
 
@@ -256,7 +264,7 @@ class RootPageObject(object):
         if found_problems:
             # save the logs
             logger.info(f"Writing special logs because of load errors")
-            # self.get_and_write_logs_to_file()
+            self.save_browser_logs()
             payload = {'page': f"Failed to load page '{self.name}'", 'errors': dict()}
             for validation in found_problems:
                 payload['errors'][validation[0]] = validation[1:]
@@ -268,7 +276,6 @@ class RootPageObject(object):
             # finally, raise that exception
             raise PageLoadException(errors=payload)
         else:
-            # self.get_and_write_logs_to_file()
             return True
 
     def verify_self(self, verbose=False):
@@ -371,3 +378,46 @@ class RootPageObject(object):
         clean_name = utils.path_proof_name(fname)
         logger.info(f"Saving page source for '{clean_name}'.")
         utils_selenium.get_and_save_source(self.driver, clean_name)
+
+    def save_cookies(self):
+        """
+            Get the current page's cookies and save to a file.
+
+            :return: None
+        """
+        # get the cookies from the driver and save to the PO
+        self.cookies = self.driver.get_cookies()
+
+        utils_file.write_cookies_to_file(self.cookies, self.url,
+                                         fname=self.name)
+
+    def save_browser_logs(self):
+        """
+            Grab the Chrome driver console and network logs and write them
+            to files.
+
+            :return:
+        """
+        filename = self.name
+        if pytest.welkin_namespace['devtools_supported']:
+            # get the logs
+            performance_logs = utils_selenium.\
+                get_network_traffic_logs(pageobject_instance=self)
+
+            console_logs = {}
+            console_logs['console'] = utils_selenium.\
+                get_console_logs(pageobject_instance=self)
+
+            logger.info(f"Writing special logs.")
+
+            # write the raw performance logs to /network
+            utils_file.write_traffic_log_to_file(log=performance_logs,
+                                                 url=self.url, fname=filename)
+
+            # write the scan logs to /console
+            utils_file.write_console_log_to_file(log=console_logs,
+                                                 url=self.url, fname=filename)
+
+        else:
+            logger.warning(f"Cannot access chrome logs for "
+                           f"{pytest.welkin_namespace['browser']}.")

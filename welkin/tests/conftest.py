@@ -454,37 +454,37 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
         apis = []
 
         # create the requests logging folders for APIs (for all right now)
-        requests_folder = utils.create_testrun_subfolder(output_path, 'requests')
-        pytest.welkin_namespace['testrun_requests_log_folder'] = str(requests_folder)
-        logger.info(f"created folder 'requests': {pytest.welkin_namespace['testrun_requests_log_folder']}")
+        requests_folder = str(utils.create_testrun_subfolder(output_path, 'requests'))
+        pytest.welkin_namespace['testrun_requests_log_folder'] = requests_folder
+        logger.info(f"created folder 'requests': {requests_folder}")
 
         # create the cookies logging folder (for all right now)
-        cookie_folder = utils.create_testrun_subfolder(output_path, 'cookies')
-        pytest.welkin_namespace['testrun_cookies_output'] = str(cookie_folder)
-        logger.info(f"created folder 'cookies': {pytest.welkin_namespace['testrun_cookies_output']}")
+        cookie_folder = str(utils.create_testrun_subfolder(output_path, 'cookies'))
+        pytest.welkin_namespace['testrun_cookies_output'] = cookie_folder
+        logger.info(f"created folder 'cookies': {cookie_folder}")
 
         # create the screenshots logging folder (for all right now)
-        screenshots_folder = utils.create_testrun_subfolder(output_path, 'screenshots')
-        pytest.welkin_namespace['testrun_screenshots_output'] = str(screenshots_folder)
-        logger.info(f"created folder 'screenshots': {pytest.welkin_namespace['testrun_screenshots_output']}")
+        screenshots_folder = str(utils.create_testrun_subfolder(output_path, 'screenshots'))
+        pytest.welkin_namespace['testrun_screenshots_output'] = screenshots_folder
+        logger.info(f"created folder 'screenshots': {screenshots_folder}")
 
         # create the accessibility logging folder (for all right now)
-        accessibility_folder = utils.create_testrun_subfolder(output_path, 'accessibility')
-        pytest.welkin_namespace['testrun_accessibility_log_folder'] = str(accessibility_folder)
-        logger.info(f"created folder 'accessibility': {pytest.welkin_namespace['testrun_accessibility_log_folder']}")
+        accessibility_folder = str(utils.create_testrun_subfolder(output_path, 'accessibility'))
+        pytest.welkin_namespace['testrun_accessibility_log_folder'] = accessibility_folder
+        logger.info(f"created folder 'accessibility': {accessibility_folder}")
 
         # create the downloads folder for *every* app fixture
         # this is used by APIs, and by chromedriver for downloading files from the UI
-        downloads_folder = utils.create_testrun_subfolder(output_path, 'downloads')
-        pytest.welkin_namespace['testrun_downloads_log_folder'] = str(downloads_folder)
-        logger.info(f"created folder 'downloads': {pytest.welkin_namespace['testrun_downloads_log_folder']}")
+        downloads_folder = str(utils.create_testrun_subfolder(output_path, 'downloads'))
+        pytest.welkin_namespace['testrun_downloads_log_folder'] = downloads_folder
+        logger.info(f"created folder 'downloads': {downloads_folder}")
 
         # set up handling for webstorage
         if len(set(fixturenames).intersection(web_apps[3:])):  # just apps that have this
             # create the web storage logging folder
-            webstorage_folder = utils.create_testrun_subfolder(output_path, 'webstorage')
-            pytest.welkin_namespace['testrun_webstorage_log_folder'] = str(webstorage_folder)
-            logger.info(f"created folder 'webstorage': {pytest.welkin_namespace['testrun_webstorage_log_folder']}")
+            webstorage_folder = str(utils.create_testrun_subfolder(output_path, 'webstorage'))
+            pytest.welkin_namespace['testrun_webstorage_log_folder'] = webstorage_folder
+            logger.info(f"created folder 'webstorage': {webstorage_folder}")
 
             # create a container for an initial webstorage record, and initialize it
             pytest.welkin_namespace['old_webstorage'] = None
@@ -497,29 +497,23 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
             # performance logging info; however, this is a CLI arg for a testrun,
             # and may not apply to every testcase in that testrun
 
-            # create the chrome network performance folder IF this is a webapp
-            if len(set(fixturenames).intersection(web_apps)):
-                perflogs_folder = utils.create_testrun_subfolder(output_path, 'perflogs')
-                pytest.welkin_namespace['testrun_perf_log_folder'] = str(perflogs_folder)
-                logger.info(f"created folder 'perflogs': {pytest.welkin_namespace['testrun_perf_log_folder']}")
-                pytest.welkin_namespace['devtools_supported'] = True
-                pytest.welkin_namespace['get_perflogs'] = True
-            else:
-                logger.info(f"did NOT create 'perflogs' folder.")
+            # create the chrome network performance folder (for all right now)
+            network_folder = str(utils.create_testrun_subfolder(output_path, 'network'))
+            pytest.welkin_namespace['testrun_traffic_log_folder'] = network_folder
+            logger.info(f"created folder 'network': {network_folder}")
+            pytest.welkin_namespace['devtools_supported'] = True
+            pytest.welkin_namespace['get_network'] = True
 
-            # create the chrome console logs folder IF this is a webapp
-            if len(set(fixturenames).intersection(web_apps)):
-                scanlogs_folder = utils.create_testrun_subfolder(output_path, 'scanlogs')
-                pytest.welkin_namespace['testrun_scan_log_folder'] = str(scanlogs_folder)
-                logger.info(f"created folder 'scanlogs': {pytest.welkin_namespace['testrun_scan_log_folder']}")
-                pytest.welkin_namespace['get_scanlogs'] = True
-            else:
-                logger.info(f"did NOT create 'scanlogs' folder.")
+            # create the chrome console logs folder (for all right now)
+            console_folder = str(utils.create_testrun_subfolder(output_path, 'console'))
+            pytest.welkin_namespace['testrun_console_log_folder'] = console_folder
+            logger.info(f"created folder 'console': {console_folder}")
+            pytest.welkin_namespace['get_console'] = True
 
         else:
             pytest.welkin_namespace['devtools_supported'] = False
-            pytest.welkin_namespace['get_perflogs'] = False
-            pytest.welkin_namespace['get_scanlogs'] = False
+            pytest.welkin_namespace['get_network'] = False
+            pytest.welkin_namespace['get_console'] = False
 
 
 @pytest.fixture#(scope='session')
