@@ -172,4 +172,4 @@ Some examples of solving particular automation challenges.
 see [Wrapper for genderizer API](welkin/apps/examples/genderize/README.md)
 
 # See Also
-* [understanding Welkin's page object model](welkin/apps/README_ageobject_model.md)
+* [understanding Welkin's page object model](welkin/apps/README_pageobject_model.md)
