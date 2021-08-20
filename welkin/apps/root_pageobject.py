@@ -3,11 +3,16 @@ import importlib
 import time
 import pytest
 
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import ElementNotVisibleException
 
 from welkin.framework.exceptions import PageUnloadException
 from welkin.framework.exceptions import PageLoadException
 from welkin.framework.exceptions import PageIdentityException
+from welkin.framework.exceptions import ControlInteractionException
+
 from welkin.framework import checks
 from welkin.framework import utils, utils_file
 from welkin.framework import utils_selenium
@@ -406,11 +411,11 @@ class RootPageObject(object):
         if pytest.welkin_namespace['devtools_supported']:
             # get the logs
             performance_logs = utils_selenium.\
-                get_network_traffic_logs(pageobject_instance=self)
+                get_network_traffic_logs(pageobject=self)
 
             console_logs = {}
             console_logs['console'] = utils_selenium.\
-                get_console_logs(pageobject_instance=self)
+                get_console_logs(pageobject=self)
 
             logger.info(f"Writing special logs.")
 
@@ -467,3 +472,128 @@ class RootPageObject(object):
         }
 
         logger.info(f"\nbrowser interaction event:\n{utils.plog(this_event)}")
+
+    # #######################################
+    # interaction event wrappers
+    # #######################################
+    def _unfocus_field(self, name):
+        """
+            Unfocus a form field by clicking the body tag.
+
+            Note: this will cause problems if the body click
+            triggers an interaction.
+
+            :param name: str, identifier for field
+            :return: True
+        """
+        msg = f"Unfocused field '{name}' (clicked 'body')"
+        self.driver.find_element(By.TAG_NAME, 'body').click()
+        self.set_event(msg)
+        return True
+
+    def _set_field_input(self, element, name, content,
+                         clear=False, click=True, unfocus=True, chunk=False):
+        """
+            Wrap the setting of a text input field's value.
+
+            :param element: webdriver form field element
+            :param name: str, identifier for field
+            :param content: str, content to be entered in field
+            :param clear: bool, whether to clear the form field;
+                                defaults to False
+            :param click: bool, whether to click into the form field;
+                                defaults to True
+            :param unfocus: bool, whether to unfocus the form field;
+                                  defaults to True
+            :param chunk: bool, whether to iterate over the content and send
+                                each character separately; defaults to False
+            :return: True
+        """
+        if click:
+            try:
+                element.click()
+                msg1 = f"Clicked in field '{name}'"
+                self.set_event(msg1)
+            except ElementNotVisibleException as e:
+                logger.exception(e)
+                self.save_screenshot(f"element {name} not visible")
+                raise
+
+        if clear:
+            old_value = element.get_attribute('value')
+            if old_value:
+                # only do something if the field is not empty
+                self.save_screenshot('before clear')
+                try:
+                    element = utils_selenium.hard_clear_input_field(self, element, name)
+                except ControlInteractionException:
+                    err_msg = f"Field '{name}' did not get cleared correctly, " \
+                              f"still has value '{old_value}'"
+                    logger.error(err_msg)
+                    self.save_screenshot(f"{name} field not cleared")
+                    raise ControlInteractionException(err_msg)
+
+            # finally we can move on from just clearing the field
+            msg2 = f"Cleared field content for {name}"
+            logger.info(f"\n---> {msg2}; was \'{old_value}\'")
+            self.set_event(msg2)
+
+        if chunk:
+            # iterate over the desired value, 1 char at a time
+            # drawbacks: takes longer, adds more work
+            logger.info(f"\n======> chunking input for '{name}'")
+            for i, s in enumerate(content):
+                element.send_keys(s)
+                logger.info(f"\n======> iteration {i}: set character {s}")
+                self.save_screenshot(f"{name} after set {i}")
+        else:
+            # everything else
+            element.send_keys(content)
+            msg3 = f"Set field '{name}' with value '{content}'"
+            self.set_event(msg3)
+            self.save_screenshot('after send keys')
+
+        # get the value and log it
+        value = element.get_attribute('value')
+        if not value == content:
+            # there might be a good reason why the actual doesn't match what
+            # was entered, for example field-cleaning logic.
+            # Note that it would be too difficult to set expectations here!
+            msg = f"the actual value '{value}' doesn't " \
+                  f"match the entered value '{content}'"
+            logger.warning(f"\n{msg}")
+
+        if unfocus:
+            field_map = {
+                'date widget': Keys.RETURN,
+                'time widget': Keys.ESCAPE
+            }
+
+            if field_map.get(name):
+                # some fields need special handling because a body click
+                # has side effects
+                msg = f"Unfocused field '{name}' (sent special key)"
+                element.send_keys(field_map[name])
+                self.set_event(msg)
+            else:
+                self._unfocus_field(name)
+            self.save_screenshot(f"{name} after unset")
+
+        return True
+
+    def _submit_form_submit(self, element, name):
+        """
+            Submit a form using the built-in webdriver support for submitting
+            the form containing field `element`. This is not strictly a user-
+            interaction with the browser.
+
+            Note: the calling method should handle whether this triggers a page
+            transition or other page object change.
+
+            :param element: webdriver form field element
+            :param name: str, identifier for field
+            :return: Trye
+        """
+        event = f"Submitted form associated with '{name}'"
+        element.submit()
+        self.set_event(event)

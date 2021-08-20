@@ -3,9 +3,11 @@ import time
 import json
 import pytest
 
+from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
 
 from welkin.framework import utils_webstorage
+from welkin.framework.exceptions import ControlInteractionException
 
 logger = logging.getLogger(__name__)
 
@@ -203,3 +205,58 @@ def clear_session_storage(pageobject):
     # run the script
     pageobject.driver.execute_script(script)
     logger.warning(f"sessionStorage has been cleared")
+
+
+def hard_clear_input_field(pageobject, element, name):
+    """
+        Manually clear a text input field by backspacing over
+        each character in that field's value string.
+
+        In an app with heavy DOM manipulation and field validation,
+        the DOM handling of the field's value attribute get delayed, so
+        we have to get serious about removing the default value by:
+        1. moving the cursor all the way to the end of the value string
+           (assuming a left-to-right language like English).
+        2. sending a backspace key (in a L-R language, this moves leftward
+           until the strong is empty.
+
+        :param pageobject: page object instance
+        :param element: webelement
+        :param name: str, name of field
+        :return element: webelement (after being cleared)
+    """
+    driver = pageobject.driver
+    logger.warning(f"getting serious about clearing the default")
+    current_value = element.get_attribute('value')
+    value_length = len(current_value) + 1
+    logger.info(f"\nneed to unset '{current_value}'; {value_length} chars")
+    # get the cursor all the way to the right
+    for char in range(value_length):
+        element.send_keys(Keys.RIGHT)
+
+    latest_value = None
+    while element.get_attribute('value'):
+        old_value = element.get_attribute('value')
+        right_char = old_value[-1]
+        logger.info(f"~~~~~~~~~>> right char '{right_char}'")
+        # assume that we are at the end of any value
+        element.send_keys(Keys.BACKSPACE)
+        event = f"backspace char '{right_char}'"
+        pageobject.set_event(event)
+
+        time.sleep(.5)  # give the browser a break, it's working hard
+        # we are logging event for every backspace because
+        # webstorage may get updated by javascript
+        latest_value = element.get_attribute('value')
+        logger.info(f"~~~~~~~~~>> value: '{latest_value}'")
+
+    time.sleep(2)  # let the DOM catch up
+    if latest_value == '':
+        return element
+    else:
+        fname = f"{name} field not cleared"
+        err_msg = f"Field '{name}' did not get cleared correctly, " \
+                  f"still has value '{latest_value}'"
+        logger.error(err_msg)
+        take_and_save_screenshot(driver, filename=fname)
+        raise ControlInteractionException(err_msg)

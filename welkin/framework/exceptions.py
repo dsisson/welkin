@@ -58,3 +58,13 @@ class PageIdentityException(Exception):
     def __init__(self, errors=None):
         Exception.__init__(self, errors)
         self.errors = errors
+
+
+class ControlInteractionException(Exception):
+    """
+        Raise this exception when an an interaction with a control
+        did not work as expected.
+    """
+    def __init__(self, msg=None):
+        Exception.__init__(self, msg)
+        self.msg = msg

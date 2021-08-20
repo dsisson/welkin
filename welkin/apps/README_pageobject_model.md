@@ -1,5 +1,14 @@
 # Understanding the Welkin Page Object Model
 
+## Table of Contents
++ [Application Wrappers](#application-wrappers)
++ [Page Object Model Design Patterns](#page-object-model-design-patterns)
+  + [Hierarchical class structure](#hierarchical-class-structure)
+  + [Page Object instantiation managed through the router pattern](#page-object-instantiation-managed-through-the-router-pattern)
++ [Separating the authenticated and non-authenticated experience](#separating-the-authenticated-and-non-authenticated-experience )
++ [Browser Interaction Event Wrapping](#browser-interaction-event-wrapping)
+
+
 ## Application Wrappers
 Welkin expects application wrappers to be written to support interactions with the applications under test; these wrappers are an internal API used by the test code to interact with and receive output from the applications. 
 
@@ -50,3 +59,7 @@ This layout requires the **routings.py** file to have different mapping dicts fo
 + viewing a noauth page like the login form, and successfully logging in
 + viewing an authenticated page, and successfully logging out
 
+## Browser Interaction Event Wrapping
+With modern web apps created with UI frameworks that use Javascript to manipulate the page DOM, it's challenging to programmatically interact with pages that respond and change based on interactiom triggers. For example, clicking in a form field can trigger an app state change; _apps that live-validate a form field's text input as the user types it in_ are common.  
+
+Welkin identifies interaction actions and triggers and wraps the direct webdriver interaction mechanisms with local methods that log "events". These events provide hooks for deeper app state inspection, allowing for better testing of error states and internal app properties.  

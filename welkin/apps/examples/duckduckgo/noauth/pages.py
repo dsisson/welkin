@@ -31,10 +31,11 @@ class BasePage(NoAuthBasePageObject):
         search_input = self.driver.find_element(By.CLASS_NAME, sel_search_form)
 
         # pass in the search string
-        search_input.send_keys(text)
+        self._set_field_input(search_input, 'search field', text,
+                              clear=False, click=True, unfocus=False)
 
         # submit the search
-        search_input.submit()
+        self._submit_form_submit(search_input, 'search field')
 
         # wait for the next page to render
         wait = WebDriverWait(self.driver, 10)
