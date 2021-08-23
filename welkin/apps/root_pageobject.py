@@ -476,6 +476,21 @@ class RootPageObject(object):
     # #######################################
     # interaction event wrappers
     # #######################################
+    def _click_element(self, element, name, msg=None):
+        """
+            Wrap the actual clicking of an element. This allows for the
+            insertion of additional check points and error checking and
+            handling.
+
+            :param element: webdriver element
+            :param name: str, identifier for element
+            :param msg: str, optional specified event msg
+            :return: None
+        """
+        event = f"clicked element '{name}'"
+        element.click()
+        self.set_event(msg if msg else event)
+
     def _unfocus_field(self, name):
         """
             Unfocus a form field by clicking the body tag.
@@ -490,6 +505,50 @@ class RootPageObject(object):
         self.driver.find_element(By.TAG_NAME, 'body').click()
         self.set_event(msg)
         return True
+
+    def _clear_field_value(self, element, name):
+        """
+            Wrap the clearing of an element's value. This allows for the
+            insertion of additional check points and error checking and
+            handling.
+
+            :param element: webdriver element
+            :param name: str, identifier for element
+            :return: None
+        """
+        event = f"Cleared value for element '{name}'"
+        element.clear()
+        self.set_event(event)
+
+    def _hard_clear_field_value(self, element, name):
+        """
+            Wrap the selenium utility hard_clear_input_field().
+
+            :param element: webdriver element
+            :param name: str, identifier for element
+            :return element: webelement (after being cleared)
+        """
+        event = f"Hard cleared value for element '{name}'"
+        driver = self.driver
+        element = utils_selenium.hard_clear_input_field(driver, element, name)
+        self.set_event(event)
+        return element
+
+    def _send_keys(self, element, name, content, msg=None):
+        """
+            Wrap the actual sending of keys to an element. This allows
+            for the insertion of additional check points and error
+            checking and handling.
+
+            :param element: webdriver element
+            :param name: str, identifier for element
+            :param content: str, content to be entered into field
+            :param msg: str, optional specified event msg
+            :return: None
+        """
+        event = f"Sent content '{content}' to element '{name}'"
+        element.send_keys(content)
+        self.set_event(msg if msg else event)
 
     def _set_field_input(self, element, name, content,
                          clear=False, click=True, unfocus=True, chunk=False):
@@ -511,9 +570,8 @@ class RootPageObject(object):
         """
         if click:
             try:
-                element.click()
-                msg1 = f"Clicked in field '{name}'"
-                self.set_event(msg1)
+                msg = f"Clicked in field '{name}'"
+                self._click_element(element, name, msg)
             except ElementNotVisibleException as e:
                 logger.exception(e)
                 self.save_screenshot(f"element {name} not visible")
@@ -525,7 +583,7 @@ class RootPageObject(object):
                 # only do something if the field is not empty
                 self.save_screenshot('before clear')
                 try:
-                    element = utils_selenium.hard_clear_input_field(self, element, name)
+                    element = self._hard_clear_field_value(element, name)
                 except ControlInteractionException:
                     err_msg = f"Field '{name}' did not get cleared correctly, " \
                               f"still has value '{old_value}'"
@@ -533,24 +591,17 @@ class RootPageObject(object):
                     self.save_screenshot(f"{name} field not cleared")
                     raise ControlInteractionException(err_msg)
 
-            # finally we can move on from just clearing the field
-            msg2 = f"Cleared field content for {name}"
-            logger.info(f"\n---> {msg2}; was \'{old_value}\'")
-            self.set_event(msg2)
-
         if chunk:
             # iterate over the desired value, 1 char at a time
             # drawbacks: takes longer, adds more work
             logger.info(f"\n======> chunking input for '{name}'")
             for i, s in enumerate(content):
-                element.send_keys(s)
+                self._send_keys(element, name, s)
                 logger.info(f"\n======> iteration {i}: set character {s}")
                 self.save_screenshot(f"{name} after set {i}")
         else:
             # everything else
-            element.send_keys(content)
-            msg3 = f"Set field '{name}' with value '{content}'"
-            self.set_event(msg3)
+            self._send_keys(element, name, content)
             self.save_screenshot('after send keys')
 
         # get the value and log it
@@ -573,12 +624,96 @@ class RootPageObject(object):
                 # some fields need special handling because a body click
                 # has side effects
                 msg = f"Unfocused field '{name}' (sent special key)"
-                element.send_keys(field_map[name])
+                self._send_keys(element, name, content=field_map[name])
                 self.set_event(msg)
             else:
                 self._unfocus_field(name)
             self.save_screenshot(f"{name} after unset")
 
+        return True
+
+    def _set_field_textarea(self, element, name, content, unfocus=True):
+        """
+            Wrap the setting of a textarea field's value.
+
+            Note: C5 doesn't currently have field validation for text areas,
+            so we can't currently negative test textareas.
+
+            :param element: webdriver element
+            :param name: str, identifier for field
+            :param content: str, content to be entered in field
+            :param unfocus: bool, whether to unfocus the form field;
+                                  defaults to True
+            :return: True
+        """
+        self._click_element(element, name)
+
+        self._clear_field_value(element, name)
+
+        self._send_keys(element, name, content)
+
+        if unfocus:
+            self._unfocus_field(name)
+
+        return True
+
+    def _set_field_checkbox(self, element, name, unfocus=True):
+        """
+            Wrap the checking/setting of a checkbox.
+
+            NOTE: this does not handle toggling the checkbox.
+
+            :param element: webdriver element
+            :param name: str, identifier for field
+            :param unfocus: bool, whether to unfocus the form field;
+                                  defaults to True
+            :return: True
+        """
+        msg = f"Clicked checkbox '{name}'"
+        self._click_element(element, name, msg)
+
+        if unfocus:
+            self._unfocus_field(name)
+
+    def _set_field_radio(self, element, name, unfocus=True):
+        """
+            Wrap the checking of a radio button.
+
+            :param element: webdriver element
+            :param name: str, identifier for field
+            :param unfocus: bool, whether to unfocus the form field;
+                                  defaults to True
+            :return: True
+        """
+        msg = f"Clicked radio button '{name}'"
+        self._click_element(element, name, msg)
+
+        if unfocus:
+            self._unfocus_field(name)
+
+    def _set_field_file_upload(self, element, name, content, unfocus=True):
+        """
+            Wrap the pushing of a file's path to the input field for the
+            file upload.
+
+            NOTE: webdriver restricts the input to a string that maps
+            to a local file, so we can't negative test this field.
+
+            Note: don't click file upload fields, because that will launch
+            a native OS file handler.
+
+            :param element: webdriver element
+            :param name: str, identifier for field
+            :param content: str, content to be entered in field
+            :param unfocus: bool, whether to unfocus the form field;
+                                  defaults to True
+            :return: True
+        """
+        msg = f"Set field '{name}' with file path '{content}'"
+        self._send_keys(element, name, content, msg)
+
+        if unfocus:
+            self._unfocus_field(name)
         return True
 
     def _submit_form_submit(self, element, name):
