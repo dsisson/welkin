@@ -131,6 +131,4 @@ def plog(content):
                 logger.warning(msg)
                 pass
 
-        formatted_content = content
-
     return formatted_content

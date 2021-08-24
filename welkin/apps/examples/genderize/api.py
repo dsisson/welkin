@@ -1,6 +1,7 @@
 import logging
 import requests
 
+from welkin.apps.root_endpoint import RootEndpoint
 from welkin.framework.exceptions import UnexpectedStatusCodeException
 from welkin.framework.exceptions import JsonPayloadException
 from welkin.framework.utils import plog
@@ -9,18 +10,32 @@ from welkin.framework.utils import plog
 logger = logging.getLogger(__name__)
 
 
-class GenderEndpoint(object):
+class GenderEndpoint(RootEndpoint):
     """
         Common ancestor for all endpoints.
     """
     base_url = 'https://api.genderize.io/'
 
+    headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+
+    schema = {
+        'count': {'type': 'integer'},
+        'gender': {'type': 'string'},
+        'name': {'type': 'string'},
+        'probability': {'type': 'float'}
+    }
+    
     def __init__(self):
         """
             Initialize an endpoint object for testing.
 
             :return: None
         """
+        self.name = 'genderize get gender'
+        self.endpoint_url = self.base_url
         self.expected_keys = [
                                 'name',
                                 'gender',
@@ -41,43 +56,28 @@ class GenderEndpoint(object):
         self.expected_keys.sort()
         logger.info('Added new key "%s" to the expected keys.')
 
-    def get(self, ex=200, verbose=False, **kwargs):
+    def get_gender(self, names, expect_status=200, verbose=False):
         """
-            Return the specified object for the specified API parameters. These are:
-                `name`: str name or list of str names
-                `country_id': str id for country (http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-                `language_id`: str id for language (http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
 
-            :param ex: int, expected status code for the POST, defaults to a good 200.
-                            Pass in an alternate code if testing error handling.
-            :param verbose: bool, determines whether to output additional logging; defaults to False
-            :param kwargs: dict of key-value pairs of additional parameters to be added to the url
-            :return res: Requests response object
+            :param names: list of str names
+            :param expect_status:
+            :param verbose:
+            :return:
         """
+        # convert list of names into a params dict
+        if isinstance(names, list):
+            querystring = f"?name={'&name='.join(names)}"
+        else:
+            querystring = f"?name={names}"
         if verbose:
-            logger.info('kwargs: %s' % kwargs)
-            logger.info('url = %s' % self.base_url)
-        res = requests.get(self.base_url, params=kwargs)
-        logger.info('requested URL: "%s".' % res.url)
+            logger.info(f"\n----> querystring: {querystring}")
 
-        if not res.status_code == ex:
-            logger.error('Error: expected status code "%s" but got "%s".'
-                         % (ex, res.status_code))
-            logger.error(res.content)
-            logger.info(res.headers)
-            raise UnexpectedStatusCodeException(response=res)
+        url = f"{self.endpoint_url}{querystring}"
+        res = self.get(url, expect_status=expect_status, verbose=True)
 
-        try:
-            logger.info('%s genderize API requests remaining for this time period.'
-                        % res.headers['X-Rate-Limit-Remaining'])
-        except KeyError:
-            logger.info('headers = %s' % plog(res.headers))
-
-        if 'country_id' in res.json():
-            self.add_expected_key('country_id')
-        if 'language_id' in res.json():
-            self.add_expected_key('language_id')
-
+        logger.info(f"Response status code is '{res.status_code}'")
+        if verbose:
+            logger.info(f"\nResponse json:\n{plog(res.json())}")
         return res
 
     def got_gender(self, response, expected_gender):
@@ -95,27 +95,3 @@ class GenderEndpoint(object):
                 return False
         except KeyError:
             raise JsonPayloadException('Json does\'t contain the "gender" key.')
-
-    def verify_keys_in_response(self, response_keys):
-        """
-            Verify that the endpoint response contains the expected keys.
-
-            :param response_keys: dict_keys, the keys from an instance of the response object json
-            :return: True if keys are equal, else raise exception
-        """
-        # be strict about checking keys
-        expected = self.expected_keys
-        actual = list(response_keys)
-        actual.sort()
-        logger.debug('Comparing expected keys "%s" to\n          actual keys "%s".' % (expected, actual))
-
-        if sorted(expected) == sorted(actual):
-            logger.debug('Comparison results: Keys are equal.')
-            return True
-        else:
-            logger.error('Comparison results: Keys are NOT equal.')
-            logger.error('Expected keys:\n%s' % plog(expected))
-            logger.error('Actual keys:\n%s' % plog(response_keys))
-            raise JsonPayloadException('Actual keys don\'t match expected keys.')
-
-
