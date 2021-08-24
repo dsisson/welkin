@@ -23,14 +23,14 @@ good_names_multiple = [
 
 bad_names_single = [
     ' kim',  # initial space
-    'smersh',  # not a name
+    'blahxx',  # not a name
     ' ',  # whitespace
     '<foo>',  # non alpha characters
 ]
 
 
 bad_names_multiple = [
-    (('Bob', 'Sue', 'smersh'), ('male', 'female', None)),
+    (('Bob', 'Sue', 'blahxx'), ('male', 'female', None)),
 ]
 
 too_many_names = [

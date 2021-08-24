@@ -1,6 +1,7 @@
 import logging
 import pytest
 import time
+import json
 
 from welkin.framework import utils
 
@@ -154,3 +155,81 @@ def _write_session_to_file(data, event, pageobject_name, source_url, output_url)
     with open(output_url, 'a') as f:
         f.write(utils.plog(data))
     logger.info(f"Saved session storage log: {output_url}.")
+
+
+def write_request_to_file(response, url, fname=''):
+    """
+        Save the request and response headers and payload.
+
+        Note that the request info is extracted from the response content.
+
+        :param response: requests Response object
+        :param url: str, url for the current page
+        :param fname: str, first part of filename, will be appended with
+                           timestamp; defaults to empty string
+        :return: None
+    """
+    filename = f"/{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.txt"
+    path = pytest.welkin_namespace['testrun_requests_log_folder'] + filename
+    boundary = None
+    with open(path, 'a') as f:
+        f.write(f"{url}\n\n")  # write the url as the first line
+        f.write(f"###### REQUEST ####### \n")
+        f.write(f"HEADERS\n")
+        try:
+            # the request header MUST have the Content-Type key-value pair
+            # if not, raise an exception and kill the test
+            content_type = response.request.headers['Content-Type']
+        except KeyError:
+            msg = f"Missing header content-type field in request to {url}"
+            logger.error(msg)
+            raise ValueError(msg)
+        if 'boundary' in content_type:
+            # this is a POST, it must have the multi-part content-type, so
+            # extract the boundary str used between binary attachments
+            boundary = content_type[content_type.index('boundary=') + 9:]
+        f.write(utils.plog(response.request.headers))
+
+        if response.request.body:
+            # it will be as BODY (None) in file because content_type is not found in headers
+            f.write(f"\n\nBODY ({content_type})\n")
+            if isinstance(response.request.body, bytes):
+                # this was a binary upload, so decode it as a
+                # unicode str in order to write it to the file
+                logger.warning(f"response.request.body cast as string.")
+                f.write(f"--decoded from bytes--\n")
+                if boundary:
+                    # this is a multi-part form body
+                    # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
+                    body = response.request.body.decode('utf-8', 'backslashreplace')
+                    cleaned_body = body.replace('\r\n\r\n\n\r\n', '\n\n')
+                    f.write(cleaned_body)
+                else:
+                    f.write(f"don't know what happened with this request body;\n"
+                            f"probably a POST with bytes.")
+
+            else:
+                try:
+                    f.write(utils.plog(json.loads(response.request.body)))
+                except UnicodeDecodeError:
+                    logger.warning(f"got UnicodeDecodeError.")
+                    f.write(f"-- byte string snipped --")
+                except json.decoder.JSONDecodeError:
+                    logger.warning(f"got json.decoder.JSONDecodeError.")
+                    f.write(utils.plog(response.request.body))
+
+        f.write(f"\n\n###### RESPONSE ####### \n")
+        f.write(f"HEADERS\n")
+        f.write(utils.plog(response.headers))
+        f.write(f"\n\nRESPONSE STATUS CODE\n")
+        f.write(f"response server status: {response.status_code}")
+        f.write(f"\n\nPAYLOAD\n")
+        try:
+            f.write(utils.plog(response.json()))
+        except json.decoder.JSONDecodeError:
+            # this could be an xml byte response
+            f.write(utils.plog(response.content))
+
+        f.write(f"\n\n{'~' * 45}\n\n")
+
+    logger.info(f"Saved headers: {path}")

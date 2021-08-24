@@ -7,7 +7,14 @@ logger = logging.getLogger(__name__)
 
 
 class JsonPayloadException(Exception):
-    pass
+    """
+        Raise this exception when there's a problem with the response data,
+        for example missing or incorrect keys, or missing or invalid value
+        types.
+    """
+    def __init__(self, msg=None):
+        Exception.__init__(self, msg)
+        self.msg = msg
 
 
 class UnexpectedStatusCodeException(Exception):
@@ -62,7 +69,7 @@ class PageIdentityException(Exception):
 
 class ControlInteractionException(Exception):
     """
-        Raise this exception when an an interaction with a control
+        Raise this exception when an interaction with a control
         did not work as expected.
     """
     def __init__(self, msg=None):

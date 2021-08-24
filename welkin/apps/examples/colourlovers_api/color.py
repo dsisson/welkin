@@ -42,7 +42,7 @@ class ColorEndpoint(base_endpoint.BaseEndpoint):
 
         logger.info('Color endpoint object created.')
 
-    def get_color(self, hex, format='json', verbose=True, **kwargs):
+    def get_color(self, hex, format='json', expect_status=200, verbose=True, **kwargs):
         """
             Grab the information for one color as specified by the color's hexadecimal code.
 
@@ -64,7 +64,7 @@ class ColorEndpoint(base_endpoint.BaseEndpoint):
         logger.info('kwargs = %s' % kwargs)
 
         # pass to the base endpoints *requests* wrapper
-        res = self.get(url, **kwargs)
+        res = self.get(url, expect_status=expect_status, **kwargs)
 
         logger.info('Response status code is "%s:".' % res.status_code)
         if verbose:
