@@ -9,7 +9,7 @@ from welkin.framework import utils
 logger = logging.getLogger(__name__)
 
 
-def convert_web_storage_data_to_dict(content, verbose=False):
+def convert_web_storage_data_to_dict(content, stype, verbose=False):
     """
         Window sessionStorage consists of string keys and string values.
 
@@ -21,6 +21,7 @@ def convert_web_storage_data_to_dict(content, verbose=False):
         result is a dict, json-load *that* too.
 
         :param content: dict, returned from window.sessionContent
+        :param stype: str enum, 'local' or 'session'
         :param verbose: bool, whether to output additional logging
         :return new_content: dict, cleaned up data structure
     """
@@ -55,5 +56,6 @@ def convert_web_storage_data_to_dict(content, verbose=False):
                 second_data = _to_json(v2)
                 new_content[k1][k2] = second_data
 
-    logger.info(f"sessionStorage data converted to dict.")
+    if verbose:
+        logger.info(f"{stype}Storage data converted to dict.")
     return new_content

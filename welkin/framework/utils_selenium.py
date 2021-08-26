@@ -145,7 +145,8 @@ def get_local_storage(pageobject):
     content = pageobject.driver.execute_script(script)
 
     # convert this dirty data into a real dict
-    cleaned_content = utils_webstorage.convert_web_storage_data_to_dict(content)
+    cleaned_content = utils_webstorage.\
+        convert_web_storage_data_to_dict(content, stype='local')
     return cleaned_content
 
 
@@ -182,7 +183,8 @@ def get_session_storage(pageobject):
         # run the script
         content = pageobject.driver.execute_script(script)
         # convert this dirty data into a real dict
-        cleaned_content = utils_webstorage.convert_web_storage_data_to_dict(content)
+        cleaned_content = utils_webstorage.\
+            convert_web_storage_data_to_dict(content, stype='session')
         return cleaned_content
     except WebDriverException:
         # checking for storage immediately after the driver is
@@ -260,3 +262,21 @@ def hard_clear_input_field(pageobject, element, name):
         logger.error(err_msg)
         take_and_save_screenshot(driver, filename=fname)
         raise ControlInteractionException(err_msg)
+
+
+def scroll_to_top_of_page(driver):
+    """
+        Scroll the current webdriver page to the top of the page.
+
+        :param driver: webdriver
+    """
+    driver.execute_script('scrollTo(0,0);')
+
+
+def scroll_to_bottom_of_page(driver):
+    """
+        Scroll the current webdriver page to the bottom of the page.
+
+        :param driver: webdriver
+    """
+    driver.execute_script('scrollTo(0, document.body.scrollHeight);')

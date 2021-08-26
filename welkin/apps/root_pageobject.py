@@ -2,6 +2,7 @@ import logging
 import importlib
 import time
 import pytest
+from axe_selenium_python import Axe
 
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -141,6 +142,9 @@ class RootPageObject(object):
 
         # write webstorage to files
         new_pageobject_instance.save_webstorage(event_name=event)
+
+        # generate and write accessibility logs to file
+        new_pageobject_instance.save_accessibility_logs()
 
         return new_pageobject_instance
 
@@ -451,6 +455,39 @@ class RootPageObject(object):
                                              pageobject_name=self.name,
                                              filename=filename,
                                              event=event_name)
+
+    def save_accessibility_logs(self):
+        """
+            Perform and save accessibility checks basd on the axe engine.
+
+            The checks are run automatically for web pages handled
+            by a welkin page object model. Results are written to the
+            current test runs output/accessibility folder.
+
+            NOTE: these checks may slow down the perceived page performance
+            around page load in the context of test runs.
+
+            TODO: refine the generated accessibility data: we really just
+            want to report problems.
+
+            :return: None
+        """
+        # instantiate axe
+        axe = Axe(self.driver)
+
+        # inject axe.core into page
+        axe.inject()
+
+        # run the axe accessibility checks
+        axe_results = axe.run()
+        # axe.run() caused the page to scroll to the bottom; scroll back to top
+        utils_selenium.scroll_to_top_of_page(self.driver)
+
+        # write the results to a file
+        path = pytest.welkin_namespace['testrun_accessibility_log_folder']
+        filename = f"{path}/{utils.path_proof_name(self.name)}.json"
+        logger.info(f"Writing accessibility logs to {filename}")
+        axe.write_results(axe_results, filename)
 
     def set_event(self, event_name):
         """
