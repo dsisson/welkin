@@ -6,8 +6,11 @@ from axe_selenium_python import Axe
 
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotVisibleException
+from selenium.common.exceptions import TimeoutException
 
 from welkin.framework.exceptions import PageUnloadException
 from welkin.framework.exceptions import PageLoadException
@@ -509,6 +512,87 @@ class RootPageObject(object):
         }
 
         logger.info(f"\nbrowser interaction event:\n{utils.plog(this_event)}")
+
+    # #######################################
+    # page object transition methods
+    # #######################################
+    def _click_and_load_new_page(self, element, name, po_selector,
+                                 change_url=True, **actions):
+        """
+            Perform a click action on an element, then return a new page object
+            for the page that the browser has loaded.
+
+            The `change_url` controls the expectation of the url changing
+            after this click action. This is a little bit hacky.
+
+            Log the timestamp for the click action and save to timings.txt
+
+            Note: Single page apps built with frameworks like React could
+            make the transition between pages a little tougher to model if
+            they don't change the urls for logical pages.
+
+            :param element: webelement (for link, button, etc.)
+            :param name: str, identifier for element
+            :param po_selector: str, name of the target PO
+            :param change_url: bool, True if url should change
+            :param actions: dict, could contain key/value pairs for
+                                  'pre_action' and 'post_action'
+            :return next_page: page object for the next page
+        """
+        driver = self.driver  # minor disambiguation
+
+        # perform the click action
+        wait = WebDriverWait(driver, 20)
+        if change_url:
+            old_url = self.url
+            logger.info(f"Old url: {old_url}")
+
+            # some methods will insert a 'target url' key into the `actions`
+            # payload, which means that a redirect is expected. If this key
+            # is present, then wait for the target url to be present.
+            target_url = actions.get('target url')
+            logger.info(f"target url: {target_url}")
+            if target_url:
+                # expect a redirect
+                try:
+                    self._click_element(element, name, **actions)
+                    wait.until(EC.url_to_be(target_url))
+                    new_url = driver.current_url
+                    logger.info(f"New url: {new_url}")
+                except TimeoutException:
+                    msg = f"URL did not change as required from '{old_url} to {target_url}'."
+                    logger.error(msg)
+                    logger.info(f"actual URL: {driver.current_url}")
+                    self.save_screenshot(f"failed while leave {self.name}")
+                    self.save_browser_logs()
+                    self.save_webstorage(event_name=msg)
+                    raise PageUnloadException(msg)
+
+            else:
+                try:
+                    self._click_element(element, name, **actions)
+                    wait.until(EC.url_changes(old_url))
+                    new_url = driver.current_url
+                    logger.info(f"New url: {new_url}")
+                except TimeoutException:
+                    msg = f"URL did not change as required from '{old_url}'."
+                    logger.error(msg)
+                    self.save_screenshot(f"failed to leave {self.name}")
+                    self.save_browser_logs()
+                    self.save_webstorage(event_name=msg)
+                    raise PageUnloadException(msg)
+        else:
+            self._click_element(element, name, **actions)
+
+        # load and return the PO for the next page
+        logger.info(f"\nLoading page object for '{po_selector}'.")
+        if actions.get('pass through to PO'):
+            # In some special cases a PO's __init__() might require
+            # additional args
+            next_page = self.load_pageobject(po_selector, **actions)
+        else:
+            next_page = self.load_pageobject(po_selector)
+        return next_page
 
     # #######################################
     # interaction event wrappers
