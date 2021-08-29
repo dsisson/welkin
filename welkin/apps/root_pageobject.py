@@ -131,23 +131,31 @@ class RootPageObject(object):
         # perform any page load checks that are specified in the PO class
         # >> using the new page object! <<
         new_pageobject_instance.verify_load(screenshot=True, verbose=True)
+
+        # Note: page *unload* is arguably an interaction event, but we don't
+        # check or log page state for that. If a particular app's page
+        # transitions are difficult, revisit this.
+
+        # assume that the PO logic is correct and accurate, and that
+        # the page has completed loading
         event = f"loaded page '{po_id}'"
+        self.set_event(event)
 
         # perform any page identity checks that are specified in the PO class
         # >> using the new page object! <<
         new_pageobject_instance.verify_self(verbose=True)
 
         # write the cookies to a file
-        new_pageobject_instance.save_cookies()
+        new_pageobject_instance.save_cookies(filename=event)
 
         # write browser logs to files
-        new_pageobject_instance.save_browser_logs()
+        new_pageobject_instance.save_browser_logs(filename=event)
 
         # write webstorage to files
-        new_pageobject_instance.save_webstorage(event_name=event)
+        new_pageobject_instance.save_webstorage(event=event, set_this_event=False)
 
         # generate and write accessibility logs to file
-        new_pageobject_instance.save_accessibility_logs()
+        new_pageobject_instance.save_accessibility_logs(filename=event)
 
         return new_pageobject_instance
 
@@ -395,26 +403,43 @@ class RootPageObject(object):
         logger.info(f"Saving page source for '{clean_name}'.")
         utils_selenium.get_and_save_source(self.driver, clean_name)
 
-    def save_cookies(self):
+    def save_cookies(self, filename=''):
         """
             Get the current page's cookies and save to a file.
 
+            The filename can be specified by the calling code, but the
+            expectation is that this is either:
+            1. an event string, because the trigger for saving these cookies
+               could be a page object load or reload
+            2. the default of the page object's name
+
+            :param filename: str filename for the log file;
+                             defaults to PO name
             :return: None
         """
+        # set the cleaned file name
+        fname = filename if filename else self.name
+        clean_name = utils.path_proof_name(fname)
+
         # get the cookies from the driver and save to the PO
         self.cookies = self.driver.get_cookies()
 
         utils_file.write_cookies_to_file(self.cookies, self.url,
-                                         fname=self.name)
+                                         fname=clean_name)
 
-    def save_browser_logs(self):
+    def save_browser_logs(self, filename=''):
         """
             Grab the Chrome driver console and network logs and write them
             to files.
 
+            :param filename: str filename for the log file;
+                             defaults to PO name
             :return:
         """
-        filename = self.name
+        # set the cleaned file name
+        fname = filename if filename else self.name
+        clean_name = utils.path_proof_name(fname)
+
         if pytest.welkin_namespace['devtools_supported']:
             # get the logs
             performance_logs = utils_selenium.\
@@ -428,38 +453,40 @@ class RootPageObject(object):
 
             # write the raw performance logs to /network
             utils_file.write_traffic_log_to_file(log=performance_logs,
-                                                 url=self.url, fname=filename)
+                                                 url=self.url, fname=clean_name)
 
             # write the scan logs to /console
             utils_file.write_console_log_to_file(log=console_logs,
-                                                 url=self.url, fname=filename)
+                                                 url=self.url, fname=clean_name)
 
         else:
             logger.warning(f"Cannot access chrome logs for "
                            f"{pytest.welkin_namespace['browser']}.")
 
-    def save_webstorage(self, event_name, filename=None):
+    def save_webstorage(self, event, set_this_event=True):
         """
             Get the localStorage and sessionStorage for the current page (if
             available), and then write them to logfiles.
 
-            Some data will be stripped out or otherwise cleaned up from the
-            output written to the file in the webstorage folder; those rules
-            are set in react_utils.py::clean_snapshot_for_react_log()
+            Note: because the storage is closely tied to app state (if this
+            is a React app), use the event as the base for the file name!
 
-            :param event_name: str, name of the event
-            :param filename: str, custom name for file, if provided
+            Note: sometimes we don't want to call set_event() for the event
+            `event`.
+
+            :param event: str, name of the event
+            :param set_this_event: bool, true to call set_event for this event
             :return: None
         """
         data = utils_selenium.get_webstorage(self)
-        self.set_event(event_name)
+        if set_this_event:
+            self.set_event(event)
         utils_file.write_webstorage_to_files(data,
                                              current_url=self.url,
                                              pageobject_name=self.name,
-                                             filename=filename,
-                                             event=event_name)
+                                             event=event)
 
-    def save_accessibility_logs(self):
+    def save_accessibility_logs(self, filename=''):
         """
             Perform and save accessibility checks basd on the axe engine.
 
@@ -473,6 +500,14 @@ class RootPageObject(object):
             TODO: refine the generated accessibility data: we really just
             want to report problems.
 
+            The filename can be specified by the calling code, but the
+            expectation is that this is either:
+            1. an event string, because the trigger for running these checks
+               could be a page object load or reload
+            2. the default of the page object's name
+
+            :param filename: str filename for the log file;
+                             defaults to PO name
             :return: None
         """
         # instantiate axe
@@ -486,9 +521,12 @@ class RootPageObject(object):
         # axe.run() caused the page to scroll to the bottom; scroll back to top
         utils_selenium.scroll_to_top_of_page(self.driver)
 
+        # set the cleaned file name
+        fname = filename if filename else self.name
+
         # write the results to a file
         path = pytest.welkin_namespace['testrun_accessibility_log_folder']
-        filename = f"{path}/{utils.path_proof_name(self.name)}.json"
+        filename = f"{path}/{utils.path_proof_name(fname)}.json"
         logger.info(f"Writing accessibility logs to {filename}")
         axe.write_results(axe_results, filename)
 
