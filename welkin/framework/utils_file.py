@@ -71,7 +71,7 @@ def write_console_log_to_file(log, url, fname=''):
 
 
 def write_webstorage_to_files(data, current_url, pageobject_name,
-                              filename, event=None):
+                              event):
     """
         Write the localStorage and sessionStorage content to a log file.
 
@@ -82,17 +82,11 @@ def write_webstorage_to_files(data, current_url, pageobject_name,
         :param data: list, localStorage dict and sessionStorage dict
         :param current_url: str, url for the current page
         :param pageobject_name: str, name for the current pageobject
-        :param filename: str, custom filename, if provided
         :param event: str, descriptor for an interaction with the React app
         :return: None
     """
-    if filename:
-        # use the specified custom filename
-        base_filename = f"{time.strftime('%H%M%S')}_{filename}"
-    else:
-        # generate a filename
-        base_filename = f"/{time.strftime('%H%M%S')}_" \
-                        f"{utils.path_proof_name(pageobject_name)}"
+    base_filename = f"/{time.strftime('%H%M%S')}_" \
+                    f"{utils.path_proof_name(event)}"
     path = pytest.welkin_namespace['testrun_webstorage_log_folder'] + base_filename
 
     # unpack the data
