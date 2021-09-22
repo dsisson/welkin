@@ -5,6 +5,9 @@ import sys
 from pathlib import Path
 
 from welkin.framework import utils
+from welkin.data.applications import get_app_url_for_tier as get_app_url
+from welkin.data.users import get_users_for_tier as get_users
+
 
 logger = logging.getLogger(__name__)
 TESTRUN_LOGFILE_NAME = 'runlog.txt'
@@ -24,6 +27,13 @@ def pytest_addoption(parser):
                      choices=['chrome', 'headless_chrome'],
                      default='chrome',
                      help='Specify the browser to use: "chrome", "headless_chrome".')
+
+    parser.addoption('--tier',
+                     action='store',
+                     dest='tier',
+                     choices=['int', 'stage', 'prod'],
+                     default='stage',
+                     help='Specify the tier: "int", "stage", "prod".')
 
     if '--help' in sys.argv:
         # If pytest is invoked with the "help" option, we don't want to
@@ -113,6 +123,7 @@ def pytest_collection_finish(session):
         :return: None
     """
     logger.info(f"\n\n{'#' * 30}\n\n")
+    tier = pytest.welkin_namespace['tier']
     # create container for info about the collected tests
     collected_tests = {}
 
@@ -121,6 +132,7 @@ def pytest_collection_finish(session):
 
     apps = set()
     collection_items = session.__dict__['items']
+    logger.info(f"\ncollection_items:\n{collection_items}")
     for num, item in enumerate(collection_items, start=1):
         # set up for test case folder creation
         try:
@@ -135,8 +147,14 @@ def pytest_collection_finish(session):
         for item in referenced_fixtures:
             apps.add(item)
 
+    # set up apps triggered by test arg fixtures
+    referenced_apps = set_up_apps(tier, apps, verbose=False)
+    apps = None
+    logger.info(f"\n--> referenced_apps: {list(referenced_apps.keys())}")
+
     # add the collected test info into the welkin namespace
     pytest.welkin_namespace['collected_tests'] = collected_tests
+    logger.info(f"\ncollected_tests:\n{utils.plog(collected_tests)}")
     logger.info(f"\n\n##########################\n\n")
 
 
@@ -402,7 +420,7 @@ def add_opts_to_namespace(config):
         :param config: pytest config option
         :return: None
     """
-    opts = ['browser']
+    opts = ['browser', 'tier']
     for item in opts:
         pytest.welkin_namespace[item] = config.getoption(item)
 
@@ -428,6 +446,139 @@ def correct_results_report_path():
     new_path = Path() / f"output/{timestamp}/report.html"
     logger.info(f"corrected reports path: '{new_path}'")
     return new_path
+
+
+# 1.3
+def set_up_tier_globals(config):
+    """
+        The tier is specified at run time (the default is STAGE tier).
+        Determine the tier-specific configuration settings and strings to use
+        during testing against the specified tier.
+
+        Of particular importance here are:
+        + application models, critical for e2e testing; we need to know what
+          apps are available for the current tier
+        + user models, critical for e2e testing; we need to know the users
+          for these apps
+        + safe handling of the credentials for users
+        + apps we will integrate with during the test run
+
+        Note: this logic is in a method called by pytest_configure instead of
+        in a test fixture because tests are collected *before* fixtures are
+        parsed; this means that the globals set by the command line parsers
+        don't get set until *after* the tests which call them are collected.
+
+        The config object is introspected for the desired parameter value.
+
+        The values set here are pushed into a pytest global environment
+        variable called `welkin_namespace`; this is available when you import
+        pytest into a module. This namespace is now set in initialize_logging().
+
+        Context example example:
+        $ pytest tests --tier=stage
+
+        The domains can be accessed in a test case by using:
+        >>> pytest.welkin_namespace['apps']['duckduckgo']['hostname']
+        www.test.businesswire.com
+
+        Some general values can be accessed directly:
+        >>> pytest.welkin_namespace['tier']
+        stage
+
+        :param config: pytest config object
+        :return: None
+    """
+    this_tier = config.option.tier
+    pytest.welkin_namespace['tier'] = this_tier
+    logger.info(f"this_tier: '{this_tier}'.")
+
+    # set up a container for app-specific info
+    pytest.welkin_namespace['apps'] = dict()
+
+    return None
+
+
+def set_up_apps(tier, apps, verbose=True):
+    """
+        Pull in app and users data for `tier` for the apps specified by
+        fixtures in the collected test cases.
+
+        The values in `apps` are the str names of fixtures; these names do NOT
+        necessarily match what those are apps are labeled in internal models
+        so we need to translate those fixture names to the appropriate str
+        keys.
+
+        `apps_map` maps between the fixture name and the app labels in the
+        users and applications data models. If a fixture is not included in
+        this map, that app will NOT be set up.
+
+        Example data:
+            apps_map = {
+                'nrm': ('news', app_mappings['news'][tier], get_users),
+            }
+
+        Explanations:
+        'nrm' is the str fixture arg called by a testcase
+        'news' is the str key to the applications map on data/applications.py
+        app_mappings['news'][tier] is the 'domain' key/value pair data
+            from the applications map
+        get_users is the get_users_for_tier method from data/users
+
+        Note: when adding an application wrapper to welkin, these locations
+        must be updated, as well as the apps_map below. AND a fixture
+        method has to be added on conftest.py below. AND if there is a special
+        logging need for the new app, for example logging API requests,
+        add the app to set_up_testcase_reporting() below.
+
+        :param tier: str, one of 'int', 'stage', 'prod'
+        :param apps: list of str app fixture names
+        :param verbose: bool, True to output additional information
+        :return:
+    """
+    logger.info(f"\n{'-:-' * 40}\n")
+    logger.info(f"\napps: {apps}")
+
+    apps_data = dict()
+    apps_map = {
+        'duckduckgo': ('duckduckgo', get_app_url(app='duckduckgo', tier=tier), get_users),
+    }
+
+    for app in apps:
+        if app in list(apps_map.keys()):
+            real_name = apps_map[app][0]
+            # get_users is a method, call it below with appropriate args
+            these_users = apps_map[app][2](tier=tier, app=real_name)
+            apps_data[real_name] = dict()
+            apps_data[real_name]['hostname'] = apps_map[app][1]['domain']
+            apps_data[real_name]['users'] = these_users
+
+    if verbose:
+        logger.info(f"\ncollected apps from fixtures:\n{utils.plog(apps_data)}")
+    logger.info(f"\n{'-:-' * 40}\n")
+    return apps_data
+
+
+@pytest.fixture#(scope='session')
+def auth():
+    """
+        Fixture that creates an AWS session and returns that to the
+        calling test; this only executes if a collected test calls
+        this fixture.
+
+        A better name would be "get_aws_session_as_precursor_to_get_password",
+        but fixture names have to be short and reasonably clear.
+
+        The intent here is to create a single AWS session, and have each test
+        create its own AWS client and then get the password.
+
+        :return aws_session: AWS session object
+    """
+    from welkin.integrations.aws.aws import AWSSession
+    # create a session object tied to the local default config
+    # for region and IAM user
+    aws_session = AWSSession(verbose=True)
+    logger.info(f"\n--> AWS session {aws_session} ({id(aws_session)})")
+    return aws_session
 
 
 # 7.1
@@ -641,3 +792,20 @@ def driver(request, browser):
 
     driver.quit()
     logger.info(f"Quitting '{browser}'' driver.")
+
+
+# #########################################
+# app fixtures to trigger user setup ######
+# #########################################
+
+@pytest.fixture(scope='session')
+def duckduckgo(request):
+    """
+        This test fixture is a trigger for setting up authentication
+        management for the the duckduckgo app.
+
+        Note: not really, this is just an example to use for real apps
+        that have actual users with real credentials in AWS.
+    """
+    logger.info('fixture called')
+    pass
