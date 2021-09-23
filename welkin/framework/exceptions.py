@@ -6,6 +6,22 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+# ######################################
+# framework-related exceptions
+# ######################################
+class UserDataAccessException(Exception):
+    """
+        Raise this exception when there's a problem looking up
+        an application user.
+    """
+    def __init__(self, msg=None):
+        Exception.__init__(self, msg)
+        self.msg = msg
+
+
+# ######################################
+# application-related exceptions
+# ######################################
 class JsonPayloadException(Exception):
     """
         Raise this exception when there's a problem with the response data,
