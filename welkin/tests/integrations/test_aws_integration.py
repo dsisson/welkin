@@ -2,8 +2,10 @@ import pytest
 import logging
 
 from welkin.framework import utils
+from welkin.models.user import ApplicationUser
 from welkin.integrations.aws.aws import AWSSession, AWSClient
 
+TIER = pytest.welkin_namespace.get('tier')
 logger = logging.getLogger(__name__)
 
 
@@ -14,6 +16,11 @@ class AwsIntegrationTests(object):
             Validation for the AWS integration code.
         """
         aws_region = 'us-west-1'
+        tier = TIER
+        appname = 'duckduckgo'
+        user = 'user01'
+        param_key = f"/welkin/{tier}/{appname}/{user}"
+        expected_param_value = f"password for user \"{param_key}\""
 
         # create a session object tied to the local default config
         # for region and IAM user
@@ -22,19 +29,24 @@ class AwsIntegrationTests(object):
         # create a client tied to this session
         client = AWSClient(session, resource_name='ssm')
 
-        param_key = '/example/staging/my-app/password'
-        expected_param_value = 'This is an example "password".'
-
-        # get the value for the
+        # make the AWS get parameter call
         res = client.get_password(aws_key_name=param_key, decrypt=False)
         logger.info(f"\nAWS response:\n{utils.plog(res)}")
 
-        assert res['Parameter']['Value'] == expected_param_value
+        # check the expected parameter (aka the "password")
+        actual_param_value = res['Parameter']['Value']
+        assert actual_param_value == expected_param_value
 
     def test_integration_session_defaults(self, duckduckgo):
         """
             Validation for the AWS integration code with default args.
         """
+        tier = TIER
+        appname = 'duckduckgo'
+        user = 'user01'
+        param_key = f"/welkin/{tier}/{appname}/{user}"
+        expected_param_value = f"password for user \"{param_key}\""
+
         # create a session object tied to the local default config
         # for region and IAM user
         session = AWSSession()
@@ -42,14 +54,13 @@ class AwsIntegrationTests(object):
         # create a client tied to this session
         client = AWSClient(session, resource_name='ssm')
 
-        param_key = '/example/staging/my-app/password'
-        expected_param_value = 'This is an example "password".'
-
-        # get the value for the
-        res = client.get_password(aws_key_name=param_key)
+        # make the AWS get parameter call
+        res = client.get_password(aws_key_name=param_key, decrypt=False)
         logger.info(f"\nAWS response:\n{utils.plog(res)}")
 
-        assert res['Parameter']['Value'] == expected_param_value
+        # check the expected parameter (aka the "password")
+        actual_param_value = res['Parameter']['Value']
+        assert actual_param_value == expected_param_value
 
     def test_integration_session_fixture(self, auth):
         """
@@ -59,19 +70,24 @@ class AwsIntegrationTests(object):
             check whether the session is getting created multiple
             times
         """
+        # setup
+        tier = TIER
+        appname = 'duckduckgo'
+        user = 'user01'
+        param_key = f"/welkin/{tier}/{appname}/{user}"
+        expected_param_value = f"password for user \"{param_key}\""
         session = auth
 
         # create a client tied to this session
         client = AWSClient(session, resource_name='ssm')
 
-        param_key = '/example/staging/my-app/password'
-        expected_param_value = 'This is an example "password".'
-
-        # get the value for the
+        # make the AWS get parameter call
         res = client.get_password(aws_key_name=param_key, decrypt=False)
         logger.info(f"\nAWS response:\n{utils.plog(res)}")
 
-        assert res['Parameter']['Value'] == expected_param_value
+        # check the expected parameter (aka the "password")
+        actual_param_value = res['Parameter']['Value']
+        assert actual_param_value == expected_param_value
 
     def test_integration_session_fixture2(self, auth):
         """
@@ -81,16 +97,47 @@ class AwsIntegrationTests(object):
             check whether the session is getting created multiple
             times
         """
+        # setup
+        tier = TIER
+        appname = 'duckduckgo'
+        user = 'user01'
+        param_key = f"/welkin/{tier}/{appname}/{user}"
+        expected_param_value = f"password for user \"{param_key}\""
         session = auth
 
         # create a client tied to this session
         client = AWSClient(session, resource_name='ssm')
 
-        param_key = '/example/staging/my-app/password'
-        expected_param_value = 'This is an example "password".'
-
-        # get the value for the
+        # make the AWS get parameter call
         res = client.get_password(aws_key_name=param_key, decrypt=False)
         logger.info(f"\nAWS response:\n{utils.plog(res)}")
 
-        assert res['Parameter']['Value'] == expected_param_value
+        # check the expected parameter (aka the "password")
+        actual_param_value = res['Parameter']['Value']
+        assert actual_param_value == expected_param_value
+
+    def test_integration_session_fixture_user(self, auth):
+        """
+            Validation for the AWS integration code called as a fixture,
+            and using the User model.
+        """
+        # setup
+        tier = TIER
+        appname = 'duckduckgo'
+        user_id = 'user01'
+        param_key = f"/welkin/{tier}/{appname}/{user_id}"
+        expected_param_value = f"password for user \"{param_key}\""
+        session = auth
+
+        # set up user object
+        user = ApplicationUser(tier, appname, user_id)
+        logger.info(f"\n~~~~> user object:\n{user}")
+
+        # get the password
+        user.get_password_from_aws(session, verbose=True)
+        logger.info(f"\n~~~~> user object:\n{user}")
+
+        # check the expected parameter (aka the "password")
+        # NOTE: CAREFUL WHEN ACCESSING OR COMPARING PASSWORDS
+        actual_param_value = user.password
+        assert actual_param_value == expected_param_value

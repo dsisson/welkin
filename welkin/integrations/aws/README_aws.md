@@ -2,13 +2,13 @@
 
 ## Table of Contents
 + [Create an AWS Account](#create-an-aws-account)
-  + [Set a Budget!](#set-a-budget!)
+  + [Set a Budget!](#set-a-budget)
 + [Add a Framework User](#add-a-framework-user)
   + [Add a User Group and Inline Policy](#add-a-user-group-and-inline-policy)
   + [Add a User](#add-a-user)
 + [Set Up The System AWS CLI Configuration](#set-up-the-system-aws-cli-configuration)
   + [Installing AWS CLI Locally](#installing-aws-cli-locally)
-  + [Configure the Local AWS CLI](#configure-the-localaws-cli)
+  + [Configure the Local AWS CLI](#configure-the-local-aws-cli)
 + [Set your Passwords](#set-your-passwords)
 
 
@@ -36,8 +36,13 @@ You need a **user group** that will be attached to the access permissions.
 1. go to ```AWS --> Identity and Access Management (IAM) --> User groups```
 2. create a group like "framework_users"
 3. create an inline policy called something like "framework_access_policy"
-4. Lookup the **Systems Manager** service
-5. find the **GetParameter** and **GetParameters** actions and select them
+4. Lookup the service **Systems Manager** and select that
+5. Expand the **Access Level** for **Read**
+6. Find and select the **Read** options **GetParameter** and **GetParameters**
+7. Select the option **Specific** for **Resources** and fill in the ARN details:
+   * **Region** should be the region for the framework account
+   * **Account** should be the framework account
+   * For the **Parameter name without leading slash**, you can either put in the specific parameter name -- and have to deal with adding each parameter separately, which improves security but is a pain -- or you can enter in **welkin/** (or other framework identifier) to allow access to all teh framework parameters. 
 
 This gives exactly two access permissions for this group. If you add framework code that requires additional integration points, you must add the additional access actions to the policy. 
 
@@ -100,7 +105,7 @@ tier
 This yields a string path "tier/application/username". We will use this as the name for the *name* of the parameter that corresponds to the password *value*. However, we should prepend this with a node that identifies this as being a framework parameter distinct from what anybody else in our company might be doing. For example, we might prepend this with "welkin".
 
 1. go to ```AWS --> Systems Manager --> Parameter Store```
-2. create a parameter with a name that reflects the unique prepend + node path, for example "/welin/tier/application/username"; that leading slash is required.
+2. create a parameter with a name that reflects the unique prepend + node path, for example "/welkin/prod/duckduckgo/user01"; that leading slash is required.
 3. specific an appropriate value type
 4. assign a tag that references the framework, for exmaple "ok_welkin"
 
