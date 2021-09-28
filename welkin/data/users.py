@@ -46,24 +46,6 @@ app_user_map = {
 }
 
 
-def get_users_for_tier(tier, app=None, verbose=False):
-    """
-         Extract the test users for the specified tier and specified app.
-
-         Note; can we deprecate this since we use AWS?
-
-         :param tier: str, one of 'int', 'stage', 'prod'
-         :param app: str, defaults to None
-         :param verbose: bool, whether to log additional information
-         :return: dict of users
-     """
-    logger.info(f"Getting tier '{tier}' users for '{app if app else 'all apps'}'")
-    these_users = app_user_map[tier][app]
-    if verbose:
-        logger.info('\nFound users:\n%s' % utils.plog(these_users))
-    return these_users
-
-
 def get_specific_user(tier, app, fuid, verbose=False):
     """
         Return a single user `fuid` for tier + app.

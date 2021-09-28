@@ -21,7 +21,7 @@ class ExampleGenderizerTests(object):
     @pytest.mark.parametrize('good_name',
                              [n for n in good_names_single],
                              ids=[n[0] for n in good_names_single])
-    def test_get_single_name(self, good_name):
+    def test_get_single_name(self, genderizer, good_name):
         """
             For the supplied name and expected gender, verify that the API response
             contains the name and expected gender.
@@ -56,7 +56,7 @@ class ExampleGenderizerTests(object):
 
     @pytest.mark.parametrize('multiple_good_names', [n for n in good_names_multiple],
                              ids=['+'.join(l[0]) for l in good_names_multiple])
-    def test_get_multiple_good_names(self, multiple_good_names):
+    def test_get_multiple_good_names(self, genderizer, multiple_good_names):
         """
             For the supplied list of names and expected genders, verify that
             the API response contains the names and expected genders.
@@ -102,7 +102,7 @@ class ExampleGenderizerTests(object):
             assert item[1] == expected[i][1], 'expected "%s", but got "%s"' % (expected[i][1], item[1])
 
     @pytest.mark.parametrize('bad_name', [n for n in bad_names_single])
-    def test_gender_not_resolved(self, bad_name):
+    def test_gender_not_resolved(self, genderizer, bad_name):
         """
             For the supplied problematic name, verify that the API response
             contains the name and null gender.
@@ -130,7 +130,7 @@ class ExampleGenderizerTests(object):
 
     @pytest.mark.parametrize('multiple_bad_names', [n for n in bad_names_multiple],
                              ids=['+'.join(l[0]) for l in bad_names_multiple])
-    def test_get_multiple_bad_names(self, multiple_bad_names):
+    def test_get_multiple_bad_names(self, genderizer, multiple_bad_names):
         """
             For the supplied list of names and expected genders, verify that
             the API response contains the names and expected genders.
@@ -171,7 +171,7 @@ class ExampleGenderizerTests(object):
             # test point: verify the expected gender for the name
             assert item[1] == expected[i][1], 'expected "%s", but got "%s"' % (expected[i][1], item[1])
 
-    def test_int_as_name(self):
+    def test_int_as_name(self, genderizer):
         """
             Integers are converted to strings by the API.
         """
@@ -192,7 +192,7 @@ class ExampleGenderizerTests(object):
 
     @pytest.mark.parametrize('more_than_11_names', [n for n in too_many_names],
                              ids=['+'.join(l[0]) for l in too_many_names])
-    def test_exceed_multiple_request_limit(self, more_than_11_names):
+    def test_exceed_multiple_request_limit(self, genderizer, more_than_11_names):
         """
             Request 11 names in one API call; the limit is 10 so any name after the tenth gets ignored.
 

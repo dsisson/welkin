@@ -26,9 +26,9 @@ def write_cookies_to_file(cookies, url, fname=''):
     logger.info(f"\nSaved cookies: {path}.")
 
 
-def write_traffic_log_to_file(log, url, fname=''):
+def write_network_log_to_file(log, url, fname=''):
     """
-        Save the browser network traffic log as json to a file.
+        Save the browser network log as json to a file.
 
         :param log:
         :param url: str, url for the current page
@@ -39,14 +39,14 @@ def write_traffic_log_to_file(log, url, fname=''):
     # note: json files don't allow comments, so we'd not be able
     # to write the url to the file
     filename = f"/{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.json"
-    path = pytest.welkin_namespace['testrun_traffic_log_folder'] + filename
+    path = pytest.welkin_namespace['testrun_network_log_folder'] + filename
 
     wrapper = {}
     wrapper['_page'] = url
     wrapper['chrome network logs'] = log
     with open(path, 'a') as f:
         f.write(utils.plog(wrapper))
-    logger.info(f"\nSaved traffic log: {path}.")
+    logger.info(f"\nSaved browser network log: {path}.")
 
 
 def write_console_log_to_file(log, url, fname=''):

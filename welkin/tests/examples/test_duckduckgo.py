@@ -207,7 +207,7 @@ class ExampleDuckduckgoTests(object):
         assert len(relevant_results) > 5, \
             f"Only {len(relevant_results)} relevant results found, hoped for 5"
 
-    def test_duckduckgo_router(self, driver):
+    def test_duckduckgo_router(self, driver, duckduckgo):
         """
             Using a correctly-spelled query string, validate some results data
             test points on the search results page.

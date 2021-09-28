@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 @pytest.mark.api
 class DadJokesTests(object):
 
-    def test_search_for_joke(self):
+    def test_search_for_joke(self, dadjokes):
         terms = 'bicycle'
         api = SearchEndpoint()
         res = api.search_for_joke(terms, verbose=True)

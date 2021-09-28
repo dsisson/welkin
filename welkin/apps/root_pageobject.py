@@ -452,7 +452,7 @@ class RootPageObject(object):
             logger.info(f"Writing special logs.")
 
             # write the raw performance logs to /network
-            utils_file.write_traffic_log_to_file(log=performance_logs,
+            utils_file.write_network_log_to_file(log=performance_logs,
                                                  url=self.url, fname=clean_name)
 
             # write the scan logs to /console
