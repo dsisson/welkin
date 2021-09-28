@@ -19,7 +19,7 @@ class ExampleColourLoversTests(object):
     color_endpoint = color.ColorEndpoint()
     colors_endpoint = colors.ColorsEndpoint()
 
-    def test_get_color(self):
+    def test_get_color(self, colourlovers):
         """
             Simple test for the "color" endpoint, using hardcoded data.
 
@@ -40,7 +40,7 @@ class ExampleColourLoversTests(object):
         # test point: verify that the json keys are correct
         assert self.color_endpoint.verify_keys_in_response(res.json()[0].keys())
 
-    def test_get_colors(self):
+    def test_get_colors(self, colourlovers):
         """
             Simple test for the "colors" endpoint, using no data. This just looks at the structure
             of the returned json.
@@ -58,7 +58,7 @@ class ExampleColourLoversTests(object):
         assert self.color_endpoint.verify_keys_in_response(res.json()[0].keys())
 
     @pytest.mark.parametrize('colors_data', color_data, ids=[c[1] for c in color_data])
-    def test_colordata(self, colors_data):
+    def test_colordata(self, colourlovers, colors_data):
         """
             This is a parametrized test case using a data source consisting of a list of lists.
             Pytest will iterate over the data model and call this test method once for each top

@@ -9,7 +9,7 @@ import pytest
 logger = logging.getLogger(__name__)
 
 
-def create_testrun_folder(timestamped_name):
+def create_test_output_folder(timestamped_name):
     """
         Every pytest invocation triggers a bunch of logging actions. During
         the pytest start up routines, logging is enabled and configured,
@@ -45,7 +45,7 @@ def create_testrun_folder(timestamped_name):
     return welkin_root_path, testrun_path
 
 
-def create_testrun_subfolder(path, folder):
+def create_test_output_subfolder(path, folder):
     """
         Create a folder `folder` at path `path`.
 
