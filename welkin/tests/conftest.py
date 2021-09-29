@@ -502,31 +502,28 @@ def set_up_tier_globals(config):
 @pytest.fixture(scope='session')
 def auth():
     """
-        Fixture that creates an AWS session and returns that to the
-        calling test; this only executes if a collected test calls
-        this fixture.
-
-        A better name would be "get_aws_session_as_precursor_to_get_password",
-        but fixture names have to be short and reasonably clear.
-
-        The intent here is to create a single AWS session, and have each test
-        create its own AWS client and then get the password.
+        Fixture that calls the fixture that manages passwords via a
+        key store on a cloud service; the intent is to simplify changes
+        AND to have a simple fixture name that is not tied to a service
+        name. This fixture name will be used as an arg in test methods,
+        and it would suck to replace that.
 
         :return aws_session: AWS session object
     """
-    from welkin.integrations.aws.aws import AWSSession
-    # create a session object tied to the local default config
-    # for region and IAM user
-    aws_session = AWSSession(verbose=True)
-    logger.info(f"\n--> AWS session {aws_session} ({id(aws_session)})")
-    return aws_session
+    # we currently use aws for managing test user account passwords
+    logger.info(f"\n\n=======> called auth()")
+    return aws()
 
 
 # 7.1
 def set_up_testcase_reporting(path_to_subfolder, fixturenames):
     """
-        Create the various output folders needed for the different
-        kinds of reporting and logging (beyond the core framework log).
+        For every specific test instance being run, create the various output
+        folders needed for the different kinds of reporting and logging (beyond
+        the core framework log). Depending on the "types" of apps being pulled
+        into the test instance (via fixtures), different kinds of data will
+        be logged or saved, so create the folders appropriate to this test's
+        apps.
 
         :param path_to_subfolder: dict, info about the current test case
         :param fixturenames: list, string fixture names for this testcase
@@ -548,13 +545,20 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
         # method argument and have the appropriate folders and
         # logging in place.
         # #############################################
+        integrations = ['auth']  # not used, but helps with context
         web_apps = ['duckduckgo']
-        apis = ['auth', 'colourlovers', 'dadjokes', 'genderizer']
+        apis = ['colourlovers', 'dadjokes', 'genderizer']
 
         # only create folders and logs appropriate to the app fixtures
         is_api = len(set(fixturenames).intersection(apis))
         is_webapp = len(set(fixturenames).intersection(web_apps))
         logger.info(f"\napp types: is_api {is_api}; is_webapp: {is_webapp}")
+
+        # always create the integrations logging folder, for any test instance
+        folder_type = 'integrations'
+        requests_folder = str(utils.create_test_output_subfolder(output_path, folder_type))
+        pytest.welkin_namespace[f"testrun_{folder_type}_log_folder"] = requests_folder
+        logger.info(f"created folder '{folder_type}': {requests_folder}")
 
         # create the requests logging folders for APIs
         folder_type = 'requests'
@@ -774,6 +778,36 @@ def driver(request, browser):
 
     driver.quit()
     logger.info(f"Quitting '{browser}'' driver.")
+
+
+# #########################################
+# integration/SDK fixtures: if you add it here,
+# you must also add a corresponding wrapper to:
+# 1. integrations/
+# 2. conftest.py::set_up_testcase_reporting()
+# NOTE: not decorated as a fixture!
+# #########################################
+def aws():
+    """
+        Fixture that creates an AWS session and returns that to the
+        calling test; this only executes if a collected test calls
+        this fixture.
+
+        A better name would be "get_aws_session_as_precursor_to_get_password",
+        but fixture names have to be short and reasonably clear.
+
+        The intent here is to create a single AWS session, and have each test
+        create its own AWS client and then get the password.
+
+        :return aws_session: AWS session object
+    """
+    logger.info(f"\n\n=======> called aws()")
+    from welkin.integrations.aws.aws import AWSSession
+    # create a session object tied to the local default config
+    # for region and IAM user
+    aws_session = AWSSession(verbose=True)
+    logger.info(f"\n--> AWS session {aws_session} ({id(aws_session)})")
+    return aws_session
 
 
 # #########################################

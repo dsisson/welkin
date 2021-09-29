@@ -1,10 +1,8 @@
 import logging
-import os
 import json
-import time
 import pathlib
 import pprint
-import pytest
+from copy import deepcopy
 
 logger = logging.getLogger(__name__)
 
@@ -81,6 +79,35 @@ def path_proof_name(name):
         clean_name = clean_name.replace("'", '')
 
     return clean_name
+
+
+def strip_password_for_reporting(content):
+    """
+        Don't log passwords! Strip out password values from `content`.
+        Because this might cause side effects we use deepcopy.
+
+        Note: this is implemented to specifically support the AWS SDK,
+        so it is not a general solution for cleaning passwords out of
+        content.
+
+        :param content: dict, content maybe containing a password
+        :return: content without password
+    """
+    if not content:
+        # if there is no content, e.g. empty string, then nothing to strip!
+        logger.info(f"No password to strip.")
+        return content
+    elif not content.get('Parameter'):
+        # this is not a get parameter response, so nothing to strip
+        return content
+    elif not content['Parameter'].get('Type') == 'SecureString':
+        # this is an open text string parameter, so nothing to strip
+        return content
+    else:
+        content_for_reporting = deepcopy(content)
+        replacement_text = 'password removed'
+        content_for_reporting['Parameter']['Value'] = replacement_text
+        return content_for_reporting
 
 
 def plog(content):

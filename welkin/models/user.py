@@ -82,11 +82,12 @@ class ApplicationUser():
         param_key = f"/welkin/{self.tier}/{self.application}/{self.fuid}"
         return param_key
 
-    def get_password_from_aws(self, aws_session, verbose=False):
+    def get_password_from_aws(self, aws_session, decrypt=False, verbose=False):
         """
             Make an AWS call to retrieve the password for this user.
 
             :param aws_session: AWS session object
+            :param decrypt: bool, True to decrypt the AWS param value
             :param verbose: bool, True to output additional information
             :return: None
         """
@@ -94,10 +95,11 @@ class ApplicationUser():
         client = AWSClient(aws_session, resource_name=resource)
 
         # make the AWS get parameter call
-        res = client.get_password(aws_key_name=self.password_key,
-                                  decrypt=False)
+        res = client.get_parameter_data(aws_key_name=self.password_key,
+                                        decrypt=decrypt)
         if verbose:
-            msg1 = f"AWS response:\n{utils.plog(res)}"
+            logging_data = utils.plog(utils.strip_password_for_reporting(res))
+            msg1 = f"AWS response:\n{logging_data}"
             msg2 = f"\n\n\n{'#-' * 50}\nNOTE: Don't log passwords!" \
                    f"\n{msg1}\n{'#-' * 50}\n\n\n"
             logger.info(msg2)

@@ -107,6 +107,8 @@ This yields a string path "tier/application/username". We will use this as the n
 1. go to ```AWS --> Systems Manager --> Parameter Store```
 2. create a parameter with a name that reflects the unique prepend + node path, for example "/welkin/prod/duckduckgo/user01"; that leading slash is required.
 3. specific an appropriate value type
-4. assign a tag that references the framework, for exmaple "ok_welkin"
+4. assign a tag that references the framework, for example "ok_welkin"
 
 You will have to repeat this for *every* password (parameter) you need to support.
+
+Note: it may take a few minutes for the new parameters to get associated with the user. Until that happens, you may get a ```botocore.exceptions.ClientError```.

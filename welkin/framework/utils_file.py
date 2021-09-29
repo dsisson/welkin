@@ -227,3 +227,23 @@ def write_request_to_file(response, url, fname=''):
         f.write(f"\n\n{'~' * 45}\n\n")
 
     logger.info(f"Saved headers: {path}")
+
+
+def write_sdk_response_to_file(response, sdk_app, fname=''):
+    """
+        Save the response from an SDK. Unlike typical API calls, the
+        SDK calls don't necessarily have the standard http request data
+        patterns.
+
+        These SDKs will be wrappers in the welkin/integrations folder.
+
+        :param response: SDK response, probably json or a dict
+        :param sdk_app: str name of the SDK
+        :param fname: str, first part of filename, will be appended with
+                           timestamp; defaults to empty string
+        :return: None
+    """
+    filename = f"/{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.json"
+    path = pytest.welkin_namespace['testrun_integrations_log_folder'] + filename
+    with open(path, 'a') as f:
+        f.write(utils.plog(response))

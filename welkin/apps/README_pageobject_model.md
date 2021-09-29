@@ -7,6 +7,7 @@
   + [Page Object instantiation managed through the router pattern](#page-object-instantiation-managed-through-the-router-pattern)
 + [Separating the authenticated and non-authenticated experience](#separating-the-authenticated-and-non-authenticated-experience )
 + [Browser Interaction Event Wrapping](#browser-interaction-event-wrapping)
++ [Adding Framework Support for New Applications](#adding-framework-support-for-new-applications)
 
 
 ## Application Wrappers
@@ -59,7 +60,17 @@ This layout requires the **routings.py** file to have different mapping dicts fo
 + viewing a noauth page like the login form, and successfully logging in
 + viewing an authenticated page, and successfully logging out
 
+
 ## Browser Interaction Event Wrapping
-With modern web apps created with UI frameworks that use Javascript to manipulate the page DOM, it's challenging to programmatically interact with pages that respond and change based on interactiom triggers. For example, clicking in a form field can trigger an app state change; _apps that live-validate a form field's text input as the user types it in_ are common.  
+With modern web apps created with UI frameworks that use Javascript to manipulate the page DOM, it's challenging to programmatically interact with pages that respond and change based on interaction triggers. For example, clicking in a form field can trigger an app state change; _apps that live-validate a form field's text input as the user types it in_ are common.  
 
 Welkin identifies interaction actions and triggers and wraps the direct webdriver interaction mechanisms with local methods that log "events". These events provide hooks for deeper app state inspection, allowing for better testing of error states and internal app properties.  
+
+
+## Adding Framework Support for New Applications
+When you want to add support for a new application to test, you need to make the following changes:
+1. add the wrapper as described above
+2. add the appropriate app data to `app_tier_map` in data/applications.py
+3. add a fixture with the name of the app to tests/conftest.py. Set to a scope of "session".
+4. add the string name of the fixture to the `set_up_testcase_reporting` in tests/conftest.py, to either the `web_apps` or the `apis` list. This controls the creation of logging output folders for kinds of data that depend on the category of app.  
+5. after you create any test user accounts data, you need to add paths to the AWS Parameter Store; see integrations/aws/README_aws.md. 

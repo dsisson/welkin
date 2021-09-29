@@ -17,30 +17,30 @@ in the AWS ParameterStore. See integrations/aws/README_aws.md.
 """
 app_user_map = {
     'int': {
-        'duckduckgo': {
+        'dummy_app': {
             'user01': {
-                'app': 'duckduckgo',
+                'app': 'dummy_app',
                 'email': 'int_user@example.com',
                 'fuid': 'user01'
             }
         }
     },
     'stage': {
-        'duckduckgo': {
+        'dummy_app': {
             'user01': {
-                'app': 'duckduckgo',
+                'app': 'dummy_app',
                 'email': 'test_user@example.com',
                 'fuid': 'user01'
             }
         }
     },
     'prod': {
-        'duckduckgo': {
+        'dummy_app': {
             'user01': {
-                'app': 'duckduckgo',
+                'app': 'dummy_app',
                 'email': 'prod_user@example.com',
                 'fuid': 'user01'
-            }
+            },
         }
     }
 }
