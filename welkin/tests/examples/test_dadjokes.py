@@ -1,9 +1,6 @@
 import pytest
 import logging
-import json
-import time
 
-from welkin.framework import utils
 from welkin.apps.examples.dadjokes_api.api import SearchEndpoint
 
 logger = logging.getLogger(__name__)

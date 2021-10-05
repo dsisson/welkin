@@ -1,11 +1,8 @@
 import logging
-from collections import namedtuple
 
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
-from selenium.common.exceptions import StaleElementReferenceException
 
 logger = logging.getLogger(__name__)
 
@@ -82,7 +79,7 @@ def expect_element_to_be_gone(pageobject, check, waitfor=30):
     wait = WebDriverWait(pageobject.driver, waitfor)
 
     try:
-        this = pageobject.driver.find_element(check[1], check[2])
+        this = pageobject.driver.find_element(check[1], check[2])  # noqa: F841
         # good result!
         logger.info(f"\nUnload check '{check[1:]}' was not found.")
         try:
@@ -133,7 +130,7 @@ def check_url(pageobject):
         :return: bool, True if the check evaluated to True, else False
     """
     actual_url = pageobject.driver.current_url
-    if not pageobject.url in actual_url:
+    if pageobject.url not in actual_url:
         msg = f"Url inclusion check: expected '{pageobject.url}' " \
               f"to be inside '{actual_url}'."
         logger.error(msg)

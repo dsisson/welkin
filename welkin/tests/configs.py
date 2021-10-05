@@ -30,4 +30,3 @@ def environment(request):
         return 'http://127.0.0.1:8000'
     else:
         raise ValueError('Not a valid environment.')
-

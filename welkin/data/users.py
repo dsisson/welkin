@@ -10,9 +10,9 @@ This user map is structured like this:
 <<tier>>
     |- <<appname>>
         |- <<framework user id, aka "fuid">>
-            |- details for this user 
+            |- details for this user
 
-This "path" is used to name and access the user passwords 
+This "path" is used to name and access the user passwords
 in the AWS ParameterStore. See integrations/aws/README_aws.md.
 """
 app_user_map = {

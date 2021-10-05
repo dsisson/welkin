@@ -13,6 +13,7 @@
     + [Killing a Test Run](#killing-a-test-run)
     + [Command Line Arguments](#command-line-arguments)
     + [Logging](#logging)
++ [Linting with Flake8](#linting-with-flake8)
 + [Automation Examples](#automation-examples)
     + [Single-Endpoint API](#single-endpoint-api)
 + [See Also](#see-also)
@@ -163,12 +164,25 @@ HTML test results page, plus the text log of test run activity. This output is n
 cleaned up. You'll have to define a workflow for this, if you want.
 
 
-## Automation Examples
+## Linting with Flake8
+From the [**Flake8** description](https://flake8.pycqa.org/en/latest/manpage.html):
 
+"Flake8 is a command-line utility for enforcing style consistency across Python projects. By default it includes lint checks provided by the PyFlakes project, PEP-0008 inspired style checks provided by the PyCodeStyle project, and McCabe complexity checking provided by the McCabe project. It will also run third-party extensions if they are found and installed."
+
+Running flake8 against the welkin codebase:
+```
+# from the project directory
+$ flake8 > output/flake8.txt
+```
+
+Specific configuration instructions can be set in ```setup.cfg```.
+
+
+
+## Automation Examples
 Some examples of solving particular automation challenges.
 
 ### Single-Endpoint API
-
 see [Wrapper for genderizer API](welkin/apps/examples/genderize/README.md)
 
 # See Also

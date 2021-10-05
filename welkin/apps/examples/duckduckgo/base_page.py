@@ -1,7 +1,6 @@
 import logging
 
 from welkin.apps.root_pageobject import RootPageObject
-from welkin.framework import utils
 
 logger = logging.getLogger(__name__)
 

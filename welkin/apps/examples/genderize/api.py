@@ -1,8 +1,6 @@
 import logging
-import requests
 
 from welkin.apps.root_endpoint import RootEndpoint
-from welkin.framework.exceptions import UnexpectedStatusCodeException
 from welkin.framework.exceptions import JsonPayloadException
 from welkin.framework.utils import plog
 
@@ -27,7 +25,7 @@ class GenderEndpoint(RootEndpoint):
         'name': {'type': 'string'},
         'probability': {'type': 'float'}
     }
-    
+
     def __init__(self):
         """
             Initialize an endpoint object for testing.

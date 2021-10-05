@@ -82,8 +82,8 @@ class ExampleDuckduckgoTests(object):
 
         # validate expectations
         if not (actual_title == expected_title and actual_url == expected_url):
-            msg1 = f"ERROR: DuckDuckGo search results page did NOT " \
-                   f"self-validate identity. "
+            msg1 = "ERROR: DuckDuckGo search results page did NOT " \
+                   "self-validate identity. "
             msg2 = f"Expected '{expected_title}' + '{expected_url}', " \
                    f"got '{actual_title}' + '{actual_url}'."
             logger.error(msg1 + msg2)
@@ -157,7 +157,8 @@ class ExampleDuckduckgoTests(object):
                 if token.lower() in title.lower():
                     raw_relevant_results.append(title)
         relevant_results = list(set(raw_relevant_results))  # de-dupe
-        logger.info(f"\n{len(relevant_results)} relevant results:\n{utils.plog(relevant_results)}")
+        logger.info(f"\n{len(relevant_results)} relevant "
+                    f"results:\n{utils.plog(relevant_results)}")
         assert len(relevant_results) > 5, \
             f"Only {len(relevant_results)} relevant results found, hoped for 5"
 
@@ -203,7 +204,8 @@ class ExampleDuckduckgoTests(object):
                 if token.lower() in title.lower():
                     raw_relevant_results.append(title)
         relevant_results = list(set(raw_relevant_results))  # de-dupe
-        logger.info(f"\n{len(relevant_results)} relevant results:\n{utils.plog(relevant_results)}")
+        logger.info(f"\n{len(relevant_results)} relevant "
+                    f"results:\n{utils.plog(relevant_results)}")
         assert len(relevant_results) > 5, \
             f"Only {len(relevant_results)} relevant results found, hoped for 5"
 
@@ -246,6 +248,7 @@ class ExampleDuckduckgoTests(object):
                 if token.lower() in title.lower():
                     raw_relevant_results.append(title)
         relevant_results = list(set(raw_relevant_results))  # de-dupe
-        logger.info(f"\n{len(relevant_results)} relevant results:\n{utils.plog(relevant_results)}")
+        logger.info(f"\n{len(relevant_results)} relevant "
+                    f"results:\n{utils.plog(relevant_results)}")
         assert len(relevant_results) > 5, \
             f"Only {len(relevant_results)} relevant results found, hoped for 5"

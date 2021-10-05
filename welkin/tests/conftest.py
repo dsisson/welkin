@@ -5,7 +5,6 @@ import sys
 from pathlib import Path
 
 from welkin.framework import utils
-from welkin.data.applications import get_app_url_for_tier as get_app_url
 
 logger = logging.getLogger(__name__)
 # setting up the log file filenames
@@ -79,11 +78,11 @@ def pytest_configure(config):
 def pytest_sessionstart(session):
     """
         Set up the test run.
-        
+
         Use configure_pytest_session() for any global test session and
         fixture logic.
 
-        :param session: pytest request object (which is the context 
+        :param session: pytest request object (which is the context
                         of the calling text method)
         :return: None
     """
@@ -101,7 +100,7 @@ def pytest_collection_modifyitems(items):
         :param items: list, list of test item objects
         :return: None
     """
-    logger.info(f"no actions taken.")
+    logger.info("no actions taken.")
 
 
 # 4.0
@@ -113,7 +112,7 @@ def pytest_collection_finish(session):
         :param session: pytest Session object
         :return: None
     """
-    logger.info(f"no actions taken.")
+    logger.info("no actions taken.")
     # logger.info(f"\nsession.__dict__:\n{utils.plog(session.__dict__)}")
 
 
@@ -205,7 +204,7 @@ def pytest_runtest_setup(item):
 
     # set up global namespace path-to-this-testcase value
     pytest.welkin_namespace['this_test'] = folder_path
-    logger.warning(f"### Changing log output path to the test case path. ###\n\n")
+    logger.warning("### Changing log output path to the test case path. ###\n\n")
 
     # redirect logging from the test run logger to the test case logger
     path_to_logfile = str(folder_path / TESTCASE_LOGFILE_NAME)
@@ -247,7 +246,7 @@ def pytest_runtest_setup(item):
             },
         }
     }
-    filename = set_logging_config(log_kwargs)
+    filename = set_logging_config(log_kwargs)  # noqa: F841
     yield
 
 
@@ -289,7 +288,7 @@ def pytest_runtest_teardown(item, nextitem):
         }
     }
 
-    logger.info(f"### Closing test case logfile ###\n\n")
+    logger.info("### Closing test case logfile ###\n\n")
     filename = set_logging_config(log_kwargs)
     logger.info(f"### Reset logfile to {filename} ###\n\n\n")
 
@@ -393,7 +392,7 @@ def initialize_logging():
             },
         }
     }
-    filename = set_logging_config(log_kwargs)
+    set_logging_config(log_kwargs)
     logger.info(pytest.welkin_namespace['testrun_output_path'])
     logger.info(f"\nnamespace:\n{utils.plog(pytest.welkin_namespace)}")
 
@@ -511,7 +510,7 @@ def auth():
         :return aws_session: AWS session object
     """
     # we currently use aws for managing test user account passwords
-    logger.info(f"\n\n=======> called auth()")
+    logger.info("\n\n=======> called auth()")
     return aws()
 
 
@@ -532,7 +531,7 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
     if '--collect-only' in sys.argv:
         # if pytest is invoked with the --collect-only option, don't
         # create the testrun subfolders
-        msg = f"Subfolders NOT created because this testrun is collect-only."
+        msg = "Subfolders NOT created because this testrun is collect-only."
         logger.info(msg)
     else:
         logger.info(f"fixturenames: {fixturenames}")
@@ -545,7 +544,7 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
         # method argument and have the appropriate folders and
         # logging in place.
         # #############################################
-        integrations = ['auth']  # not used, but helps with context
+        integrations = ['auth']  # not used, but helps with context  # noqa: F841
         web_apps = ['duckduckgo']
         apis = ['colourlovers', 'dadjokes', 'genderizer']
 
@@ -581,7 +580,8 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
         # create the screenshots logging folder for webapps
         folder_type = 'screenshots'
         if is_webapp:
-            screenshots_folder = str(utils.create_test_output_subfolder(output_path, folder_type))
+            screenshots_folder = \
+                str(utils.create_test_output_subfolder(output_path, folder_type))
             pytest.welkin_namespace[f"testrun_{folder_type}_output"] = screenshots_folder
             logger.info(f"created folder '{folder_type}': {screenshots_folder}")
         else:
@@ -590,7 +590,8 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
         # create the accessibility logging folder for webapps
         folder_type = 'accessibility'
         if is_webapp:
-            accessibility_folder = str(utils.create_test_output_subfolder(output_path, folder_type))
+            accessibility_folder = \
+                str(utils.create_test_output_subfolder(output_path, folder_type))
             pytest.welkin_namespace[f"testrun_{folder_type}_log_folder"] = accessibility_folder
             logger.info(f"created folder '{folder_type}': {accessibility_folder}")
         else:
@@ -601,7 +602,8 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
         # and by chromedriver for downloading files from the UI
         folder_type = 'downloads'
         if is_api or is_webapp:
-            downloads_folder = str(utils.create_test_output_subfolder(output_path, folder_type))
+            downloads_folder = \
+                str(utils.create_test_output_subfolder(output_path, folder_type))
             pytest.welkin_namespace[f"testrun_{folder_type}_log_folder"] = downloads_folder
             logger.info(f"created folder '{folder_type}': {downloads_folder}")
         else:
@@ -610,7 +612,8 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
         # set up handling for web storage for webapps
         folder_type = 'webstorage'
         if is_webapp:
-            webstorage_folder = str(utils.create_test_output_subfolder(output_path, folder_type))
+            webstorage_folder = \
+                str(utils.create_test_output_subfolder(output_path, folder_type))
             pytest.welkin_namespace[f"testrun_{folder_type}_log_folder"] = webstorage_folder
             logger.info(f"created folder '{folder_type}': {webstorage_folder}")
         else:
@@ -640,8 +643,8 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
             pytest.welkin_namespace['get_console'] = True
 
         else:
-            logger.info(f"did NOT create 'network' folder")
-            logger.info(f"did NOT create 'console' folder")
+            logger.info("did NOT create 'network' folder")
+            logger.info("did NOT create 'console' folder")
             pytest.welkin_namespace['devtools_supported'] = False
             pytest.welkin_namespace['get_network'] = False
             pytest.welkin_namespace['get_console'] = False
@@ -694,8 +697,8 @@ def browser_chrome():
     from selenium import webdriver
     from selenium.webdriver.chrome.options import Options
 
-    chrome_options = Options()
-    #default_dir = {'download.default_directory': None#}
+    chrome_options = Options()  # noqa: F841
+    # default_dir = {'download.default_directory': None#}
     # chrome_options.add_experimental_option('prefs')
 
     capabilities = base_chrome_capabilities()
@@ -715,7 +718,7 @@ def browser_chrome_headless():
 
     chrome_options = Options()
     chrome_options.add_argument('--headless')
-    #default_dir = {'download.default_directory': None#}
+    # default_dir = {'download.default_directory': None#}
     # chrome_options.add_experimental_option('prefs')
 
     capabilities = base_chrome_capabilities()
@@ -743,7 +746,6 @@ def driver(request, browser):
         :yield driver: webdriver object
     """
     logger.info(f"Requested '{browser}' driver.")
-    from selenium import webdriver
     driver = None
 
     if browser == 'chrome':
@@ -801,7 +803,7 @@ def aws():
 
         :return aws_session: AWS session object
     """
-    logger.info(f"\n\n=======> called aws()")
+    logger.info("\n\n=======> called aws()")
     from welkin.integrations.aws.aws import AWSSession
     # create a session object tied to the local default config
     # for region and IAM user

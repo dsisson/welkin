@@ -35,8 +35,10 @@ bad_names_multiple = [
 
 too_many_names = [
     (  # 11 names should return error
-        ('Bob', 'Joe', 'Sue', 'Spencer', 'Steve', 'John', 'Mary', 'Jane', 'Henry', 'Juan', 'Pat'),
-        ('male', 'male', 'female', 'male', 'male', 'male', 'female', 'female', 'male', 'male', 'male')
+        ('Bob', 'Joe', 'Sue', 'Spencer', 'Steve', 'John', 'Mary',
+         'Jane', 'Henry', 'Juan', 'Pat'),
+        ('male', 'male', 'female', 'male', 'male', 'male', 'female',
+         'female', 'male', 'male', 'male')
     ),
 
 ]
