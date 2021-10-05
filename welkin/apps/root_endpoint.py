@@ -1,9 +1,6 @@
 import logging
-import pytest
 import requests
-import json
 import uuid
-from collections import namedtuple
 from cerberus import Validator
 
 from welkin.framework import utils
@@ -83,7 +80,7 @@ class RootEndpoint(object):
                     params=params
                 )
             else:
-                logger.warning(f"Choosing not to use the requests session object.")
+                logger.warning("Choosing not to use the requests session object.")
                 res = requests.get(
                     url,
                     headers=self.headers,
@@ -97,7 +94,7 @@ class RootEndpoint(object):
                     headers=self.headers,
                     verify=True)
             else:
-                logger.warning(f"Choosing not to use the requests session object.")
+                logger.warning("Choosing not to use the requests session object.")
                 res = requests.get(
                     url,
                     headers=self.headers,
@@ -145,7 +142,7 @@ class RootEndpoint(object):
             logger.error('Comparison results: Keys are NOT equal.')
             logger.error(f"Expected keys:\n{utils.plog(expected)}")
             logger.error(f"Actual keys:\n{utils.plog(actual)}")
-            raise JsonPayloadException(f"Actual keys don't match expected keys.")
+            raise JsonPayloadException("Actual keys don't match expected keys.")
 
     def validate_schema(self, response_data, verbose=False):
         """

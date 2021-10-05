@@ -35,8 +35,9 @@ class JsonPayloadException(Exception):
 
 class UnexpectedStatusCodeException(Exception):
     """
-        Raise this exception when the server response code from an http request is not a success code.
-        Capture the requests response object and make that available.
+        Raise this exception when the server response code from an http
+        request is not a success code. Capture the requests response
+        object and make that available.
 
         # pass the response object to the exception
         >>> raise UnexpectedStatusCodeException(response=res)

@@ -162,7 +162,7 @@ def clear_local_storage(pageobject):
 
     # run the script
     pageobject.driver.execute_script(script)
-    logger.warning(f"localStorage has been cleared")
+    logger.warning("localStorage has been cleared")
 
 
 def get_session_storage(pageobject):
@@ -189,7 +189,7 @@ def get_session_storage(pageobject):
     except WebDriverException:
         # checking for storage immediately after the driver is
         # loaded will throw a WebDriverException, so ignore that
-        msg = f"Ignoring a WebDriverException."
+        msg = "Ignoring a WebDriverException."
         logger.warning(msg)
         return content
 
@@ -206,7 +206,7 @@ def clear_session_storage(pageobject):
 
     # run the script
     pageobject.driver.execute_script(script)
-    logger.warning(f"sessionStorage has been cleared")
+    logger.warning("sessionStorage has been cleared")
 
 
 def hard_clear_input_field(pageobject, element, name):
@@ -228,7 +228,7 @@ def hard_clear_input_field(pageobject, element, name):
         :return element: webelement (after being cleared)
     """
     driver = pageobject.driver
-    logger.warning(f"getting serious about clearing the default")
+    logger.warning("getting serious about clearing the default")
     current_value = element.get_attribute('value')
     value_length = len(current_value) + 1
     logger.info(f"\nneed to unset '{current_value}'; {value_length} chars")

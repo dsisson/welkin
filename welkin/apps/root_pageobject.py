@@ -67,7 +67,7 @@ class RootPageObject(object):
         """
         # get the previous page's name; remember that the browser has changed
         # state and we are trying to catch the page object up to the browser
-        last_page = self.name
+        last_page = self.name  # noqa: F841
 
         # unload steps, if needed
         self.verify_unload(screenshot=True, verbose=True)
@@ -241,8 +241,10 @@ class RootPageObject(object):
             [(False, By.CSS_SELECTOR, '#layoutVnsContent ul')]
 
             The available load checks are:
-                checks.expect_element_to_be_present(): Triggered by `True` as the first value in the self.load_checks
-                checks.expect_element_to_be_gone(): Triggered by `False` as the first value in the self.load_checks
+                checks.expect_element_to_be_present(): Triggered by `True`
+                    as the first value in the self.load_checks
+                checks.expect_element_to_be_gone(): Triggered by `False`
+                    as the first value in the self.load_checks
 
             :param waitfor: int, wait time page load verification, defaults to 30 seconds
             :param screenshot: bool, whether to take screenshot if check fails
@@ -273,7 +275,7 @@ class RootPageObject(object):
             if verbose:
                 logger.info(f"\n====> load check: {check} for '{self.name}'")
             # not pythonic, but also not ambiguous: 'True' means "should be present"
-            if check[0] == True:
+            if check[0] == True:  # noqa: E712
                 res = checks.expect_element_to_be_present(self, check, waitfor)
                 if res:
                     # there's problem, so add the check to our collection
@@ -287,7 +289,7 @@ class RootPageObject(object):
         # loop over the errors and set up the PageLoadException object
         if found_problems:
             # save the logs
-            logger.info(f"Writing special logs because of load errors")
+            logger.info("Writing special logs because of load errors")
             self.save_browser_logs()
             payload = {'page': f"Failed to load page '{self.name}'", 'errors': dict()}
             for validation in found_problems:
@@ -324,7 +326,8 @@ class RootPageObject(object):
             :param verbose: bool, whether to output additional logging
             :return: True if valid, else raise exception
         """
-        logger.info(f"\nAttempting to verify identity for '{self.name}': '{self.driver.current_url}'.")
+        logger.info(f"\nAttempting to verify identity for "
+                    f"'{self.name}': '{self.driver.current_url}'.")
 
         # set up list of validation results
         validations = []
@@ -449,7 +452,7 @@ class RootPageObject(object):
             console_logs['console'] = utils_selenium.\
                 get_console_logs(pageobject=self)
 
-            logger.info(f"Writing special logs.")
+            logger.info("Writing special logs.")
 
             # write the raw performance logs to /network
             utils_file.write_network_log_to_file(log=performance_logs,

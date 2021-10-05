@@ -1,7 +1,6 @@
 import logging
 
 from welkin.apps.examples.colourlovers_api import base_endpoint
-from welkin.framework.exceptions import UnexpectedStatusCodeException
 from welkin.framework.utils import plog
 
 
@@ -44,11 +43,13 @@ class ColorsEndpoint(base_endpoint.BaseEndpoint):
 
     def get_colors(self, format='json', verbose=True, **kwargs):
         """
-            Grab the first n-results for the parameters passed to the colors endpoint.
+            Grab the first n-results for the parameters passed
+            to the colors endpoint.
 
 
-            This endpoint returns a list of json dicts, even though their is only one color returned.
-            The calling code will have to handle that. for example:
+            This endpoint returns a list of json dicts, even though there
+            is only one color returned. The calling code will have to handle
+            that. for example:
 
             >>> res = self.colors_endpoint.get_colors('000000')
             >>> assert res.json()[0]['hex'] == '000000'

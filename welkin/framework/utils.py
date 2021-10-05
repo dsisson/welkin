@@ -95,7 +95,7 @@ def strip_password_for_reporting(content):
     """
     if not content:
         # if there is no content, e.g. empty string, then nothing to strip!
-        logger.info(f"No password to strip.")
+        logger.info("No password to strip.")
         return content
     elif not content.get('Parameter'):
         # this is not a get parameter response, so nothing to strip

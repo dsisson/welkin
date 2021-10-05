@@ -168,8 +168,8 @@ def write_request_to_file(response, url, fname=''):
     boundary = None
     with open(path, 'a') as f:
         f.write(f"{url}\n\n")  # write the url as the first line
-        f.write(f"###### REQUEST ####### \n")
-        f.write(f"HEADERS\n")
+        f.write("###### REQUEST ####### \n")
+        f.write("HEADERS\n")
         try:
             # the request header MUST have the Content-Type key-value pair
             # if not, raise an exception and kill the test
@@ -190,8 +190,8 @@ def write_request_to_file(response, url, fname=''):
             if isinstance(response.request.body, bytes):
                 # this was a binary upload, so decode it as a
                 # unicode str in order to write it to the file
-                logger.warning(f"response.request.body cast as string.")
-                f.write(f"--decoded from bytes--\n")
+                logger.warning("response.request.body cast as string.")
+                f.write("--decoded from bytes--\n")
                 if boundary:
                     # this is a multi-part form body
                     # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
@@ -199,25 +199,25 @@ def write_request_to_file(response, url, fname=''):
                     cleaned_body = body.replace('\r\n\r\n\n\r\n', '\n\n')
                     f.write(cleaned_body)
                 else:
-                    f.write(f"don't know what happened with this request body;\n"
-                            f"probably a POST with bytes.")
+                    f.write("don't know what happened with this request body;\n"
+                            "probably a POST with bytes.")
 
             else:
                 try:
                     f.write(utils.plog(json.loads(response.request.body)))
                 except UnicodeDecodeError:
-                    logger.warning(f"got UnicodeDecodeError.")
-                    f.write(f"-- byte string snipped --")
+                    logger.warning("got UnicodeDecodeError.")
+                    f.write("-- byte string snipped --")
                 except json.decoder.JSONDecodeError:
-                    logger.warning(f"got json.decoder.JSONDecodeError.")
+                    logger.warning("got json.decoder.JSONDecodeError.")
                     f.write(utils.plog(response.request.body))
 
-        f.write(f"\n\n###### RESPONSE ####### \n")
-        f.write(f"HEADERS\n")
+        f.write("\n\n###### RESPONSE ####### \n")
+        f.write("HEADERS\n")
         f.write(utils.plog(response.headers))
-        f.write(f"\n\nRESPONSE STATUS CODE\n")
+        f.write("\n\nRESPONSE STATUS CODE\n")
         f.write(f"response server status: {response.status_code}")
-        f.write(f"\n\nPAYLOAD\n")
+        f.write("\n\nPAYLOAD\n")
         try:
             f.write(utils.plog(response.json()))
         except json.decoder.JSONDecodeError:

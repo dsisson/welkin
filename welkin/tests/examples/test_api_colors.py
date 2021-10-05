@@ -1,6 +1,5 @@
 import pytest
 import logging
-import json
 import time
 
 from welkin.framework import utils
@@ -42,8 +41,8 @@ class ExampleColourLoversTests(object):
 
     def test_get_colors(self, colourlovers):
         """
-            Simple test for the "colors" endpoint, using no data. This just looks at the structure
-            of the returned json.
+            Simple test for the "colors" endpoint, using no data. This just
+            looks at the structure of the returned json.
 
             :return: None
         """

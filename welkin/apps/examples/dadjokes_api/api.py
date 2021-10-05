@@ -2,7 +2,6 @@ import logging
 
 from welkin.apps.root_endpoint import RootEndpoint
 from welkin.framework import utils
-from welkin.framework import utils_file
 
 logger = logging.getLogger(__name__)
 

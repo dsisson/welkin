@@ -119,10 +119,10 @@ class ApplicationUser():
         """
         properties = self.__dict__
         keys = properties.keys()
-        if not 'password' in keys:
+        if 'password' not in keys:
             return f"ApplicationUser({properties})"
         else:
             cleaned_keys = [k for k in keys if not k == 'password']
-            cleaned_props = {k:properties[k] for k in cleaned_keys}
+            cleaned_props = {k: properties[k] for k in cleaned_keys}
             cleaned_props['password'] = 'value redacted'
             return f"ApplicationUser({cleaned_props})"
