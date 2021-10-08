@@ -139,7 +139,7 @@ class RootPageObject(object):
         # assume that the PO logic is correct and accurate, and that
         # the page has completed loading
         event = f"loaded page '{po_id}'"
-        self.set_event(event)
+        self.set_event(event, page_name=new_pageobject_instance.name)
 
         # perform any page identity checks that are specified in the PO class
         # >> using the new page object! <<
@@ -533,7 +533,7 @@ class RootPageObject(object):
         logger.info(f"Writing accessibility logs to {filename}")
         axe.write_results(axe_results, filename)
 
-    def set_event(self, event_name):
+    def set_event(self, event_name, page_name=None):
         """
             Add an event to the current page object's properties.
 
@@ -541,15 +541,19 @@ class RootPageObject(object):
             MAY cause a change in page state by triggering Javascript logic
             to manipulate the DOM.
 
+            Optionally set the name of the current page as `page_name`.
+            Typically it's ok to just use the current page objects name property
+
             For now, we just log the fact of the event.
 
             :param event_name: str, name of the event
+            :param page_name: str, name of page where the event occurred
             :return: None
         """
         this_event = {
             '_timestamp': time.time(),
             'event': event_name,
-            'page': self.name
+            'on page': page_name if page_name else self.name
         }
 
         logger.info(f"\nbrowser interaction event:\n{utils.plog(this_event)}")
