@@ -606,7 +606,7 @@ class RootPageObject(object):
                     logger.info(f"actual URL: {driver.current_url}")
                     self.save_screenshot(f"failed while leave {self.name}")
                     self.save_browser_logs()
-                    self.save_webstorage(event_name=msg)
+                    self.save_webstorage(event=msg)
                     raise PageUnloadException(msg)
 
             else:
@@ -620,7 +620,7 @@ class RootPageObject(object):
                     logger.error(msg)
                     self.save_screenshot(f"failed to leave {self.name}")
                     self.save_browser_logs()
-                    self.save_webstorage(event_name=msg)
+                    self.save_webstorage(event=msg)
                     raise PageUnloadException(msg)
         else:
             self._click_element(element, name, **actions)
