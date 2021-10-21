@@ -15,6 +15,32 @@ TESTCASE_LOGFILE_NAME = 'testlog.txt'
 COUNT = 1
 
 
+def update_namespace(data: dict, verbose: bool = False):
+    """
+        Supporting method to simplify the addition of data into this
+        frameworks hacky namespace solution, which is just the addition
+        of a dictionary as a property on the pytest instance triggered by
+        this test run invocation.
+
+        Any change to this dict is global and will have side effects.
+
+        :param data: dict of items to add to the namespace
+        :param verbose: bool, whether to output additional logging
+        :return: None
+    """
+    try:
+        pytest.custom_namespace
+    except AttributeError:
+        pytest.custom_namespace = {}
+        if verbose:
+            logger.info(f"\nnamspace doesn't exist, so creating it")
+
+    for k, v in data.items():
+        pytest.custom_namespace[k] = v
+        if verbose:
+            logger.info(f"\nadded namespace '{k}': '{v}'")
+
+
 def pytest_addoption(parser):
     """
         Define command line options and arguments.
@@ -64,10 +90,15 @@ def pytest_configure(config):
         :return: None
     """
     add_opts_to_namespace(config)
+    namespace_data = {}
 
     # update the pytest-html path to include the timestamped folder
     corrected_report_path = str(correct_results_report_path())
-    pytest.welkin_namespace['htmlpath'] = corrected_report_path
+    namespace_data['htmlpath'] = corrected_report_path
+
+    # update our hacky namespace
+    update_namespace(namespace_data, verbose=True)
+
     # Note: the pytest-html plugin relies on config.option.htmlpath.
     # So, even though the testrun-specific path is in the namespace,
     # we need to push that path back into the config object.
@@ -174,6 +205,7 @@ def pytest_runtest_setup(item):
         :return: None
     """
     logger.info(f"### Set up for test {item.name} ###")
+    namespace_data = {}
 
     # extract the test method name, tweak it, and use it for
     # naming a folder in the testrun folder for the logging
@@ -195,7 +227,7 @@ def pytest_runtest_setup(item):
     globals()['COUNT'] += 1  # this is hacky because there is no iterator
 
     # create the output folder for this test case
-    testrun_path = pytest.welkin_namespace['testrun_output_path_object']
+    testrun_path = pytest.custom_namespace['testrun_output_path_object']
     folder_path = utils.create_test_output_subfolder(testrun_path, short_name)
 
     # set up the appropriate sub-folders and
@@ -203,7 +235,7 @@ def pytest_runtest_setup(item):
     set_up_testcase_reporting(folder_path, fixtures)
 
     # set up global namespace path-to-this-testcase value
-    pytest.welkin_namespace['this_test'] = folder_path
+    namespace_data['this_test'] = folder_path
     logger.warning("### Changing log output path to the test case path. ###\n\n")
 
     # redirect logging from the test run logger to the test case logger
@@ -247,6 +279,10 @@ def pytest_runtest_setup(item):
         }
     }
     filename = set_logging_config(log_kwargs)  # noqa: F841
+
+    # update our hacky namespace
+    update_namespace(namespace_data, verbose=True)
+
     yield
 
 
@@ -260,7 +296,7 @@ def pytest_runtest_teardown(item, nextitem):
         :return: None
     """
     logger.info(f"### Tear down for test {item.name} ###")
-    path_to_logfile = pytest.welkin_namespace['testrun_root_log']
+    path_to_logfile = pytest.custom_namespace['testrun_root_log']
 
     log_kwargs = {
         'version': 1,
@@ -346,27 +382,27 @@ def initialize_logging():
 
         :return: None
     """
-    pytest.welkin_namespace = {}
+    namespace_data = {}
 
     # set timestamp for the start of this test run;
     # this is used globally for this run
     timestamp = time.strftime('%y%m%d-%H%M%S')
-    pytest.welkin_namespace['timestamp'] = timestamp
+    namespace_data['timestamp'] = timestamp
 
     # create the output folder for this test run
     welkin_folder, testrun_folder = utils.create_test_output_folder(timestamp)
 
     # save the welkin folder as a global config
-    pytest.welkin_namespace['welkin_folder'] = str(welkin_folder)
+    namespace_data['welkin_folder'] = str(welkin_folder)
 
     # save the output folder as a global config
-    pytest.welkin_namespace['testrun_output_path_object'] = testrun_folder
-    pytest.welkin_namespace['testrun_output_path'] = str(testrun_folder)
+    namespace_data['testrun_output_path_object'] = testrun_folder
+    namespace_data['testrun_output_path'] = str(testrun_folder)
 
     path_to_logfile = str(testrun_folder / TESTRUN_LOGFILE_NAME)
-    pytest.welkin_namespace['testrun_root_log'] = path_to_logfile
+    namespace_data['testrun_root_log'] = path_to_logfile
 
-    # start logging
+    # start logging; nothing that happens before this gets logged!
     log_kwargs = {
         'version': 1,
         'disable_existing_loggers': False,
@@ -393,8 +429,10 @@ def initialize_logging():
         }
     }
     set_logging_config(log_kwargs)
-    logger.info(pytest.welkin_namespace['testrun_output_path'])
-    logger.info(f"\nnamespace:\n{utils.plog(pytest.welkin_namespace)}")
+
+    # update our hacky namespace
+    update_namespace(namespace_data, verbose=True)
+    logger.info(f"\nnamespace:\n{utils.plog(pytest.custom_namespace)}")
 
 
 # 0.2
@@ -417,19 +455,23 @@ def set_logging_config(kwargs):
 def add_opts_to_namespace(config):
     """
         Add the CLI args from pytest_addoption() to the
-        pytest.welkin_namespace dict.
+        pytest.custom_namespace dict.
 
         New addopts have to be manually added to this list; however,
         they can still be access through request.config.option.<foo>.
 
-        This pytest.welkin_namespace dict is created in pytest_configure().
+        This pytest.custom_namespace dict is created in pytest_configure().
 
         :param config: pytest config option
         :return: None
     """
+    namespace_data = {}
     opts = ['browser', 'tier']
     for item in opts:
-        pytest.welkin_namespace[item] = config.getoption(item)
+        namespace_data[item] = config.getoption(item)
+
+    # update our hacky namespace
+    update_namespace(namespace_data, verbose=True)
 
 
 # 1.2
@@ -449,7 +491,7 @@ def correct_results_report_path():
 
     :return new_path: Path object to the report in the testrun's folder
     """
-    timestamp = pytest.welkin_namespace['timestamp']
+    timestamp = pytest.custom_namespace['timestamp']
     new_path = Path() / f"output/{timestamp}/report.html"
     logger.info(f"corrected reports path: '{new_path}'")
     return new_path
@@ -478,22 +520,26 @@ def set_up_tier_globals(config):
         The config object is introspected for the desired parameter value.
 
         The values set here are pushed into a pytest global environment
-        variable called `welkin_namespace`; this is available when you import
+        variable called `custom_namespace`; this is available when you import
         pytest into a module. This namespace is now set in initialize_logging().
 
         Context example example:
         $ pytest tests --tier=stage
 
         Some general values can be accessed directly:
-        >>> pytest.welkin_namespace['tier']
+        >>> pytest.custom_namespace['tier']
         stage
 
         :param config: pytest config object
         :return: None
     """
+    namespace_data = {}
     this_tier = config.option.tier
-    pytest.welkin_namespace['tier'] = this_tier
+    namespace_data['tier'] = this_tier
     logger.info(f"this_tier: '{this_tier}'.")
+
+    # update our hacky namespace
+    update_namespace(namespace_data, verbose=True)
 
     return None
 
@@ -536,6 +582,7 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
     else:
         logger.info(f"fixturenames: {fixturenames}")
         output_path = path_to_subfolder
+        namespace_data = {}
 
         # #############################################
         # after you add an app fixture to conftest.py, you must add
@@ -556,14 +603,14 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
         # always create the integrations logging folder, for any test instance
         folder_type = 'integrations'
         requests_folder = str(utils.create_test_output_subfolder(output_path, folder_type))
-        pytest.welkin_namespace[f"testrun_{folder_type}_log_folder"] = requests_folder
+        namespace_data[f"testrun_{folder_type}_log_folder"] = requests_folder
         logger.info(f"created folder '{folder_type}': {requests_folder}")
 
         # create the requests logging folders for APIs
         folder_type = 'requests'
         if is_api:
             requests_folder = str(utils.create_test_output_subfolder(output_path, folder_type))
-            pytest.welkin_namespace[f"testrun_{folder_type}_log_folder"] = requests_folder
+            namespace_data[f"testrun_{folder_type}_log_folder"] = requests_folder
             logger.info(f"created folder '{folder_type}': {requests_folder}")
         else:
             logger.info(f"did NOT create '{folder_type}' folder")
@@ -572,7 +619,7 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
         folder_type = 'cookies'
         if is_webapp:
             cookie_folder = str(utils.create_test_output_subfolder(output_path, folder_type))
-            pytest.welkin_namespace[f"testrun_{folder_type}_output"] = cookie_folder
+            namespace_data[f"testrun_{folder_type}_output"] = cookie_folder
             logger.info(f"created folder '{folder_type}': {cookie_folder}")
         else:
             logger.info(f"did NOT create '{folder_type}' folder")
@@ -582,7 +629,7 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
         if is_webapp:
             screenshots_folder = \
                 str(utils.create_test_output_subfolder(output_path, folder_type))
-            pytest.welkin_namespace[f"testrun_{folder_type}_output"] = screenshots_folder
+            namespace_data[f"testrun_{folder_type}_output"] = screenshots_folder
             logger.info(f"created folder '{folder_type}': {screenshots_folder}")
         else:
             logger.info(f"did NOT create '{folder_type}' folder")
@@ -592,7 +639,7 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
         if is_webapp:
             accessibility_folder = \
                 str(utils.create_test_output_subfolder(output_path, folder_type))
-            pytest.welkin_namespace[f"testrun_{folder_type}_log_folder"] = accessibility_folder
+            namespace_data[f"testrun_{folder_type}_log_folder"] = accessibility_folder
             logger.info(f"created folder '{folder_type}': {accessibility_folder}")
         else:
             logger.info(f"did NOT create '{folder_type}' folder")
@@ -604,7 +651,7 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
         if is_api or is_webapp:
             downloads_folder = \
                 str(utils.create_test_output_subfolder(output_path, folder_type))
-            pytest.welkin_namespace[f"testrun_{folder_type}_log_folder"] = downloads_folder
+            namespace_data[f"testrun_{folder_type}_log_folder"] = downloads_folder
             logger.info(f"created folder '{folder_type}': {downloads_folder}")
         else:
             logger.info(f"did NOT create '{folder_type}' folder")
@@ -614,14 +661,14 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
         if is_webapp:
             webstorage_folder = \
                 str(utils.create_test_output_subfolder(output_path, folder_type))
-            pytest.welkin_namespace[f"testrun_{folder_type}_log_folder"] = webstorage_folder
+            namespace_data[f"testrun_{folder_type}_log_folder"] = webstorage_folder
             logger.info(f"created folder '{folder_type}': {webstorage_folder}")
         else:
             logger.info(f"did NOT create '{folder_type}' folder")
 
-        logger.info(f"\nnamespace:\n{utils.plog(pytest.welkin_namespace)}")
+        logger.info(f"\nnamespace:\n{utils.plog(pytest.custom_namespace)}")
 
-        is_chrome = 'chrome' in pytest.welkin_namespace['browser']
+        is_chrome = 'chrome' in pytest.custom_namespace['browser']
         if is_chrome and is_webapp:
             # if this is a chrome browser, we can grab the chrome devtools
             # performance logging info; however, this is a CLI arg for a testrun,
@@ -630,24 +677,27 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
             # create the chrome network performance folder (for all right now)
             folder_type = 'network'
             network_folder = str(utils.create_test_output_subfolder(output_path, folder_type))
-            pytest.welkin_namespace[f"testrun_{folder_type}_log_folder"] = network_folder
+            namespace_data[f"testrun_{folder_type}_log_folder"] = network_folder
             logger.info(f"created folder '{folder_type}': {network_folder}")
-            pytest.welkin_namespace['devtools_supported'] = True
-            pytest.welkin_namespace['get_network'] = True
+            namespace_data['devtools_supported'] = True
+            namespace_data['get_network'] = True
 
             # create the chrome console logs folder (for all right now)
             folder_type = 'console'
             console_folder = str(utils.create_test_output_subfolder(output_path, folder_type))
-            pytest.welkin_namespace[f"testrun_{folder_type}_log_folder"] = console_folder
+            namespace_data[f"testrun_{folder_type}_log_folder"] = console_folder
             logger.info(f"created folder '{folder_type}': {console_folder}")
-            pytest.welkin_namespace['get_console'] = True
+            namespace_data['get_console'] = True
 
         else:
             logger.info("did NOT create 'network' folder")
             logger.info("did NOT create 'console' folder")
-            pytest.welkin_namespace['devtools_supported'] = False
-            pytest.welkin_namespace['get_network'] = False
-            pytest.welkin_namespace['get_console'] = False
+            namespace_data['devtools_supported'] = False
+            namespace_data['get_network'] = False
+            namespace_data['get_console'] = False
+
+        # update our hacky namespace
+        update_namespace(namespace_data, verbose=True)
 
 
 @pytest.fixture

@@ -19,7 +19,7 @@ def write_cookies_to_file(cookies, url, fname=''):
         :return: None
     """
     filename = f"/{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.txt"
-    path = pytest.welkin_namespace['testrun_cookies_output'] + filename
+    path = pytest.custom_namespace['testrun_cookies_output'] + filename
     with open(path, 'w') as f:
         f.write(f"{url}\n")  # write the url as the first line
         f.write(utils.plog(cookies))
@@ -39,7 +39,7 @@ def write_network_log_to_file(log, url, fname=''):
     # note: json files don't allow comments, so we'd not be able
     # to write the url to the file
     filename = f"/{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.json"
-    path = pytest.welkin_namespace['testrun_network_log_folder'] + filename
+    path = pytest.custom_namespace['testrun_network_log_folder'] + filename
 
     wrapper = {}
     wrapper['_page'] = url
@@ -60,7 +60,7 @@ def write_console_log_to_file(log, url, fname=''):
         :return: None
     """
     filename = f"/{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.json"
-    path = pytest.welkin_namespace['testrun_console_log_folder'] + filename
+    path = pytest.custom_namespace['testrun_console_log_folder'] + filename
 
     # add key/value for the page url
     log.update({'_page': url})
@@ -87,7 +87,7 @@ def write_webstorage_to_files(data, current_url, pageobject_name,
     """
     base_filename = f"/{time.strftime('%H%M%S')}_" \
                     f"{utils.path_proof_name(event)}"
-    path = pytest.welkin_namespace['testrun_webstorage_log_folder'] + base_filename
+    path = pytest.custom_namespace['testrun_webstorage_log_folder'] + base_filename
 
     # unpack the data
     local_storage, session_storage = data
@@ -164,7 +164,7 @@ def write_request_to_file(response, url, fname=''):
         :return: None
     """
     filename = f"/{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.txt"
-    path = pytest.welkin_namespace['testrun_requests_log_folder'] + filename
+    path = pytest.custom_namespace['testrun_requests_log_folder'] + filename
     boundary = None
     with open(path, 'a') as f:
         f.write(f"{url}\n\n")  # write the url as the first line
@@ -244,6 +244,6 @@ def write_sdk_response_to_file(response, sdk_app, fname=''):
         :return: None
     """
     filename = f"/{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.json"
-    path = pytest.welkin_namespace['testrun_integrations_log_folder'] + filename
+    path = pytest.custom_namespace['testrun_integrations_log_folder'] + filename
     with open(path, 'a') as f:
         f.write(utils.plog(response))

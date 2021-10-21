@@ -1,5 +1,5 @@
 """
-    Custom Welkin exceptions, managed in one place.
+    Custom exceptions, managed in one place.
 """
 import logging
 
