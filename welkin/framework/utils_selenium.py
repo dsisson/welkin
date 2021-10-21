@@ -24,10 +24,10 @@ def take_and_save_screenshot(driver, filename=''):
     filename = '%s_%s.png' % (time.strftime('%H%M%S'), filename.replace(' ', '_'))
 
     # Note: the path depends on the current test case!
-    path = f"{str(pytest.welkin_namespace['testrun_screenshots_output'])}/{filename}"
+    path = f"{str(pytest.custom_namespace['testrun_screenshots_output'])}/{filename}"
 
     # full-screen screenshots are enabled by
-    if pytest.welkin_namespace['browser'] in ['firefox', 'safari']:
+    if pytest.custom_namespace['browser'] in ['firefox', 'safari']:
         body = driver.find_element_by_tag_name('body')
         body_png = body.screenshot_as_png
         with open(path, 'wb') as file:
@@ -51,7 +51,7 @@ def get_and_save_source(driver, filename=''):
     filename = '/%s_%s.html' % (time.strftime('%H%M%S'), filename.replace(' ', '_'))
 
     # Note: the path depends on the current test case!
-    path = f"{str(pytest.welkin_namespace['this_test'])}/{filename}"
+    path = f"{str(pytest.custom_namespace['this_test'])}/{filename}"
 
     with open(path, 'w') as f:
         f.write(driver.page_source)

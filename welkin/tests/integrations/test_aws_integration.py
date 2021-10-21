@@ -5,7 +5,7 @@ from welkin.framework import utils
 from welkin.models.user import ApplicationUser
 from welkin.integrations.aws.aws import AWSSession, AWSClient
 
-TIER = pytest.welkin_namespace.get('tier')
+TIER = pytest.custom_namespace.get('tier')
 logger = logging.getLogger(__name__)
 
 

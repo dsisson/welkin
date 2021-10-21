@@ -443,7 +443,7 @@ class RootPageObject(object):
         fname = filename if filename else self.name
         clean_name = utils.path_proof_name(fname)
 
-        if pytest.welkin_namespace['devtools_supported']:
+        if pytest.custom_namespace['devtools_supported']:
             # get the logs
             performance_logs = utils_selenium.\
                 get_network_traffic_logs(pageobject=self)
@@ -464,7 +464,7 @@ class RootPageObject(object):
 
         else:
             logger.warning(f"Cannot access chrome logs for "
-                           f"{pytest.welkin_namespace['browser']}.")
+                           f"{pytest.custom_namespace['browser']}.")
 
     def save_webstorage(self, event, set_this_event=True):
         """
@@ -528,7 +528,7 @@ class RootPageObject(object):
         fname = filename if filename else self.name
 
         # write the results to a file
-        path = pytest.welkin_namespace['testrun_accessibility_log_folder']
+        path = pytest.custom_namespace['testrun_accessibility_log_folder']
         filename = f"{path}/{utils.path_proof_name(fname)}.json"
         logger.info(f"Writing accessibility logs to {filename}")
         axe.write_results(axe_results, filename)
