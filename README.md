@@ -20,15 +20,11 @@
 
 
 ## What is Welkin?
-Welkin is a test automation framework shell written in Python and using the
-pytest test runner.
+Welkin is a test automation framework shell written in Python and using the pytest test runner.
 
-Welkin is designed to support functional testing for one
-or more apps in an ecosystem, as well as end-to-end testing across these apps.
+Welkin is designed to support functional testing for one or more apps in an ecosystem, as well as end-to-end testing across these apps.
 
-Welkin provides a basic starting point for building a custom test framework; you add the
-test data models, custom application wrappers, and the tests. Welkin is intended as a teaching
-tool for beginning test automators; welkin is NOT a general test framework or test tool.
+Welkin provides a basic starting point for building a custom test framework; you add the test data models, custom application wrappers, and the tests. Welkin is intended as a teaching tool for beginning test automators; welkin is NOT a general test framework or test tool.
 
 ### What Welkin is Not
 Welkin is not a test framework, because
@@ -42,16 +38,13 @@ And Welkin is not a turn-key tool; you will need to modify Welkin to make it use
 ### Wait, what?
 Ok, here's the context behind welkin:
 + A robust and useful test automation framework requires a test runner
-to collect, execute, and report on tests. _Welkin is built around the pytest test runner,
-and relies on pytest for test collection, test execution, and the reporting of test results._
+to collect, execute, and report on tests. _Welkin is built around the pytest test runner, and relies on pytest for test collection, test execution, and the reporting of test results._
 + A test framework needs to manage how and where the test results are reported,
-along with managing the logging of test activity. _Welkin creates date and timestamped
-logs and html test results into a testrun-specific output folder._
+along with managing the logging of test activity. _Welkin creates date and timestamped logs and html test results into a testrun-specific output folder._
 + A test framework needs a body of tests in a place where the test runner can find them.
 _Welkin is just a scaffolding, so it provides some example tests to show
 how this all works together._
-+ A test framework probably should provide support for abstracting out some test logic
-so that tests can be written at higher level.
++ A test framework probably should provide support for abstracting out some test logic so that tests can be written at higher level.
 + A test framework should provide a mechanism for abstracting out test data from the tests.
 + A test framework should provide tools and utilities to support test activities,
 and to abstract out repeated supporting actions from the tests.
@@ -60,9 +53,7 @@ A test framework should be customized to the specific business domain you are wo
 
 
 ## Installing Welkin
-Welkin is intended to be a starting point for your automation code framework, so while
-there is a range of ways the code could be packaged and distributed cleanly, just fork
-this project and set it up locally.
+Welkin is intended to be a starting point for your automation code framework, so while there is a range of ways the code could be packaged and distributed cleanly, just fork this project and set it up locally.
 
 What I do is:
 + think up a cool name for the test automation framework I'm __going__ to build
@@ -89,14 +80,23 @@ export PYTHONPATH=$PYTHONPATH:~/dev/welkin
 Activate the virtualenv ~/dev/venv.
 
 ### And Then There's ChromeDriver
-You will need to install the ChromeDriver executable (see https://sites.google.com/a/chromium.org/chromedriver/downloads) in your virtualenv, specifically in:
+You will need a recent version of the Chrome browser on your local system, as well as the matching Chromedriver executable (see https://sites.google.com/a/chromium.org/chromedriver/downloads) installed in your virtualenv, specifically in:
 
 ```~/dev/venv/bin```
 
+I would also suggest you keep a separate collection of old versioned drivers like this (the exe file doesn't have any versioning in the filename):
+
+```
+dev
+  |- drivers
+    |- chrome
+      |- 95.0.4638.17
+        |- chromedriver.exe
+```
+
 
 ## Running Welkin
-Welkin is typically run from the command line. Pytest handles test collection
-and the reporting of errors.
+Welkin is typically run from the command line. Pytest handles test collection and the reporting of errors.
 
 ### Base Command
 The base command to collect and run tests with pytest is the following:
@@ -155,13 +155,9 @@ that need to be configured with the actual name and URLs.
 
 
 ### Logging
-Welkin is intended to be verbose in its logging; however, that's up to you to implement
-as you build out your own framework.
+Welkin is intended to be verbose in its logging; however, that's up to you to implement as you build out your own framework.
 
-By default, Welkin creates an output folder at welkin/output, and then for each test run
-Welkin creates a folder in _output_ named with the testrun's timestamp; this folder gets the
-HTML test results page, plus the text log of test run activity. This output is not automatically
-cleaned up. You'll have to define a workflow for this, if you want.
+By default, Welkin creates an output folder at welkin/output, and then for each test run Welkin creates a folder in _output_ named with the testrun's timestamp; this folder gets the HTML test results page, plus the text log of test run activity. This output is not automatically cleaned up. You'll have to define a workflow for this, if you want.
 
 
 ## Linting with Flake8
