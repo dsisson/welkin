@@ -4,9 +4,14 @@ AUTH_PATH = None  # not implemented for this wrapper
 
 # mapping page object names to classes
 noauth_pageobjects = {
-    'duckduckgo home page': {
+    'duckduckgo external home page': {
         'module': 'pages',
-        'object': 'HomePage',
+        'object': 'ExternalHomePage',
+        'path': NOAUTH_PATH
+    },
+    'duckduckgo internal home page': {
+        'module': 'pages',
+        'object': 'InternalHomePage',
         'path': NOAUTH_PATH
     },
     'duckduckgo search results page': {

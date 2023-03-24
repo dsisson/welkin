@@ -2,6 +2,8 @@ import pytest
 import logging
 import time
 
+from selenium.webdriver.common.by import By
+
 from welkin.framework.exceptions import PageIdentityException
 from welkin.framework import utils
 from welkin.apps.examples.duckduckgo_limited import limited_pages as lPOs
@@ -33,6 +35,9 @@ class ExampleDuckduckgoTests(object):
             test points on the search results page, but do everything the
             brittle way, with non-abstracted selenium code.
         """
+        # set up screenshots
+        base_path = f"{str(pytest.custom_namespace['this_test'])}"
+
         # we have a webdriver instance from this method's fixture `driver`,
         # which corresponds to the "browser" argument at the CLI invocation
 
@@ -57,9 +62,21 @@ class ExampleDuckduckgoTests(object):
                    (expected_title, expected_domain, actual_title, actual_domain)
             logger.error(msg1 + msg2)
             raise PageIdentityException(msg1 + msg2)
+        driver.save_screenshot(f"{base_path}/home_page.png")
+
+        # different pages have different search form selectors; grab every
+        # element with an id that starts with "search"
+        possible_elements = driver.find_elements(By.CSS_SELECTOR, '[id^=search')
+        sel_search_form = None
+        for e in possible_elements:
+            # find the *first* id that ends with 'input'
+            this_id = e.get_property('id')
+            if this_id.endswith('input'):
+                sel_search_form = this_id
+                break
 
         # perform search
-        search_input = driver.find_element_by_class_name('js-search-input')
+        search_input = driver.find_element(By.ID, sel_search_form)
 
         # pass in the search string
         query = 'test case design in python'
@@ -67,29 +84,30 @@ class ExampleDuckduckgoTests(object):
 
         # submit the search
         search_input.submit()
-
         time.sleep(5)
 
         # by now, the search results page should have loaded in the browser,
         # so now we need verify that.
         # set expectations
         expected_title = f"{'test case design in python'} at DuckDuckGo"
-        expected_url = f"https://duckduckgo.com/?q={query.replace(' ', '+')}"
+        expected_escaped_query = f"q={query.replace(' ', '+')}"
 
         # actual results
         actual_title = driver.title
-        actual_url = driver.current_url.split('&')[0]
+        actual_url = driver.current_url
 
         # validate expectations
-        if not (actual_title == expected_title and actual_url == expected_url):
+        if not (actual_title == expected_title and expected_escaped_query in actual_url):
             msg1 = "ERROR: DuckDuckGo search results page did NOT " \
                    "self-validate identity. "
-            msg2 = f"Expected '{expected_title}' + '{expected_url}', " \
+            msg2 = f"Expected '{expected_title}' + '{expected_escaped_query}', " \
                    f"got '{actual_title}' + '{actual_url}'."
             logger.error(msg1 + msg2)
             raise PageIdentityException(msg1 + msg2)
+        driver.save_screenshot(f"{base_path}/search_results_page.png")
 
-        raw_results = driver.find_elements_by_class_name('js-result-title-link')
+        sel_result_items = 'article div:nth-child(2)'
+        raw_results = driver.find_elements(By.CSS_SELECTOR, sel_result_items)
         result_titles = [item.text for item in raw_results]
 
         # some checkpoints to validate search results
@@ -118,6 +136,9 @@ class ExampleDuckduckgoTests(object):
             Use a limited page object model that does not manage page object
             transitions; perform those manually in the test case.
         """
+        # set up screenshots
+        base_path = f"{str(pytest.custom_namespace['this_test'])}"
+
         # we have a webdriver instance from this method's fixture `driver`,
         # which corresponds to the "browser" argument at the CLI invocation
 
@@ -131,6 +152,7 @@ class ExampleDuckduckgoTests(object):
 
         # verify that we are on the correct page
         home_page.verify_self()
+        driver.save_screenshot(f"{base_path}/home_page.png")
 
         # perform search
         home_page.search_for(query)
@@ -142,6 +164,7 @@ class ExampleDuckduckgoTests(object):
 
         # verify that we are on the correct page
         results_page.verify_self()
+        driver.save_screenshot(f"{base_path}/search_results_page.png")
 
         # get the search results titles
         result_titles = results_page.scrape_results_list()
@@ -223,7 +246,7 @@ class ExampleDuckduckgoTests(object):
         query = 'test case design in python'
 
         # instantiate the home page object
-        home_page = POs.HomePage(driver, firstload=True)
+        home_page = POs.ExternalHomePage(driver)
         home_page.save_screenshot('home initialization')  # should be blank
 
         # load home page in browser and refresh the PO instace

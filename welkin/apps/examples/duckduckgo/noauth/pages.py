@@ -24,9 +24,27 @@ class BasePage(NoAuthBasePageObject):
             :param text: str, query string
             :return page: page object for the search results page
         """
-        sel_search_form = 'js-search-input'
+
+        # different pages have different search form selectors; grab every
+        # element with an id that starts with "search"
+        possible_elements = self.driver.find_elements(By.CSS_SELECTOR, '[id^=search')
+        sel_search_form = None
+        for e in possible_elements:
+            # find the *first* id that ends with 'input'
+            this_id = e.get_property('id')
+            if this_id.endswith('input'):
+                sel_search_form = this_id
+                break
+
         # grab the search field
-        search_input = self.driver.find_element(By.CLASS_NAME, sel_search_form)
+        wait = WebDriverWait(self.driver, 10)
+        try:
+            wait.until(EC.presence_of_element_located((By.ID, sel_search_form)))
+        except TimeoutException:
+            self.save_screenshot(f"form not found {self.name}")
+            raise
+
+        search_input = self.driver.find_element(By.ID, sel_search_form)
 
         # pass in the search string
         self._set_field_input(search_input, 'search field', text,
@@ -38,8 +56,9 @@ class BasePage(NoAuthBasePageObject):
         # wait for the next page to render
         wait = WebDriverWait(self.driver, 10)
         url_escaped_query = text.replace(' ', '+')
+        logger.info(f"\nurl_escaped_query: {url_escaped_query}")
         try:
-            wait.until(EC.url_contains(f"?q={url_escaped_query}"))
+            wait.until(EC.url_contains(f"q={url_escaped_query}"))
         except TimeoutException:
             logger.info(f"\ncurrent_url: {self.driver.current_url}")
             raise
@@ -53,19 +72,26 @@ class BasePage(NoAuthBasePageObject):
         return page
 
 
-class HomePage(BasePage):
+class ExternalHomePage(BasePage):
+    """
+        There are two different forms of the home page, with slightly
+        different elements:
+            1. the page at https://duckduckgo.com/
+            2. the page at https://duckduckgo.com/?t=h_, which is reached by
+               clicking a link to the home page
 
-    name = 'duckduckgo home page'
+        This makes it a bit challenging to identify selectors for identity
+        and load between the two. This is distinct from the firtload issues
+        noted in __init__().
+    """
+    name = 'duckduckgo external home page'
     identity_checks = ['check_url', 'check_title']
     load_checks = [
-        (True, By.ID, 'search_form_input_homepage')
+        (True, By.ID, 'searchbox_homepage')
     ]
-    unload_checks = [
-        (False, By.ID, 'search_form_input_homepage')
-        # title check dynamically added by __init__()
-    ]
+    unload_checks = []
 
-    def __init__(self, driver, firstload=False):
+    def __init__(self, driver):
         """
             Because this is a start page for the application, it needs
             some special handling:
@@ -83,17 +109,6 @@ class HomePage(BasePage):
         self.url = 'https://' + self.domain
         self.driver = driver
         self.title = f"{self.appname} — Privacy, simplified."
-        if firstload:
-            self.unload_checks = None
-            msg = "Because this is the first load, do NOT check for unload!"
-            logger.warning(msg)
-        else:
-            # because the title is set in __init__(),
-            # the check also has to be set and added here
-            # note that title is used for the identity check, so we
-            # probably don't need ot for a load check
-            titlecheck = (False, By.XPATH, f"//title[text()='{self.title}']")
-            self.unload_checks.append(titlecheck)
         logger.info(f"\n-----> unload checks: {self.unload_checks}")
         logger.info('\n' + INIT_MSG % self.name)
 
@@ -118,10 +133,39 @@ class HomePage(BasePage):
         return page
 
 
+class InternalHomePage(BasePage):
+    """
+        There are two different forms of the home page, with slightly
+        different elements:
+            1. the page at https://duckduckgo.com/
+            2. the page at https://duckduckgo.com/?t=h_, which is reached by
+               clicking a link to the home page
+
+        This makes it a bit challenging to identify selectors for identity
+        and load between the two. This is distinct from the firtload issues
+        noted in __init__().
+    """
+    name = 'duckduckgo internal home page'
+    identity_checks = ['check_url', 'check_title']
+    load_checks = [
+        (True, By.ID, 'search_form_input_homepage')
+    ]
+    unload_checks = [
+        (False, By.ID, 'search_form_input_homepage')
+        # title check dynamically added by __init__()
+    ]
+
+    def __init__(self, driver):
+        self.driver = driver
+        self.title = f"{self.appname} — Privacy, simplified."
+        self.url = self.driver.current_url
+        logger.info('\n' + INIT_MSG % self.name)
+
+
 class SearchResultsPage(BasePage):
 
     name = 'duckduckgo search results page'
-    identity_checks = ['check_url', 'check_title']
+    identity_checks = ['check_url_chunks', 'check_title']
     load_checks = [
         (True, By.ID, 'search_form_input')
         # title check dynamically added by __init__()
@@ -132,11 +176,12 @@ class SearchResultsPage(BasePage):
         self.driver = driver
         self.search_text = text
         self.title = f"{self.search_text} at {self.appname}"
-        self.url = f"https://{self.domain}/?q={self.search_text.replace(' ', '+')}"
+        self.url_chunks = [f"https://{self.domain}/", f"q={self.search_text.replace(' ', '+')}"]
         # because the title is set in __init__(),
         # the check also has to be set and added here
         titlecheck = (False, By.XPATH, f"//title[text()='{self.title}']")
         self.load_checks.append(titlecheck)
+        self.url = self.driver.current_url
         logger.info('\n' + INIT_MSG % self.name)
 
     def scrape_results_list(self):
@@ -145,8 +190,8 @@ class SearchResultsPage(BasePage):
 
             :return result_titles: list, str titles for each returned result
         """
-        sel_result_items = 'js-result-title-link'
-        raw_results = self.driver.find_elements(By.CLASS_NAME, sel_result_items)
+        sel_result_items = 'article div:nth-child(2)'
+        raw_results = self.driver.find_elements(By.CSS_SELECTOR, sel_result_items)
         result_titles = [item.text for item in raw_results]
         logger.info(f"\nSearch results item titles:\n{utils.plog(result_titles)}")
         return result_titles
