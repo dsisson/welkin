@@ -7,5 +7,5 @@ flake8 >= 3.9.2
 pytest >= 6.2.5
 pytest-html >= 1.14.2
 pytest-instafail >= 0.3.0
-requests >= 2.26.0
-selenium == 4.0.0
+requests >= 2.28.2
+selenium == 4.8.3

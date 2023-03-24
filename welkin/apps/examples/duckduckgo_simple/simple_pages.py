@@ -24,9 +24,26 @@ class BasePageObject(object):
             :param text: str, query string
             :return page: Welkin page object for the search results page
         """
-        sel_search_form = 'js-search-input'
+        # different pages have different search form selectors; grab every
+        # element with an id that starts with "search"
+        possible_elements = self.driver.find_elements(By.CSS_SELECTOR, '[id^=search')
+        sel_search_form = None
+        for e in possible_elements:
+            # find the *first* id that ends with 'input'
+            this_id = e.get_property('id')
+            if this_id.endswith('input'):
+                sel_search_form = this_id
+                break
+
         # grab the search field
-        search_input = self.driver.find_element(By.CLASS_NAME, sel_search_form)
+        wait = WebDriverWait(self.driver, 10)
+        try:
+            wait.until(EC.presence_of_element_located((By.ID, sel_search_form)))
+        except TimeoutException:
+            self.save_screenshot(f"form not found {self.name}")
+            raise
+
+        search_input = self.driver.find_element(By.ID, sel_search_form)
 
         # pass in the search string
         search_input.send_keys(text)
@@ -38,7 +55,7 @@ class BasePageObject(object):
         wait = WebDriverWait(self.driver, 10)
         url_escaped_query = text.replace(' ', '+')
         try:
-            wait.until(EC.url_contains(f"?q={url_escaped_query}"))
+            wait.until(EC.url_contains(f"q={url_escaped_query}"))
         except TimeoutException:
             logger.info(f"\ncurrent_url: {self.driver.current_url}")
             raise
@@ -112,20 +129,21 @@ class SearchResultsPage(BasePageObject):
         # set expectations
         expected_title = f"{self.search_text} at {self.appname}"
         expected_url = f"https://{self.domain}/?q={self.search_text.replace(' ', '+')}"
+        expected_escaped_query_in_url = f"q={self.search_text.replace(' ', '+')}"
 
         # actual results
         actual_title = self.driver.title
         actual_url = self.driver.current_url
 
         # validate expectations
-        if actual_title == expected_title and actual_url.startswith(expected_url):
+        if actual_title == expected_title and expected_escaped_query_in_url in actual_url:
             msg = f"{self.appname} search results page self-validated identity."
             logger.info(msg)
             return True
         else:
-            msg1 = f"FAIL: {self.appname} search results page did NOT " \
+            msg1 = f"\nFAIL: {self.appname} search results page did NOT " \
                    f"self-validate identity. "
-            msg2 = f"Expected '{expected_title}' + '{expected_url}', " \
+            msg2 = f"\nExpected '{expected_title}' + '{expected_escaped_query_in_url}', " \
                    f"got '{actual_title}' + '{actual_url}'."
             logger.error(msg1 + msg2)
             raise PageIdentityException(msg1 + msg2)
@@ -136,8 +154,8 @@ class SearchResultsPage(BasePageObject):
 
             :return result_titles: list, str titles for each returned result
         """
-        sel_result_items = 'js-result-title-link'
-        raw_results = self.driver.find_elements(By.CLASS_NAME, sel_result_items)
+        sel_result_items = 'article div:nth-child(2)'
+        raw_results = self.driver.find_elements(By.CSS_SELECTOR, sel_result_items)
         result_titles = [item.text for item in raw_results]
         logger.info(f"\nSearch results item titles:\n{utils.plog(result_titles)}")
         return result_titles
