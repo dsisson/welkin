@@ -722,21 +722,15 @@ def browser(request):
 
 def base_chrome_capabilities():
     """
-        Set the base desired capabilities for all chrome-derived browsers.
+        Set the base options for all chrome-derived browsers.
 
         :return capabilities: dict
     """
-    from selenium.webdriver import DesiredCapabilities
+    from selenium.webdriver.chrome.options import Options
 
-    capabilities = DesiredCapabilities.CHROME.copy()
-
-    # capture the devtools performance tab, which has the response headers
-    capabilities['goog:loggingPrefs'] = {'performance': 'ALL'}
-
-    # note, there's a chrome/selenium bug in the above statement
-    # so also do this the old, non-struct W3C way
-    capabilities['loggingPrefs'] = {'performance': 'ALL'}
-    return capabilities
+    options = Options()
+    options.set_capability('goog:loggingPrefs', {'performance': 'ALL'})
+    return options
 
 
 def browser_chrome():
@@ -745,16 +739,9 @@ def browser_chrome():
         on the computer.
     """
     from selenium import webdriver
-    from selenium.webdriver.chrome.options import Options
 
-    chrome_options = Options()  # noqa: F841
-    # default_dir = {'download.default_directory': None#}
-    # chrome_options.add_experimental_option('prefs')
-
-    capabilities = base_chrome_capabilities()
-    # this_driver = webdriver.Chrome(options=chrome_options,
-    #                                desired_capabilities=capabilities)
-    this_driver = webdriver.Chrome(desired_capabilities=capabilities)
+    options = base_chrome_capabilities()
+    this_driver = webdriver.Chrome(options=options)
     return this_driver
 
 
@@ -764,18 +751,11 @@ def browser_chrome_headless():
         use of the local computer.
     """
     from selenium import webdriver
-    from selenium.webdriver.chrome.options import Options
 
-    chrome_options = Options()
-    chrome_options.add_argument('--headless')
-    # default_dir = {'download.default_directory': None#}
-    # chrome_options.add_experimental_option('prefs')
-
-    capabilities = base_chrome_capabilities()
-    this_driver = webdriver.Chrome(options=chrome_options,
-                                   desired_capabilities=capabilities)
-
-    # logger.info(f"\nbrowser options:\n{chrome_options.__dict__}")
+    options = base_chrome_capabilities()
+    options.add_argument('--headless')
+    this_driver = webdriver.Chrome(options=options)
+    logger.info(f"\nbrowser options:\n{utils.plog(options.__dict__)}")
     return this_driver
 
 
@@ -814,11 +794,7 @@ def driver(request, browser):
     user_agent = driver.execute_script("return navigator.userAgent;")
 
     if browser in ['chrome', 'headless_chrome']:
-        # browser_version = driver.capabilities['browserVersion']
         driver_version = driver.capabilities['chrome']['chromedriverVersion']
-        # logger.info(f"starting driver \n'{browser}':\nbrowser version: {browser_version}\n"
-        #             f"chrome driver version: {driver_version}\n"
-        #             f"useragent: '{user_agent}'\n")
         logger.info(f"starting driver \n'{browser}':\n"
                     f"chrome driver version: {driver_version}\n"
                     f"useragent: '{user_agent}'\n")
@@ -829,7 +805,7 @@ def driver(request, browser):
     yield driver
 
     driver.quit()
-    logger.info(f"Quitting '{browser}'' driver.")
+    logger.info(f"Quitting '{browser}' driver.")
 
 
 # #########################################
