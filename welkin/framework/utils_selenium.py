@@ -115,6 +115,21 @@ def get_network_traffic_logs(pageobject):
     return jlogs
 
 
+def get_metrics_log(pageobject):
+    """
+        Get the metrics log for the current page from the browser.
+
+        :param pageobject: page object instance
+        :return metrics: dict
+    """
+    driver = pageobject.driver
+    url = pageobject.url
+    fname = pageobject.name
+
+    logger.info(f"\nGetting metrics log for page '{fname}' at {url}.")
+    metrics = driver.execute_cdp_cmd('Performance.getMetrics', {})
+    return metrics
+
 def get_webstorage(pageobject):
     """
         Wrapper to call methods to get browser local and session storage

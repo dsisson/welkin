@@ -59,6 +59,10 @@ class RootPageObject(object):
             the new has been instantiated, you must use class instance methods
             and properties of that new page object.
 
+            Also note: a *lot* of stuff happens in this method, extra validation,
+            processing around browser state and data, and writes to file. All of
+            this makes this method slow.
+
             :param po_id: str, key for the page object in the POM data model
             :param cross_auth_boundary: bool, true to trigger a switch between
                                         auth and noath routing, or vice versa
@@ -145,10 +149,14 @@ class RootPageObject(object):
         # >> using the new page object! <<
         new_pageobject_instance.verify_self(verbose=True)
 
+        # perform a series of file-writes
         # write the cookies to a file
         new_pageobject_instance.save_cookies(filename=event)
 
-        # write browser logs to files
+        # write browser metrics log to file
+        new_pageobject_instance.save_browser_metrics(filename=event)
+
+        # write browser console and peformance logs to files
         new_pageobject_instance.save_browser_logs(filename=event)
 
         # write webstorage to files
@@ -465,6 +473,26 @@ class RootPageObject(object):
         else:
             logger.warning(f"Cannot access chrome logs for "
                            f"{pytest.custom_namespace['browser']}.")
+
+    def save_browser_metrics(self, filename=''):
+        """
+            Grab the Chrome driver metrics log and write them to files.
+
+            :param filename: str filename for the log file;
+                             defaults to PO name
+            :return:
+        """
+        # set the cleaned file name
+        fname = filename if filename else self.name
+        clean_name = utils.path_proof_name(fname)
+
+        # get the log
+        metrics_log = utils_selenium.\
+            get_metrics_log(pageobject=self)
+
+        # write the raw performance logs to /network
+        utils_file.write_metrics_log_to_file(log=metrics_log,
+                                             url=self.url, fname=clean_name)
 
     def save_webstorage(self, event, set_this_event=True):
         """
