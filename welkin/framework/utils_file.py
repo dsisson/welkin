@@ -49,6 +49,29 @@ def write_network_log_to_file(log, url, fname=''):
     logger.info(f"\nSaved browser network log: {path}.")
 
 
+def write_metrics_log_to_file(log, url, fname=''):
+    """
+        Save the browser metrics log as json to a file. 
+        
+        :param log: dict, browser metrics log
+        :param url: str, url for the current page
+        :param fname: str, first part of filename, will be appended with
+                           timestamp; defaults to empty string
+        :return: 
+    """
+    # note: json files don't allow comments, so we'd not be able
+    # to write the url to the file. Instead, insert a kv pair into dict
+    filename = f"/{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.json"
+    path = pytest.custom_namespace['testrun_metrics_log_folder'] + filename
+
+    wrapper = {}
+    wrapper['_page'] = url
+    wrapper.update(log)
+    with open(path, 'a') as f:
+        f.write(utils.plog(wrapper))
+    logger.info(f"\nSaved browser metrics log: {path}.")
+
+
 def write_console_log_to_file(log, url, fname=''):
     """
         Write the chrome devtools console logs to a file.

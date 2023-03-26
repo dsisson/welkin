@@ -689,12 +689,21 @@ def set_up_testcase_reporting(path_to_subfolder, fixturenames):
             logger.info(f"created folder '{folder_type}': {console_folder}")
             namespace_data['get_console'] = True
 
+            # create the browser metrics logs folder (for all right now)
+            folder_type = 'metrics'
+            metrics_folder = str(utils.create_test_output_subfolder(output_path, folder_type))
+            namespace_data[f"testrun_{folder_type}_log_folder"] = metrics_folder
+            logger.info(f"created folder '{folder_type}': {console_folder}")
+            namespace_data['get_metrics'] = True
+
         else:
             logger.info("did NOT create 'network' folder")
             logger.info("did NOT create 'console' folder")
+            logger.info("did NOT create 'metrics' folder")
             namespace_data['devtools_supported'] = False
             namespace_data['get_network'] = False
             namespace_data['get_console'] = False
+            namespace_data['get_metrics'] = False
 
         # update our hacky namespace
         update_namespace(namespace_data, verbose=True)
@@ -729,6 +738,7 @@ def base_chrome_capabilities():
     from selenium.webdriver.chrome.options import Options
 
     options = Options()
+    # enable collection of network logging
     options.set_capability('goog:loggingPrefs', {'performance': 'ALL'})
     return options
 
@@ -792,6 +802,8 @@ def driver(request, browser):
     # be over-rideable with explicit local waits
     # driver.implicitly_wait(10)  # default wait for 10 seconds
     user_agent = driver.execute_script("return navigator.userAgent;")
+    # enable collection of performance metrics
+    driver.execute_cdp_cmd('Performance.enable', {})
 
     if browser in ['chrome', 'headless_chrome']:
         driver_version = driver.capabilities['chrome']['chromedriverVersion']
