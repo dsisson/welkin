@@ -38,6 +38,24 @@ def take_and_save_screenshot(driver, filename=''):
         logger.info(f"Saved screenshot: {path}.")
 
 
+def save_element_screenshot(element, filename=''):
+    """
+        For the provided element, generate a screenshot and save it
+        to the "screenshots" folder being used for the current test run.
+
+        :param element: Webelement
+        :param filename: str filename (not including the path)
+        :return: None
+    """
+    filename = '%s_%s.png' % (time.strftime('%H%M%S'), filename.replace(' ', '_'))
+
+    # Note: the path depends on the current test case!
+    path = f"{str(pytest.custom_namespace['testrun_screenshots_output'])}/{filename}"
+
+    element.screenshot(path)
+    logger.info(f"Saved element screenshot: {path}.")
+
+
 def get_and_save_source(driver, filename=''):
     """
         Get the current page's source from the webdriver object
