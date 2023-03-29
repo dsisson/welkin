@@ -232,7 +232,13 @@ class ExampleDuckduckgoTests(object):
         assert len(relevant_results) > 5, \
             f"Only {len(relevant_results)} relevant results found, hoped for 5"
 
-    def test_duckduckgo_router(self, driver, duckduckgo):
+    # this test case is parametrized solely as a POC
+    @pytest.mark.parametrize('query', [
+        'test case design in python',
+        'advanced systems theory',
+        'theory of constraits in software development'
+    ], ids=['A', 'B', 'C'])
+    def test_duckduckgo_router(self, driver, duckduckgo, query):
         """
             Using a correctly-spelled query string, validate some results data
             test points on the search results page.
@@ -242,8 +248,6 @@ class ExampleDuckduckgoTests(object):
         """
         # we have a webdriver instance from this method's fixture `driver`,
         # which corresponds to the "browser" argument at the CLI invocation
-
-        query = 'test case design in python'
 
         # instantiate the home page object
         home_page = POs.ExternalHomePage(driver)

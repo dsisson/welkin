@@ -18,8 +18,8 @@ def write_cookies_to_file(cookies, url, fname=''):
                            timestamp; defaults to empty string
         :return: None
     """
-    filename = f"/{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.txt"
-    path = pytest.custom_namespace['testrun_cookies_output'] + filename
+    filename = f"{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.txt"
+    path = pytest.custom_namespace['testcase_cookies_folder'] / filename
     with open(path, 'w') as f:
         f.write(f"{url}\n")  # write the url as the first line
         f.write(utils.plog(cookies))
@@ -38,8 +38,8 @@ def write_network_log_to_file(log, url, fname=''):
     """
     # note: json files don't allow comments, so we'd not be able
     # to write the url to the file
-    filename = f"/{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.json"
-    path = pytest.custom_namespace['testrun_network_log_folder'] + filename
+    filename = f"{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.json"
+    path = pytest.custom_namespace['testcase_network_folder'] / filename
 
     wrapper = {}
     wrapper['_page'] = url
@@ -61,8 +61,8 @@ def write_metrics_log_to_file(log, url, fname=''):
     """
     # note: json files don't allow comments, so we'd not be able
     # to write the url to the file. Instead, insert a kv pair into dict
-    filename = f"/{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.json"
-    path = pytest.custom_namespace['testrun_metrics_log_folder'] + filename
+    filename = f"{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.json"
+    path = pytest.custom_namespace['testcase_metrics_folder'] / filename
 
     wrapper = {}
     wrapper['_page'] = url
@@ -82,8 +82,8 @@ def write_console_log_to_file(log, url, fname=''):
                            timestamp; defaults to empty string
         :return: None
     """
-    filename = f"/{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.json"
-    path = pytest.custom_namespace['testrun_console_log_folder'] + filename
+    filename = f"{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.json"
+    path = pytest.custom_namespace['testcase_console_folder'] / filename
 
     # add key/value for the page url
     log.update({'_page': url})
@@ -108,9 +108,9 @@ def write_webstorage_to_files(data, current_url, pageobject_name,
         :param event: str, descriptor for an interaction with the React app
         :return: None
     """
-    base_filename = f"/{time.strftime('%H%M%S')}_" \
+    base_filename = f"{time.strftime('%H%M%S')}_" \
                     f"{utils.path_proof_name(event)}"
-    path = pytest.custom_namespace['testrun_webstorage_log_folder'] + base_filename
+    path = pytest.custom_namespace['testcase_webstorage_folder'] / base_filename
 
     # unpack the data
     local_storage, session_storage = data
@@ -186,8 +186,8 @@ def write_request_to_file(response, url, fname=''):
                            timestamp; defaults to empty string
         :return: None
     """
-    filename = f"/{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.txt"
-    path = pytest.custom_namespace['testrun_requests_log_folder'] + filename
+    filename = f"{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.txt"
+    path = pytest.custom_namespace['testcase_requests_folder'] / filename
     boundary = None
     with open(path, 'a') as f:
         f.write(f"{url}\n\n")  # write the url as the first line
@@ -266,7 +266,7 @@ def write_sdk_response_to_file(response, sdk_app, fname=''):
                            timestamp; defaults to empty string
         :return: None
     """
-    filename = f"/{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.json"
-    path = pytest.custom_namespace['testrun_integrations_log_folder'] + filename
+    filename = f"{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.json"
+    path = pytest.custom_namespace['testcase_integrations_folder'] / filename
     with open(path, 'a') as f:
         f.write(utils.plog(response))
