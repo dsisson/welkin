@@ -486,13 +486,19 @@ class RootPageObject(object):
         fname = filename if filename else self.name
         clean_name = utils.path_proof_name(fname)
 
-        # get the log
-        metrics_log = utils_selenium.\
-            get_metrics_log(pageobject=self)
+        if pytest.custom_namespace['devtools_supported']:
+            logger.info("\nWriting browser metrics logs.")
+            # get the log
+            metrics_log = utils_selenium.\
+                get_metrics_log(pageobject=self)
 
-        # write the raw performance logs to /network
-        utils_file.write_metrics_log_to_file(log=metrics_log,
-                                             url=self.url, fname=clean_name)
+            # write the raw performance logs to /network
+            utils_file.write_metrics_log_to_file(log=metrics_log,
+                                                 url=self.url, fname=clean_name)
+
+        else:
+            logger.warning(f"\nCannot access browser metrics logs for "
+                           f"{pytest.custom_namespace['browser']}.")
 
     def save_webstorage(self, event, set_this_event=True):
         """
@@ -556,7 +562,7 @@ class RootPageObject(object):
         fname = filename if filename else self.name
 
         # write the results to a file
-        path = pytest.custom_namespace['testrun_accessibility_log_folder']
+        path = pytest.custom_namespace['testcase_accessibility_folder']
         filename = f"{path}/{utils.path_proof_name(fname)}.json"
         logger.info(f"Writing accessibility logs to {filename}")
         axe.write_results(axe_results, filename)

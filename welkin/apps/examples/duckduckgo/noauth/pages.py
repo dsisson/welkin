@@ -62,8 +62,14 @@ class BasePage(NoAuthBasePageObject):
         except TimeoutException:
             logger.info(f"\ncurrent_url: {self.driver.current_url}")
             raise
-        wait.until(EC.visibility_of_all_elements_located((By.ID, 'links')))
-        logger.info('wait succeeded')
+
+        try:
+            wait.until(EC.visibility_of_all_elements_located((By.ID, 'links')))
+            logger.info('wait succeeded')
+        except TimeoutException:
+            self.save_screenshot(f"search timed out")
+            logger.error(f"\nsearch timed out, see saved screenshot.")
+            raise
 
         # instantiate and return a search results page
         opts = {'text': text}
