@@ -562,7 +562,7 @@ class RootPageObject(object):
         fname = filename if filename else self.name
 
         # write the results to a file
-        path = pytest.custom_namespace['testcase_accessibility_folder']
+        path = pytest.custom_namespace['current test case']['accessibility folder']
         filename = f"{path}/{utils.path_proof_name(fname)}.json"
         logger.info(f"Writing accessibility logs to {filename}")
         axe.write_results(axe_results, filename)
