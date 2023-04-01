@@ -24,7 +24,7 @@ def take_and_save_screenshot(driver, filename=''):
     filename = '%s_%s.png' % (time.strftime('%H%M%S'), filename.replace(' ', '_'))
 
     # Note: the path depends on the current test case!
-    path = pytest.custom_namespace['testcase_screenshots_folder']/ filename
+    path = pytest.custom_namespace['current test case']['screenshots folder']/ filename
 
     # full-screen screenshots are enabled by
     if pytest.custom_namespace['browser'] in ['firefox', 'safari']:

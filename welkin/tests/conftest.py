@@ -244,7 +244,7 @@ def pytest_runtest_setup(item):
     globals()['COUNT'] += 1  # this is hacky because there is no iterator
 
     # create the output folder for this test case
-    test_run_path = pytest.custom_namespace['paths']['testrun']
+    test_run_path = pytest.custom_namespace['testrun paths']['folder']
     testcase_folder_path = test_run_path / short_name
     create_test_output_subfolder(testcase_folder_path)
 
@@ -316,7 +316,7 @@ def pytest_runtest_teardown(item, nextitem):
         :return: None
     """
     logger.info(f"\n### Tear down for test {item.name} ###")
-    path_to_logfile = pytest.custom_namespace['paths']['testrun logfile']
+    path_to_logfile = pytest.custom_namespace['testrun paths']['logfile']
 
     log_kwargs = {
         'version': 1,
@@ -424,6 +424,9 @@ def initialize_logging(config):
     timestamp = time.strftime('%y%m%d-%H%M%S')
     namespace_data['timestamp'] = timestamp
 
+    # update our hacky namespace
+    update_namespace(namespace_data, verbose=True)
+
     # create the output folder for this test run
     framework_folder, testrun_folder = create_run_output_folder(timestamp)
     path_to_logfile = str(testrun_folder / TESTRUN_LOGFILE_NAME)
@@ -437,7 +440,6 @@ def initialize_logging(config):
     # Note: the pytest-html plugin relies on config.option.htmlpath.
     # So, even though the testrun-specific path is in the namespace,
     # we need to push that path back into the config object.
-    # logger.info(f"\nnamespace:\n{utils.plog(pytest.custom_namespace)}")
     html_path = str(htmlreport_path)
     config.option.htmlpath = html_path
 
@@ -469,18 +471,19 @@ def initialize_logging(config):
     }
     set_logging_config(log_kwargs)
 
-    # update paths to namespace
-    paths = {'paths': {
-                'testrun': testrun_folder,
-                'testrun logfile': testrun_folder / TESTRUN_LOGFILE_NAME,
-                'testrun html report': htmlreport_path
+    # create test run paths for namespace
+    paths = {'testrun paths': {
+                'folder': testrun_folder,
+                'logfile': testrun_folder / TESTRUN_LOGFILE_NAME,
+                'html report': htmlreport_path
     }}
     # update our hacky namespace
     logging.info(f"\n--> setting paths in namespace")
     update_namespace(paths, verbose=True)
 
-    # update our hacky namespace
-    update_namespace(namespace_data, verbose=True)
+    # set up test case namespacing
+    update_namespace({'test cases': {}})
+
     logger.info(f"\nnamespace:\n{utils.plog(pytest.custom_namespace)}")
 
 
@@ -587,8 +590,6 @@ def set_up_testcase_reporting(testcase_folder, fixturenames):
             folders_to_create.extend(required_folders['api'])
         if is_webapp:
             folders_to_create.extend(required_folders['web_app'])
-            logger.info(f"\nnamespace:\n{utils.plog(pytest.custom_namespace)}")
-            logger.info(f"\ndevtools: {pytest.custom_namespace.get('devtools_supported')}")
             if pytest.custom_namespace.get('devtools_supported'):
                 # some capabilities are currently restricted to Chrome browsers
                 folders_to_create.extend(['network', 'console', 'metrics'])
@@ -603,13 +604,22 @@ def set_up_testcase_reporting(testcase_folder, fixturenames):
         # if we attempt to parallelize the execution of the
         # collected tests.
         # #############################################
+        paths = {testcase: {}}  # set up individual test case namespace
+        current_testcase = {'current test case': {'name': testcase}}
         for folder in folders_to_create:
             this_folder_path = testcase_folder / folder
             create_test_output_subfolder(this_folder_path)
             logger.info(f"\ncreated folder '{folder}': {this_folder_path}")
-            # update our hacky namespace
-            folder_data = {f"testcase_{folder}_folder": this_folder_path}
-            update_namespace(folder_data, verbose=True)
+
+            # update local data model
+            paths[testcase][f"{folder} folder"] = this_folder_path
+
+        # manually *add* (not overwrite) this test case info to the namespace
+        pytest.custom_namespace['test cases'].update(paths)
+
+        # overwrite the namespace entry for 'current test case'
+        current_testcase['current test case'].update(paths[testcase])
+        update_namespace(current_testcase, verbose=True)
 
         logger.info(f"\nnamespace:\n{utils.plog(pytest.custom_namespace)}")
 
