@@ -84,6 +84,46 @@ class PageIdentityException(Exception):
         self.errors = errors
 
 
+class UnexpectedPageStateException(Exception):
+    """
+        Raise this exception when a form submit results in unexpected errors.
+
+        Capture the requests response object and make that available.
+
+        # pass the response object to the exception
+        >>> raise UnexpectedPageStateException(message=data)
+
+        # then catch and introspect the exception's property
+        >>> except UnexpectedPageStateException as e:
+            ... print(e.message)
+        400
+    """
+    def __init__(self, message):
+        Exception.__init__(self, message)
+        self.message = message
+
+
+class ExpectedPageStateException(Exception):
+    """
+        Raise this exception when a form submit results in expected errors;
+        for example, raise this when you are testing unhappy-path scenarios
+        and want to verify that the error messaging is correct.
+
+        Capture the requests response object and make that available.
+
+        # pass the response object to the exception
+        >>> raise ExpectedPageStateException(message=data)
+
+        # then catch and introspect the exception's property
+        >>> except ExpectedPageStateException as e:
+            ... print(e.message)
+        400
+    """
+    def __init__(self, message):
+        Exception.__init__(self, message)
+        self.message = message
+
+
 class ControlInteractionException(Exception):
     """
         Raise this exception when an interaction with a control
