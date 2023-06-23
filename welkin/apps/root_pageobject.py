@@ -6,6 +6,7 @@ from axe_selenium_python import Axe
 
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
@@ -676,7 +677,35 @@ class RootPageObject(object):
     # #######################################
     # interaction event wrappers
     # #######################################
-    def _click_element(self, element, name, msg=None):
+    def _goto_and_hover(self, element, name):
+        """
+            Set an event on moving cursor to the element `element`.
+
+            :param element: webdriver element
+            :param name: str, identifier for element
+            :return: None
+        """
+        event = f"Cursor moved to element '{name}'"
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).perform()
+
+        # TODO: verify that the hover action occurred,
+        # and presumably that there was a state change
+        self.set_event(event)
+
+    def _unhover(self, x=-50, y=5):
+        """
+            Cancel hover by moving cursor.
+
+            :param x: int, movement on x-axis
+            :param y: int, movement on y-axis
+            :return: None
+        """
+        event = f"unhovered: moved relative '{(x, y)}'"
+        ActionChains(self.driver).move_by_offset(x, y).perform()
+        self.set_event(event)
+
+    def _click_element(self, element, name, msg=None, **actions):
         """
             Wrap the actual clicking of an element. This allows for the
             insertion of additional check points and error checking and
@@ -690,6 +719,8 @@ class RootPageObject(object):
         event = f"clicked element '{name}'"
         element.click()
         self.set_event(msg if msg else event)
+        if actions['actions'].get('unhover'):
+            self._unhover()
 
     def _unfocus_field(self, name):
         """
