@@ -12,6 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotVisibleException
 from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import MoveTargetOutOfBoundsException
 
 from welkin.framework.exceptions import PageUnloadException
 from welkin.framework.exceptions import PageLoadException
@@ -701,9 +702,16 @@ class RootPageObject(object):
             :param y: int, movement on y-axis
             :return: None
         """
-        event = f"unhovered: moved relative '{(x, y)}'"
-        ActionChains(self.driver).move_by_offset(x, y).perform()
-        self.set_event(event)
+        event1 = f"unhovered: moved relative '{(x, y)}'"
+        try:
+            ActionChains(self.driver).move_by_offset(x, y).perform()
+            self.set_event(event1)
+        except MoveTargetOutOfBoundsException:
+            x2, y2 = (100, 100)
+            msg = f"\nOut-of bounds movement attempt '{(x, y)}'\ntrying '{x2, y2}'"
+            ActionChains(self.driver).move_by_offset(x2, y2).perform()
+            event2 = f"unhovered: moved relative '{(x2, y2)}'"
+            self.set_event(event2)
 
     def _click_element(self, element, name, msg=None, **actions):
         """
@@ -719,9 +727,12 @@ class RootPageObject(object):
         event = f"clicked element '{name}'"
         element.click()
         self.set_event(msg if msg else event)
+        # self.save_screenshot(f"after click {name}")
         if actions.get('actions'):
             if actions['actions'].get('unhover'):
-                self._unhover()
+                x, y = actions['actions']['unhover']
+                self._unhover(x=x, y=y)
+        #       self.save_screenshot(f"after unhover {name}")
 
     def _unfocus_field(self, name):
         """
