@@ -569,7 +569,7 @@ def set_up_testcase_reporting(testcase_folder, fixturenames):
         # logging in place.
         # #############################################
         integrations = ['auth']  # not used, but helps with context  # noqa: F841
-        web_apps = ['duckduckgo']
+        web_apps = ['duckduckgo', 'newretirement']
         apis = ['colourlovers', 'dadjokes', 'genderizer']
 
         # set up config for folder requirements
@@ -828,6 +828,17 @@ def genderizer(request):
     """
         This test fixture is a trigger for setting up authentication
         management for the genderizer api.
+
+        Note: not really, this is just an example to use for real apps
+        that have actual users with real credentials in AWS.
+    """
+    pass
+
+@pytest.fixture(scope='session')
+def newretirement(request):
+    """
+        This test fixture is a trigger for setting up authentication
+        management for the NewRetirement marketing app.
 
         Note: not really, this is just an example to use for real apps
         that have actual users with real credentials in AWS.
