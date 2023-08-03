@@ -569,7 +569,7 @@ def set_up_testcase_reporting(testcase_folder, fixturenames):
         # logging in place.
         # #############################################
         integrations = ['auth']  # not used, but helps with context  # noqa: F841
-        web_apps = ['duckduckgo']
+        web_apps = ['duckduckgo', 'leolabs']
         apis = ['colourlovers', 'dadjokes', 'genderizer']
 
         # set up config for folder requirements
@@ -622,7 +622,7 @@ def set_up_testcase_reporting(testcase_folder, fixturenames):
         update_namespace(current_testcase, verbose=True)
 
         logger.info(f"\nnamespace:\n{utils.plog(pytest.custom_namespace)}")
-
+7
 
 @pytest.fixture
 def browser(request):
@@ -828,6 +828,17 @@ def genderizer(request):
     """
         This test fixture is a trigger for setting up authentication
         management for the genderizer api.
+
+        Note: not really, this is just an example to use for real apps
+        that have actual users with real credentials in AWS.
+    """
+    pass
+
+@pytest.fixture(scope='session')
+def leolabs(request):
+    """
+        This test fixture is a trigger for setting up authentication
+        management for the LeoLabs marketing app.
 
         Note: not really, this is just an example to use for real apps
         that have actual users with real credentials in AWS.
