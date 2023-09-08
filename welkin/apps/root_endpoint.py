@@ -1,5 +1,6 @@
 import logging
 import requests
+import json
 import uuid
 from cerberus import Validator
 
@@ -38,7 +39,7 @@ class RootEndpoint(object):
             'X-RequestID': self.generate_uuid(),
         }
 
-    def get(self, url, expect_status, expect_errors=False, use_session=True,
+    def get(self, url, expect_status=200, expect_errors=False, use_session=True,
             params=None, verbose=False, **kwargs):
         """
             Perform an HTTP GET action, and return the request response object.
@@ -98,6 +99,85 @@ class RootEndpoint(object):
                 res = requests.get(
                     url,
                     headers=self.headers,
+                    verify=True)
+
+        if params:
+            final_url = res.url
+        else:
+            final_url = url
+
+        logger.info(f"\nResponse code: {res.status_code}")
+        logger.info(f"\nResponse json:\n{utils.plog(res.json())}")
+
+        # write the response headers to a file
+        utils_file.write_request_to_file(res, final_url, fname=self.name)
+
+        # check for good, bad, and error results
+        # parsed_results = self._parse_response(res, expect_status, expect_errors, **kwargs)
+        return res
+
+    def post(self, url, expect_status=200, expect_errors=False, use_session=True,
+            params=None, verbose=False, **kwargs):
+        """
+            Perform an HTTP POST action, and return the request response object.
+
+            This wraps the requests module's POST call.
+
+            Optionally specify an expected status code; use this to functionally
+            test an endpoint.
+
+            Unhappy path testing:
+                1. set the `expect_status` argument to the HTTP status code you
+                expect with this request. If you are negative testing, you will
+                create a request that you expect to fail with a specific status
+                code, and you will set this argument accordingly. The test should
+                PASS if it returns the correct error behavior.
+                2. If you create a request that should return errors, set the
+                `expect_errors` argument to True. This triggers code flows to
+                evaluate an error response as an expected response.
+
+            :param url: str url for the HTTP request
+            :param expect_status: int, the expected valid HTTP status code
+            :param expect_errors: bool, True if we expect application errors
+            :param kwargs: dict, keys & values to get dumped to json
+            :return res: requests Response object
+        """
+        # make the request
+        logger.info(f"Posting url: {url}")
+        logger.info(f"\nHeaders: {utils.plog(self.headers)}")
+        if verbose:
+            logger.info(f"\nparams: {utils.plog(params)}")
+        if params:
+            if use_session:
+                res = self.session.post(
+                    url,
+                    headers=self.headers,
+                    data=json.dumps(kwargs),
+                    verify=True,
+                    params=params
+                )
+            else:
+                logger.warning("\nChoosing not to use the requests session object.")
+                res = requests.post(
+                    url,
+                    headers=self.headers,
+                    data=json.dumps(kwargs),
+                    verify=True,
+                    params=params
+                )
+        else:
+            if use_session:
+                res = self.session.post(
+                    url,
+                    headers=self.headers,
+                    data=json.dumps(kwargs),
+                    verify=True)
+            else:
+                logger.warning("\nChoosing not to use the requests session object.")
+                res = requests.post(
+                    url,
+                    headers=self.headers,
+                    data=json.dumps(kwargs),
                     verify=True)
 
         if params:
