@@ -3,6 +3,7 @@ import requests
 import json
 import uuid
 from cerberus import Validator
+from requests.exceptions import JSONDecodeError
 
 from welkin.framework import utils
 from welkin.framework import utils_file
@@ -186,7 +187,10 @@ class RootEndpoint(object):
             final_url = url
 
         logger.info(f"\nResponse code: {res.status_code}")
-        logger.info(f"\nResponse json:\n{utils.plog(res.json())}")
+        try:
+            logger.info(f"\nResponse json:\n{utils.plog(res.json())}")
+        except JSONDecodeError:
+            logger.error(f"\trapped JSONDecodeError")
 
         # write the response headers to a file
         utils_file.write_request_to_file(res, final_url, fname=self.name)

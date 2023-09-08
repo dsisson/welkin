@@ -570,7 +570,7 @@ def set_up_testcase_reporting(testcase_folder, fixturenames):
         # #############################################
         integrations = ['auth']  # not used, but helps with context  # noqa: F841
         web_apps = ['duckduckgo']
-        apis = ['colourlovers', 'dadjokes', 'genderizer']
+        apis = ['colourlovers', 'dadjokes', 'genderizer', 'toycensus']
 
         # set up config for folder requirements
         required_folders = {
@@ -828,6 +828,18 @@ def genderizer(request):
     """
         This test fixture is a trigger for setting up authentication
         management for the genderizer api.
+
+        Note: not really, this is just an example to use for real apps
+        that have actual users with real credentials in AWS.
+    """
+    pass
+
+
+@pytest.fixture(scope='session')
+def toycensus(request):
+    """
+        This test fixture is a trigger for setting up authentication
+        management for the toy census api.
 
         Note: not really, this is just an example to use for real apps
         that have actual users with real credentials in AWS.

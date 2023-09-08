@@ -1,0 +1,76 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.2, pytest-7.4.0, pluggy-1.0.0 -- /Users/derek/dev/v3/bin/python3
+cachedir: .pytest_cache
+metadata: {'Python': '3.11.2', 'Platform': 'macOS-12.6.3-x86_64-i386-64bit', 'Packages': {'pytest': '7.4.0', 'pluggy': '1.0.0'}, 'Plugins': {'instafail': '0.5.0', 'html': '3.2.0', 'base-url': '2.0.0', 'metadata': '2.0.4'}, 'Base URL': ''}
+rootdir: /Users/derek/dev/welkin/welkin/tests
+configfile: pytest.ini
+plugins: instafail-0.5.0, html-3.2.0, base-url-2.0.0, metadata-2.0.4
+collecting ... collected 56 items
+
+<Module census/test_census.py>
+  <Class CensusTests>
+    <Function test_no_action>
+    <Function test_invalid_action>
+    <Function test_minimal_country[country0]>
+    <Function test_minimal_country[country1]>
+    <Function test_minimal_country[country2]>
+    <Function test_minimal_country[country3]>
+    <Function test_minimal_country[country4]>
+    <Function test_minimal_country[country5]>
+    <Function test_minimal_country[country6]>
+    <Function test_minimal_country[country7]>
+    <Function test_minimal_country[country8]>
+    <Function test_minimal_country[country9]>
+    <Function test_minimal_country[country10]>
+    <Function test_minimal_country[country11]>
+    <Function test_minimal_country[country12]>
+    <Function test_minimal_country[country13]>
+    <Function test_minimal_country[country14]>
+    <Function test_minimal_country[country15]>
+    <Function test_minimal_country[country16]>
+    <Function test_minimal_country[country17]>
+    <Function test_minimal_country[country18]>
+    <Function test_minimal_country[country19]>
+    <Function test_minimal_country[country20]>
+    <Function test_minimal_country[country21]>
+    <Function test_minimal_country[country22]>
+    <Function test_minimal_country[country23]>
+    <Function test_minimal_country[country24]>
+    <Function test_minimal_country[country25]>
+    <Function test_minimal_country[country26]>
+    <Function test_minimal_country[country27]>
+    <Function test_minimal_country[country28]>
+    <Function test_minimal_country[country29]>
+    <Function test_minimal_country[country30]>
+    <Function test_minimal_country[country31]>
+    <Function test_minimal_country[country32]>
+    <Function test_minimal_country[country33]>
+    <Function test_minimal_country[country34]>
+    <Function test_minimal_country[country35]>
+    <Function test_minimal_country[country36]>
+    <Function test_minimal_gender[gender0]>
+    <Function test_minimal_gender[gender1]>
+    <Function test_minimal_gender[gender2]>
+    <Function test_minimal_gender[gender3]>
+    <Function test_minimal_gender[gender4]>
+    <Function test_minimal_gender[gender5]>
+    <Function test_minimal_gender[gender6]>
+    <Function test_minimal_gender[gender7]>
+    <Function test_minimal_gender[gender8]>
+    <Function test_minimal_gender[gender9]>
+    <Function test_minimal_gender[gender10]>
+    <Function test_minimal_gender[gender11]>
+    <Function test_minimal_gender[gender12]>
+    <Function test_minimal_pwcomplexity[complexity0]>
+    <Function test_minimal_pwcomplexity[complexity1]>
+    <Function test_minimal_pwcomplexity[complexity2]>
+    <Function test_minimal_pwcomplexity[complexity3]>
+
+=============================== warnings summary ===============================
+../../v3/lib/python3.11/site-packages/pkg_resources/__init__.py:121
+  /Users/derek/dev/v3/lib/python3.11/site-packages/pkg_resources/__init__.py:121: DeprecationWarning: pkg_resources is deprecated as an API
+    warnings.warn("pkg_resources is deprecated as an API", DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated html file: file:///Users/derek/dev/welkin/welkin/output/230910-135859/report.html -
+========================= 56 tests collected in 0.12s ==========================
