@@ -626,7 +626,7 @@ def set_up_testcase_reporting(testcase_folder, fixturenames):
         # #############################################
         integrations = ['auth']  # not used, but helps with context  # noqa: F841
         drivers = ['driver']
-        web_apps = ['duckduckgo', 'sweetshop']
+        web_apps = ['duckduckgo', 'sweetshop', 'earnest']
         apis = ['colourlovers', 'dadjokes', 'genderizer']
 
         # set up config for folder requirements
@@ -1259,6 +1259,17 @@ def sweetshop(request):
     """
         This test fixture is a trigger for setting up authentication
         management for a generic web app.
+        Note: not really, this is just an example to use for real apps
+        that have actual users with real credentials in AWS.
+    """
+    pass
+
+
+@pytest.fixture(scope='session')
+def earnest(request):
+    """
+        This test fixture is a trigger for setting up authentication
+        management for the Earnest marketing app.
         Note: not really, this is just an example to use for real apps
         that have actual users with real credentials in AWS.
     """
