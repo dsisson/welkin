@@ -569,7 +569,7 @@ def set_up_testcase_reporting(testcase_folder, fixturenames):
         # logging in place.
         # #############################################
         integrations = ['auth']  # not used, but helps with context  # noqa: F841
-        web_apps = ['duckduckgo']
+        web_apps = ['duckduckgo', 'cyware']
         apis = ['colourlovers', 'dadjokes', 'genderizer']
 
         # set up config for folder requirements
@@ -679,6 +679,11 @@ def browser_chrome_headless():
 
     options = base_chrome_capabilities()
     options.add_argument('--headless')
+
+    # spoof the useragent as the non-headless version
+    spoof = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+    options.add_argument(f"--user-agent={spoof}")
+
     this_driver = webdriver.Chrome(options=options)
     logger.info(f"\nbrowser options:\n{utils.plog(options.__dict__)}")
     return this_driver
@@ -829,6 +834,17 @@ def genderizer(request):
         This test fixture is a trigger for setting up authentication
         management for the genderizer api.
 
+        Note: not really, this is just an example to use for real apps
+        that have actual users with real credentials in AWS.
+    """
+    pass
+
+
+@pytest.fixture(scope='session')
+def cyware(request):
+    """
+        This test fixture is a trigger for setting up authentication
+        management for the Cyware marketing app.
         Note: not really, this is just an example to use for real apps
         that have actual users with real credentials in AWS.
     """
