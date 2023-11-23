@@ -80,7 +80,7 @@ export PYTHONPATH=$PYTHONPATH:~/dev/welkin
 Activate the virtualenv ~/dev/venv.
 
 ### And Then There's ChromeDriver
-You will need a recent version of the Chrome browser on your local system, as well as the matching Chromedriver executable (see https://sites.google.com/a/chromium.org/chromedriver/downloads) installed in your virtualenv, specifically in:
+You will need a recent version of the Chrome browser on your local system, as well as the matching Chromedriver executable (see https://sites.google.com/chromium.org/driver/?pli=1) installed in your virtualenv, specifically in:
 
 ```~/dev/venv/bin```
 
