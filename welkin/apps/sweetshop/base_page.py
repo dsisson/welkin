@@ -1,6 +1,8 @@
 import logging
+import importlib
 
 from welkin.apps.root_pageobject import RootPageObject
+from welkin.framework import utils
 
 logger = logging.getLogger(__name__)
 
@@ -31,3 +33,82 @@ class BaseWrapperPageObject(RootPageObject):
     """
     # the path to the routings file for this app wrapper
     routings_path = 'welkin.apps.sweetshop.'
+
+
+class PomBootPage(BaseWrapperPageObject):
+    """
+        This class is the booter for a page object model.
+
+        This class has to be included in a wrapper's routings.pty file, e,g.:
+            'POM boot page': {
+                'module': 'base_page',
+               'object': 'PomBootPage',
+                'path': 'welkin.apps.<wrapper>.'
+            },
+
+        Example usage:
+        >>> from welkin.apps.sweetshop.base_page import PomBootPage
+        >>> boot_page = PomBootPage(driver)
+        >>> home_page = boot_page.start_with('sweetshop home page')
+    """
+    page_auth_mode = 'noauth'
+    name = 'POM boot page'
+    title = ''
+    url = 'data:,'
+    identity_checks = ['check_exact_url']
+    load_checks = None
+    unload_checks = None
+
+    def __init__(self, driver):
+        self.driver = driver
+        logger.info('\nInstantiated boot PageObject.')
+
+    def start_with(self, page_id):
+        """
+            For the supplied `page_id`, figure out the url for that
+            page and load that in the driver, then instantiate the page
+            object for that page, then return that page object.
+
+            This is the mechanism to create the wrappers page object model
+            that keeps the test code in sync with the browser's state.
+
+            :param po_id: str, key for the page object in the POM data model
+            :return: page object for the target page
+        """
+        # step 1: get the page url, given the page object name
+        import_path_to_routings = self.routings_path + 'routings'
+        logger.info(f"\nPath to routings module for this wrapper:\n{import_path_to_routings}")
+        routings = importlib.import_module(import_path_to_routings)
+
+        # load the noauth map
+        routing_map = routings.noauth_pageobjects
+        root_path_to_module = routings.NOAUTH_PATH
+
+        # get the str module name for the new PO
+        page_object_data = routing_map[page_id]
+
+        # assemble the str dot-notation path for the module
+        module_path = root_path_to_module + page_object_data['module']
+
+        # dynamically import the module `module_path`
+        logger.info(f"\nPath to page object: {module_path} --> '{page_id}'.")
+        path_to_module = importlib.import_module(module_path)
+
+        # dynamically translate from the str name of the PO
+        # to the PO's class
+        pageobject_class = getattr(path_to_module, page_object_data['object'])
+
+        # instantiate a class instance for the PageObject.
+        # Note: at this point, in this method, `self` refers to the old PO
+        new_pageobject_instance = pageobject_class(self.driver)
+
+        target_url = new_pageobject_instance.url
+
+        # step 2: load the page in the browser
+        self.driver.get(target_url)
+
+        # step 3: update the POM based on what the browser just did
+        new_page = self.load_pageobject(po_id=page_id)
+
+        # step 4: return the page object to the calling test code
+        return new_page

@@ -2,7 +2,7 @@ import pytest
 import logging
 
 from selenium.common.exceptions import ElementClickInterceptedException
-from welkin.apps.sweetshop.noauth import pages
+from welkin.apps.sweetshop.base_page import PomBootPage
 
 logger = logging.getLogger(__name__)
 
@@ -39,12 +39,11 @@ class SweetshopTests(object):
         # we have a webdriver instance from this method's fixture `driver`,
         # which corresponds to the "browser" argument at the CLI invocation
 
-        # instantiate the home page object
-        home_page = pages.HomePage(driver, firstload=True)
-        home_page.save_screenshot('home initialization')  # should be blank
+        # instantiate the POM on the blank driver start page
+        boot_page = PomBootPage(driver)
 
-        # load home page in browser and refresh the PO instance
-        home_page = home_page.load()
+        # instantiate the home page object
+        home_page = boot_page.start_with('sweetshop home page')
         home_page.save_screenshot('home loaded')
 
         id = 'Sweets'
@@ -98,13 +97,12 @@ class SweetshopTests(object):
         msg = f"testing navigation path: \nHome --> {'--> '.join(scenario)}"
         logger.info(f"\n{'#' * 60}\n{msg}\n{'#' * 60}\n")
 
-        # instantiate the home page object
-        # every scenario starts with the home page
-        page = pages.HomePage(driver, firstload=True)
-        page.save_screenshot('home initialization')  # should be blank
+        # instantiate the POM on the blank driver start page
+        boot_page = PomBootPage(driver)
 
-        # load home page in browser and refresh the PO instance
-        page = page.load()
+        # instantiate the home page
+        # to load any other page, we'd need to use its po id
+        page = boot_page.start_with('sweetshop home page')
         page.save_screenshot('home loaded')
 
         for destination in scenario:
