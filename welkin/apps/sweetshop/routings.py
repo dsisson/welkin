@@ -4,6 +4,12 @@ AUTH_PATH = None  # not implemented for this wrapper
 
 # mapping page object names to classes
 noauth_pageobjects = {
+    'POM boot page': {
+        'module': 'base_page',
+        'object': 'PomBootPage',
+        'path': 'welkin.apps.sweetshop.'
+    },
+
     'sweetshop home page': {
         'module': 'pages',
         'object': 'HomePage',
