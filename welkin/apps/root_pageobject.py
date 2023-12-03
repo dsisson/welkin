@@ -28,10 +28,10 @@ logger = logging.getLogger(__name__)
 
 class RootPageObject(object):
 
-    def load_pageobject(self, po_id, cross_auth_boundary=False, **opts):
+    def resolve_pageobject(self, po_id, cross_auth_boundary=False, **opts):
         """
-            Load the page object for the page that has been navigated to,
-            and return it.
+            Using the string id of the pageobject for the desired page,
+            identify the pageobject's class and instantiate it.
 
             The importing of the modules and classes has to be done
             dynamically -- and in this method -- in order to avoid
@@ -50,34 +50,12 @@ class RootPageObject(object):
             logging out from an auth page (at which point the user should
             be forgotten by the system).
 
-            The `opts` dict provides a way to feed init args to PO classes
-            that require additional data for initialization. Generally
-            it's cleaner to have __init__s that only require a webdriver
-            instance.
-
-            Note: this method controls the change between an old (current)
-            page object and the *next* page object. Up until the new class is
-            instantiated, `self` refers to the old (current) page object; once
-            the new has been instantiated, you must use class instance methods
-            and properties of that new page object.
-
-            Also note: a *lot* of stuff happens in this method, extra validation,
-            processing around browser state and data, and writes to file. All of
-            this makes this method slow.
-
             :param po_id: str, key for the page object in the POM data model
             :param cross_auth_boundary: bool, true to trigger a switch between
                                         auth and noath routing, or vice versa
             :param opts: dict, pass-through parameters for the PO's __init__()
             :return: page object for the target page
         """
-        # get the previous page's name; remember that the browser has changed
-        # state and we are trying to catch the page object up to the browser
-        last_page = self.name  # noqa: F841
-
-        # unload steps, if needed
-        self.verify_unload(screenshot=True, verbose=True)
-
         # import the routings module for the appropriate wrapper
         # the path (minus the file name) lives in this wrapper's BasePageObject
         import_path_to_routings = self.routings_path + 'routings'
@@ -126,13 +104,71 @@ class RootPageObject(object):
         logger.info(f"\nPath to page object: {module_path} --> '{po_id}'.")
         path_to_module = importlib.import_module(module_path)
 
-        # dynamically translate from the str name of the PO
-        # to the PO's class
+        # dynamically translate from the str name of the PO to the PO's class
         pageobject_class = getattr(path_to_module, page_object_data['object'])
 
         # instantiate a class instance for the PageObject.
         # Note: at this point, in this method, `self` refers to the old PO
-        new_pageobject_instance = pageobject_class(self.driver, **opts)
+        unvalidated_pageobject = pageobject_class(self.driver)
+        return unvalidated_pageobject
+
+    def load_pageobject(self, po_id, cross_auth_boundary=False, **opts):
+        """
+            Load the page object for the page that has been navigated to,
+            and return it.
+
+            The philosophy behind this method is that there are three layers
+            of abstraction to driving a browser programmatically from test code:
+                1. our test code interacts with the browser and triggers browser
+                events.
+                2. the browser acts on these interactions and triggers, changing
+                its state.
+                3. we abstract and manage expected browser context with our page
+                object model. Our test code operates in this abstraction layer.
+
+            Every time the browser changes its state, we must update our
+            expectations about the browser state. To do this, we must force
+            reloads of the page object model when ever we take a state-changing
+            interaction. We do this by loadig and returning an updated page
+            object on taking test actions.
+
+            This method load_pageobject() is responsible for managing the model's
+            state transitions, but performing checks that the current browser page
+            is the one we expect to be on.
+
+            Notes:
+            1. The `opts` dict provides a way to feed init args to PO classes
+            that require additional data for initialization. Generally
+            it's cleaner to have __init__s that only require a webdriver
+            instance.
+
+            2. This method controls the change between an old (current)
+            page object and the *next* page object. Up until the new class is
+            instantiated, `self` refers to the old (current) page object; once
+            the new has been instantiated, you must use class instance methods
+            and properties of that new page object.
+
+            3. A *lot* of stuff happens in this method, extra validation,
+            processing around browser state and data, and writes to file. All of
+            this makes this method slow.
+
+            :param po_id: str, key for the page object in the POM data model
+            :param cross_auth_boundary: bool, true to trigger a switch between
+                                        auth and noath routing, or vice versa
+            :param opts: dict, pass-through parameters for the PO's __init__()
+            :return: page object for the target page
+        """
+        # get the previous page's name; remember that the browser has changed
+        # state and we are trying to catch the page object up to the browser
+        last_page = self.name  # noqa: F841
+
+        # unload steps, if needed
+        self.verify_unload(screenshot=True, verbose=True)
+
+        # get the pageobject for the expected new page
+        # at this point, we do NOT know if the browser loaded the page correctly!
+        new_pageobject_instance = self.resolve_pageobject(
+            po_id, cross_auth_boundary=False, **opts)
 
         # perform any page load checks that are specified in the PO class
         # >> using the new page object! <<
