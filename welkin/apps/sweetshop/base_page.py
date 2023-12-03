@@ -69,46 +69,27 @@ class PomBootPage(BaseWrapperPageObject):
             page and load that in the driver, then instantiate the page
             object for that page, then return that page object.
 
-            This is the mechanism to create the wrappers page object model
+            This is the mechanism to create the wrapper's page object model
             that keeps the test code in sync with the browser's state.
 
-            :param po_id: str, key for the page object in the POM data model
-            :return: page object for the target page
+            :param page_id: str, key for the page object in the POM data model
+            :return new_pageobject_instance: page object for the target page
         """
-        # step 1: get the page url, given the page object name
-        import_path_to_routings = self.routings_path + 'routings'
-        logger.info(f"\nPath to routings module for this wrapper:\n{import_path_to_routings}")
-        routings = importlib.import_module(import_path_to_routings)
+        # step 1: using the page id, instantiate that page's pageobject
+        page = self.resolve_pageobject(po_id=page_id)
 
-        # load the noauth map
-        routing_map = routings.noauth_pageobjects
-        root_path_to_module = routings.NOAUTH_PATH
+        # step 2: from that page object instance, get the url for that page
+        target_url = page.url
 
-        # get the str module name for the new PO
-        page_object_data = routing_map[page_id]
-
-        # assemble the str dot-notation path for the module
-        module_path = root_path_to_module + page_object_data['module']
-
-        # dynamically import the module `module_path`
-        logger.info(f"\nPath to page object: {module_path} --> '{page_id}'.")
-        path_to_module = importlib.import_module(module_path)
-
-        # dynamically translate from the str name of the PO
-        # to the PO's class
-        pageobject_class = getattr(path_to_module, page_object_data['object'])
-
-        # instantiate a class instance for the PageObject.
-        # Note: at this point, in this method, `self` refers to the old PO
-        new_pageobject_instance = pageobject_class(self.driver)
-
-        target_url = new_pageobject_instance.url
-
-        # step 2: load the page in the browser
+        # step 3: load the page in the browser using webdriver
         self.driver.get(target_url)
 
-        # step 3: update the POM based on what the browser just did
-        new_page = self.load_pageobject(po_id=page_id)
+        # step 4: update the POM based on what we think the browser just did;
+        # we can be pretty sure of what we told the browser to do, and we hope
+        # we understand how the context has changed, but we don't KNOW that the
+        # was loaded correctly into the browser. So, we re-load the pageobject
+        # with the checks.
+        new_pageobject_instance = self.load_pageobject(po_id=page_id)
 
-        # step 4: return the page object to the calling test code
-        return new_page
+        # step 5: return the page object to the calling test code
+        return new_pageobject_instance
