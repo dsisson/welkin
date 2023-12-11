@@ -22,7 +22,6 @@ class BasePage(NoAuthBasePageObject):
 
 class HomePage(BasePage):
     name = 'sweetshop home page'
-    # title = 'Low-Interest Loans Designed For You - Earnest'
     identity_checks = ['check_url']
     load_checks = [
         (True, By.XPATH, "//h1[contains(text(), 'Welcome to the sweet shop!')]"),

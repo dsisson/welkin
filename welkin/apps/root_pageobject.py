@@ -191,10 +191,11 @@ class RootPageObject(object):
         # write the cookies to a file
         new_pageobject_instance.save_cookies(filename=event)
 
-        # write browser metrics log to file
-        new_pageobject_instance.save_browser_metrics(filename=event)
+        # write Chrome browser metrics log to file
+        if 'chrome' in pytest.custom_namespace['browser']:
+            new_pageobject_instance.save_chrome_metrics(filename=event)
 
-        # write browser console and peformance logs to files
+        # write browser console and performance logs to files
         new_pageobject_instance.save_browser_logs(filename=event)
 
         # write webstorage to files
@@ -512,7 +513,7 @@ class RootPageObject(object):
             logger.warning(f"Cannot access chrome logs for "
                            f"{pytest.custom_namespace['browser']}.")
 
-    def save_browser_metrics(self, filename=''):
+    def save_chrome_metrics(self, filename=''):
         """
             Grab the Chrome driver metrics log and write them to files.
 
