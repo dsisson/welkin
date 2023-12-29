@@ -51,13 +51,13 @@ def write_network_log_to_file(log, url, fname=''):
 
 def write_metrics_log_to_file(log, url, fname=''):
     """
-        Save the browser metrics log as json to a file. 
-        
+        Save the browser metrics log as json to a file.
+
         :param log: dict, browser metrics log
         :param url: str, url for the current page
         :param fname: str, first part of filename, will be appended with
                            timestamp; defaults to empty string
-        :return: 
+        :return:
     """
     # note: json files don't allow comments, so we'd not be able
     # to write the url to the file. Instead, insert a kv pair into dict

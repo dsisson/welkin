@@ -24,7 +24,7 @@ def take_and_save_screenshot(driver, filename=''):
     filename = '%s_%s.png' % (time.strftime('%H%M%S'), filename.replace(' ', '_'))
 
     # Note: the path depends on the current test case!
-    path = pytest.custom_namespace['current test case']['screenshots folder']/ filename
+    path = pytest.custom_namespace['current test case']['screenshots folder'] / filename
 
     # full-screen screenshots are enabled by
     if pytest.custom_namespace['browser'] in ['firefox', 'safari']:
@@ -147,6 +147,7 @@ def get_metrics_log(pageobject):
     logger.info(f"\nGetting metrics log for page '{fname}' at {url}.")
     metrics = driver.execute_cdp_cmd('Performance.getMetrics', {})
     return metrics
+
 
 def get_webstorage(pageobject):
     """

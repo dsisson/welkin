@@ -67,8 +67,8 @@ class BasePage(NoAuthBasePageObject):
             wait.until(EC.visibility_of_all_elements_located((By.ID, 'links')))
             logger.info('wait succeeded')
         except TimeoutException:
-            self.save_screenshot(f"search timed out")
-            logger.error(f"\nsearch timed out, see saved screenshot.")
+            self.save_screenshot("search timed out")
+            logger.error("\nsearch timed out, see saved screenshot.")
             raise
 
         # instantiate and return a search results page
@@ -182,7 +182,8 @@ class SearchResultsPage(BasePage):
         self.driver = driver
         self.search_text = text
         self.title = f"{self.search_text} at {self.appname}"
-        self.url_chunks = [f"https://{self.domain}/", f"q={self.search_text.replace(' ', '+')}"]
+        self.url_chunks = [f"https://{self.domain}/",
+                           f"q={self.search_text.replace(' ', '+')}"]
         # because the title is set in __init__(),
         # the check also has to be set and added here
         titlecheck = (False, By.XPATH, f"//title[text()='{self.title}']")

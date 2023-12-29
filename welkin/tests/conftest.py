@@ -39,7 +39,7 @@ def update_namespace(data: dict, verbose: bool = False):
     except AttributeError:
         pytest.custom_namespace = {}
         if verbose:
-            logger.info(f"\nnamespace doesn't exist, so creating it")
+            logger.info('\nnamespace doesn\'t exist, so creating it')
 
     for key, value in data.items():
         # sometimes we feed in a value that's a dict, so handle nesting
@@ -141,6 +141,7 @@ def pytest_configure(config):
     # because we need know to know that immediately
     applitools_run_config(config)
 
+
 # 2.0
 def pytest_sessionstart(session):
     """
@@ -185,7 +186,7 @@ def pytest_collection_modifyitems(items):
         applitools_path = redirect_applitools_logging(run_folder)
         paths = {'applitools log path': applitools_path}
         update_namespace(paths, verbose=True)
-        logger.info(f"\nApplitools: `eyes` ficture found, so creating folder.")
+        logger.info('\nApplitools: `eyes` fixture found, so creating folder.')
 
 
 # 4.0
@@ -382,7 +383,7 @@ def pytest_runtest_teardown(item, nextitem):
         }
     }
 
-    logger.info(f"\n### Closing test case logfile ###\n\n")
+    logger.info('\n### Closing test case logfile ###\n\n')
     filename = set_logging_config(log_kwargs)
     logger.info(f"\n### Reset logfile to {filename} ###\n\n\n")
 
@@ -516,7 +517,7 @@ def initialize_logging(config):
                 'html report': htmlreport_path
     }}
     # update our hacky namespace
-    logging.info(f"\n--> setting paths in namespace")
+    logging.info('\n--> setting paths in namespace')
     update_namespace(paths, verbose=True)
 
     # set up test case namespacing
@@ -589,7 +590,7 @@ def create_test_output_subfolder(path):
         path.mkdir()
         logger.info(f"\nCreated sub-folder: {str(path)}")
     else:
-        logger.info(f"\nSub-folder already exists.")
+        logger.info("\nSub-folder already exists.")
 
 
 # 7.2
@@ -829,11 +830,8 @@ def driver(request, browser):
     driver = None
 
     # applitools setup flags
-    use_grid = None
     use_execution_cloud = None
     if pytest.custom_namespace.get('applitools'):
-        if pytest.custom_namespace['applitools'].get('use ultrafast grid'):
-            use_grid = True
         if pytest.custom_namespace['applitools'].get('use execution cloud'):
             use_execution_cloud = True
 
@@ -998,21 +996,21 @@ def runner():
     logger.info(f"\n---> namespace for applitools runner: "
                 f"\n{utils.plog(pytest.custom_namespace)}")
 
-    logger.info(f"\ninitializing with applitools")
-    logger.info(f"\n-----> applitools output is logged to a different logger")
+    logger.info("\ninitializing with applitools")
+    logger.info("\n-----> applitools output is logged to a different logger")
     if pytest.custom_namespace.get('applitools'):
         if pytest.custom_namespace['applitools'].get('use ultrafast grid'):
             # scenario 3
             from applitools.selenium import VisualGridRunner, RunnerOptions
             run = VisualGridRunner(RunnerOptions().test_concurrency(5))
-            logger.info(f"\n-----> runner: visual")
+            logger.info("\n-----> runner: visual")
             yield run
 
         else:
             # scenario 2
             from applitools.selenium import ClassicRunner
             run = ClassicRunner()
-            logger.info(f"\n-----> runner: classic")
+            logger.info("\n-----> runner: classic")
             yield run
     else:
         msg = 'runner() was called but "applitools" is missing from the namespace!'
@@ -1021,7 +1019,7 @@ def runner():
     # Note: everything below in this fixture logs to runlog.txt
     # yield run
     # run.get_all_test_results()
-    #logger.info(f"\nall results:\n{utils.plog(run.get_all_test_results())}")
+    # logger.info(f"\nall results:\n{utils.plog(run.get_all_test_results())}")
 
 
 @pytest.fixture(scope='session')
@@ -1098,7 +1096,8 @@ def configuration(applitools_key, batch_info):
             config.add_browser(1600, 1200, BrowserType.FIREFOX)
 
             # Add mobile browsers with different orientations
-            config.add_browser(IosDeviceInfo(IosDeviceName.iPhone_11, ScreenOrientation.PORTRAIT))
+            config.add_browser(IosDeviceInfo(
+                IosDeviceName.iPhone_11, ScreenOrientation.PORTRAIT))
 
     # Return the configuration object
     return config

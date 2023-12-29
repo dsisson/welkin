@@ -117,7 +117,7 @@ class RootEndpoint(object):
         return res
 
     def post(self, url, expect_status=200, expect_errors=False, use_session=True,
-            params=None, verbose=False, **kwargs):
+             params=None, verbose=False, **kwargs):
         """
             Perform an HTTP POST action, and return the request response object.
 

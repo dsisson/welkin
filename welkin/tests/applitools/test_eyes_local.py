@@ -1,10 +1,7 @@
 import pytest
 import logging
 
-from selenium.common.exceptions import ElementClickInterceptedException
-from applitools.selenium import Eyes
 from welkin.apps.sweetshop.base_page import PomBootPage
-from welkin.framework import utils
 
 from applitools.selenium import Target
 
@@ -46,7 +43,8 @@ class ApplitoolsEyesTests(object):
             >>>pytest tests/applitools -k test_linear_navigation --browser=headless_chrome
 
             2. on Aplitools UltraFast Grid
-            >>>pytest tests/applitools -k test_linear_navigation --ultrafast_grid=yes --browser=headless_chrome
+            >>>pytest tests/applitools -k test_linear_navigation --ultrafast_grid=yes
+                --browser=headless_chrome
 
 
         """
@@ -108,16 +106,16 @@ class ApplitoolsEyesTests(object):
         # logger.info(f"\neyes results:\n{utils.plog(eyes.get_results())}")
 
     @pytest.mark.parametrize('scenario',
-                            [
-                                ['Sweets', 'Login', 'About'],
-                                ['About', 'Basket', 'Home'],
-                                # ['Login', 'Home', 'Sweets'],
-                                # ['Basket', 'About', 'Home'],  # expected broken link
-                                # ['Basket', 'Sweets', 'Login'],
-                                # ['Sweets', 'Basket', 'About'],  # expected broken link
-                            ],
-                            ids=['scenario01', 'scenario02']
-                                 #'scenario03', 'scenario04', 'scenario05', 'scenario06']
+                             [
+                                 ['Sweets', 'Login', 'About'],
+                                 ['About', 'Basket', 'Home'],
+                                 # ['Login', 'Home', 'Sweets'],
+                                 # ['Basket', 'About', 'Home'],  # expected broken link
+                                 # ['Basket', 'Sweets', 'Login'],
+                                 # ['Sweets', 'Basket', 'About'],  # expected broken link
+                             ],
+                             ids=['scenario01', 'scenario02']
+                                  # 'scenario03', 'scenario04', 'scenario05', 'scenario06']
     )
     def test_dynamic_navigation(self, driver, sweetshop, scenario, eyes):
         """
@@ -157,4 +155,3 @@ class ApplitoolsEyesTests(object):
 
             # visual test!
             eyes.check(Target.window().fully().with_name(destination))
-

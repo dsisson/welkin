@@ -128,7 +128,7 @@ class SearchResultsPage(BasePageObject):
         """
         # set expectations
         expected_title = f"{self.search_text} at {self.appname}"
-        expected_url = f"https://{self.domain}/?q={self.search_text.replace(' ', '+')}"
+        # expected_url = f"https://{self.domain}/?q={self.search_text.replace(' ', '+')}"
         expected_escaped_query_in_url = f"q={self.search_text.replace(' ', '+')}"
 
         # actual results

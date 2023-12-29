@@ -1,15 +1,8 @@
 import logging
-import time
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
-from selenium.common.exceptions import NoSuchElementException
 
 from welkin.apps.sweetshop.noauth.base_noauth import NoAuthBasePageObject
-from welkin.framework.exceptions import PageIdentityException
-from welkin.framework import utils
 
 logger = logging.getLogger(__name__)
 INIT_MSG = 'Instantiated PageObject for %s.'
@@ -52,7 +45,7 @@ class HomePage(BasePage):
         self.title = 'Sweet Shop'
         if firstload:
             self.unload_checks = None
-            msg = f"Because this is the first load, do NOT check for unload!"
+            msg = "Because this is the first load, do NOT check for unload!"
             logger.warning(msg)
         else:
             # because the title is set in __init__(),
@@ -121,8 +114,6 @@ class AboutPage(BasePage):
         driver.set_window_size(1405, 2000)
         self.driver = driver
         logger.info('\n' + INIT_MSG % self.name)
-
-
 
 
 class LoginPage(BasePage):
