@@ -1,7 +1,6 @@
 import pytest
 import logging
 
-from selenium.common.exceptions import ElementClickInterceptedException
 from welkin.apps.sweetshop.base_page import PomBootPage
 
 logger = logging.getLogger(__name__)
@@ -67,17 +66,16 @@ class SweetshopTests(object):
         home_page.save_screenshot('home page loaded again')
 
     @pytest.mark.parametrize('scenario',
-                            [
-                                ['Sweets', 'Login', 'About'],
-                                ['About', 'Basket', 'Home'],
-                                ['Login', 'Home', 'Sweets'],
-                                ['Basket', 'About', 'Home'],  # expected broken link
-                                ['Basket', 'Sweets', 'Login'],
-                                ['Sweets', 'Basket', 'About'],  # expected broken link
-                            ],
-                            ids=['scenario01', 'scenario02', 'scenario03',
-                                 'scenario04', 'scenario05', 'scenario06']
-    )
+                             [
+                                 ['Sweets', 'Login', 'About'],
+                                 ['About', 'Basket', 'Home'],
+                                 ['Login', 'Home', 'Sweets'],
+                                 ['Basket', 'About', 'Home'],  # expected broken link
+                                 ['Basket', 'Sweets', 'Login'],
+                                 ['Sweets', 'Basket', 'About'],  # expected broken link
+                             ],
+                             ids=['scenario01', 'scenario02', 'scenario03',
+                                  'scenario04', 'scenario05', 'scenario06'])
     def test_dynamic_navigation(self, driver, sweetshop, scenario):
         """
             Dynamic navigation flows. Visit the pages specified in

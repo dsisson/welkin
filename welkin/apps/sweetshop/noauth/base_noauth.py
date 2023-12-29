@@ -1,13 +1,9 @@
 import logging
-import time
 
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import WebDriverException
 from selenium.common.exceptions import MoveTargetOutOfBoundsException
 
 from welkin.apps.sweetshop.base_page import BaseWrapperPageObject
-from welkin.framework.utils_selenium import scroll_to_top_of_page
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +42,7 @@ class NoAuthBasePageObject(BaseWrapperPageObject):
             :param destination: str, identifier text for desired destination
             :return next_page: page object
         """
-        base = 'https://sweetshop.vivrichards.co.uk/'
+        # base = 'https://sweetshop.vivrichards.co.uk/'
 
         target1, target2 = self.generate_nav_path(destination)
         # map of targets to selector and PO info
@@ -112,7 +108,7 @@ class NoAuthBasePageObject(BaseWrapperPageObject):
         # # mouseover to trigger the sub menu (no worries if there is no sub-menu)
         # # however, this really needs a check that *something* happened here
         self._goto_and_hover(stage1, name=destination)
-        self.save_screenshot(f"hover for target1")
+        self.save_screenshot("hover for target1")
 
         # click to trigger sub menu
         # msg = f"multi-stage nav action, clicked {target1}"
@@ -128,7 +124,7 @@ class NoAuthBasePageObject(BaseWrapperPageObject):
 
         logger.info(f"\nstage2_link:{stage2_link.get_attribute('innerHTML')}")
 
-        event = f"clicked {target2} destination link"
+        # event = f"clicked {target2} destination link"
         name = f"destination link {target2}"
 
         # get the page object identifier for the target page
@@ -143,7 +139,7 @@ class NoAuthBasePageObject(BaseWrapperPageObject):
                                                       change_url=True,
                                                       actions={'unhover': (0, 400)})
         except MoveTargetOutOfBoundsException:
-            logger.error(f"\nunhover problem; retrying without hover")
+            logger.error("\nunhover problem; retrying without hover")
             # get the link element again
             stage2_link = self.driver.find_element(method, selector)
             next_page = self._click_and_load_new_page(stage2_link,
