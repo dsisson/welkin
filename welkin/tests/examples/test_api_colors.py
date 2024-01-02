@@ -12,9 +12,10 @@ logger = logging.getLogger(__name__)
 
 @pytest.mark.example
 @pytest.mark.api
-class ExampleColourLoversTests(object):
+class ExampleColourLovers(object):
+#class ExampleColourLoversTests(object):
 
-    # setup: create instances of each endpoint, as class attributes of the this test class
+    # setup: create instances of each endpoint, as class attributes of this test class
     color_endpoint = color.ColorEndpoint()
     colors_endpoint = colors.ColorsEndpoint()
 

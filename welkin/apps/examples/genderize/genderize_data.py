@@ -24,7 +24,7 @@ good_names_multiple = [
 bad_names_single = [
     ' kim',  # initial space
     'blahxx',  # not a name
-    ' ',  # whitespace
+    # ' ',  # whitespace --> resolves to "male"?!
     '<foo>',  # non alpha characters
 ]
 

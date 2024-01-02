@@ -37,7 +37,7 @@ class PomBootPage(BaseWrapperPageObject):
     """
         This class is the booter for a page object model.
 
-        This class has to be included in a wrapper's routings.pty file, e,g.:
+        This class has to be included in a wrapper's routings.py file, e,g.:
             'POM boot page': {
                 'module': 'base_page',
                'object': 'PomBootPage',
