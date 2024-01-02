@@ -64,7 +64,7 @@ class GenderEndpoint(RootEndpoint):
         """
         # convert list of names into a params dict
         if isinstance(names, list):
-            querystring = f"?name={'&name='.join(names)}"
+            querystring = f"?name[]={'&name[]='.join(names)}"
         else:
             querystring = f"?name={names}"
         if verbose:

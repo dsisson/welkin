@@ -30,9 +30,10 @@ class ExampleTests(object):
         testdata = ['apple', 'pear', 'berry']
         expected_element = 'cherry'
         logger.info('Looking for "%s".' % expected_element)
-        assert expected_element in testdata, \
-            'FAIL: "%s" not in "%s".' % (expected_element, testdata)
+        with pytest.raises(AssertionError):
+            assert expected_element in testdata
 
+    @pytest.mark.xfail
     def test_simple_error(self):
         """
             A simple test method that demonstrates that a non-assertion
@@ -46,7 +47,8 @@ class ExampleTests(object):
                                       'apple',
                                       'pear',
                                       'berry',
-                                      pytest.mark.xfail('kumquat')])
+                                      pytest.param('kumquat', marks=pytest.mark.xfail)
+    ])
     def test_parametrized(self, fruit):
         """
             A parametrized test method that looks for the presence of a

@@ -10,7 +10,7 @@ class BaseEndpoint(RootEndpoint):
     """
         Common ancestor for all endpoints.
     """
-    base_url = 'http://www.colourlovers.com/api/'
+    base_url = 'https://www.colourlovers.com/api/'
 
     # the header to be used for all requests
     headers = {'Content-Type': 'application/json'}
