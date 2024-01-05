@@ -304,7 +304,7 @@ def scroll_to_top_of_page(driver):
 
         :param driver: webdriver
     """
-    driver.execute_script('scrollTo(0,0);')
+    driver.execute_script('scrollTo(0, -300);')
 
 
 def scroll_to_bottom_of_page(driver):
