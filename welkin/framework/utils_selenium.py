@@ -137,16 +137,25 @@ def get_metrics_log(pageobject):
     """
         Get the metrics log for the current page from the browser.
 
+        Not all webdrivers support execute_cdp_cmd, so for them
+        return an empty list.
+
         :param pageobject: page object instance
-        :return metrics: dict
+        :return metrics: dict or []
     """
     driver = pageobject.driver
     url = pageobject.url
     fname = pageobject.name
 
     logger.info(f"\nGetting metrics log for page '{fname}' at {url}.")
-    metrics = driver.execute_cdp_cmd('Performance.getMetrics', {})
-    return metrics
+    try:
+        metrics = driver.execute_cdp_cmd('Performance.getMetrics', {})
+        return metrics
+    except AttributeError:
+        msg = f"\nNo metrics log for page '{fname}' at {url}, " \
+              f"using empty log instead."
+        logger.warning(msg)
+        return [msg]
 
 
 def get_webstorage(pageobject):
