@@ -80,19 +80,13 @@ export PYTHONPATH=$PYTHONPATH:~/dev/welkin
 Activate the virtualenv ~/dev/venv.
 
 ### And Then There's ChromeDriver
-You will need a recent version of the Chrome browser on your local system, as well as the matching Chromedriver executable (see https://sites.google.com/chromium.org/driver/?pli=1) installed in your virtualenv, specifically in:
+Welkin uses Selenium Manager for managing browser drivers. In order to allow the automatic provision of chrome drivers, do not have a chromedriver executable in your PATH. What happens is roughly this:
+1. there must not be a driver in the PATH
+2. Selenium Manager will perform driver discovery for ChromeforTesting driver (https://googlechromelabs.github.io/chrome-for-testing/)
+3. default behavior calls the stable version
+4. if not cached in ~/.cache/selenium/chrome, then it's downloaded and cached
 
-```~/dev/venv/bin```
-
-I would also suggest you keep a separate collection of old versioned drivers like this (the exe file doesn't have any versioning in the filename):
-
-```
-dev
-  |- drivers
-    |- chrome
-      |- 95.0.4638.17
-        |- chromedriver.exe
-```
+For more information on Selenium manager, see [What's new in Selenium Manager with Selenium 4.11.0](https://www.selenium.dev/blog/2023/whats-new-in-selenium-manager-with-selenium-4.11.0/).
 
 
 ## Running Welkin
@@ -163,7 +157,7 @@ By default, Welkin creates an output folder at welkin/output, and then for each 
 ## Linting with Flake8
 From the [**Flake8** description](https://flake8.pycqa.org/en/latest/manpage.html):
 
-"Flake8 is a command-line utility for enforcing style consistency across Python projects. By default it includes lint checks provided by the PyFlakes project, PEP-0008 inspired style checks provided by the PyCodeStyle project, and McCabe complexity checking provided by the McCabe project. It will also run third-party extensions if they are found and installed."
+"Flake8 is a command-line utility for enforcing style consistency across Python projects. By default, it includes lint checks provided by the PyFlakes project, PEP-0008 inspired style checks provided by the PyCodeStyle project, and McCaWhat's new in Selenium Manager with Selenium 4.11.0be complexity checking provided by the McCabe project. It will also run third-party extensions if they are found and installed."
 
 Running flake8 against the welkin codebase:
 ```
