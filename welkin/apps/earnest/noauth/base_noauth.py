@@ -54,10 +54,10 @@ class NoAuthBasePageObject(BaseWrapperPageObject):
         # map of targets to selector and PO info
         target_links = {
             'Home': {
-                'sel_stage1': (By.CSS_SELECTOR, "header a[href$='/']"),
+                'sel_stage1': (By.CSS_SELECTOR, "nav a[href='homepage']"),
                 'stage2': {
                     'Home': {
-                        'sel': (By.CSS_SELECTOR, "header a[href$='/']"),
+                        'sel': (By.CSS_SELECTOR, "nav a[href='homepage']"),
                         'po': 'earnest home page',
                         'target': '/'
                     }
@@ -72,6 +72,7 @@ class NoAuthBasePageObject(BaseWrapperPageObject):
                         'target': '/student-loans'
                     },
                     'Parent Loans': {
+                        # 'sel': (By.XPATH, "//nav[@aria-label='Main']/div/following-sibling::div[2]//li/a/div[contains(text(), 'Parent Loans')]"),
                         'sel': (By.LINK_TEXT, "Parent Loans"),
                         'po': 'earnest parent loans page',
                         'target': '/student-loans/parent-loans'

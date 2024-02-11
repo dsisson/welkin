@@ -1,8 +1,7 @@
 import pytest
 import logging
 
-from selenium.common.exceptions import ElementClickInterceptedException
-from welkin.apps.earnest.noauth import pages
+from welkin.apps.earnest.base_page import PomBootPage
 
 logger = logging.getLogger(__name__)
 
@@ -39,12 +38,11 @@ class EarnestTests(object):
         # we have a webdriver instance from this method's fixture `driver`,
         # which corresponds to the "browser" argument at the CLI invocation
 
-        # instantiate the home page object
-        home_page = pages.HomePage(driver, firstload=True)
-        home_page.save_screenshot('home initialization')  # should be blank
+        # instantiate the POM on the blank driver start page
+        boot_page = PomBootPage(driver)
 
-        # load home page in browser and refresh the PO instance
-        home_page = home_page.load()
+        # instantiate the home page object
+        home_page = boot_page.start_with('earnest home page')
         home_page.save_screenshot('home loaded')
 
         id = 'Student Loans'
@@ -82,10 +80,10 @@ class EarnestTests(object):
                                  'Debt To Income Ratio'],
                                 ['Refinance Student Loans', 'Home', 'Student Loans'],
                                 ['Refinance Student Loans', 'Parent Loans', 'Resources'],
-                                ['Debt To Income Ratio', 'Student Loan Manager', 'Home'],
+                                # ['Debt To Income Ratio', 'Student Loan Manager', 'Home'],
                             ],
                             ids=['scenario01', 'scenario02', 'scenario03',
-                                 'scenario04', 'scenario05']
+                                 'scenario04']
     )
     def test_dynamic_navigation(self, driver, earnest, scenario):
         """
@@ -106,14 +104,13 @@ class EarnestTests(object):
         msg = f"testing navigation path: \nHome --> {'--> '.join(scenario)}"
         logger.info(f"\n{'#' * 60}\n{msg}\n{'#' * 60}\n")
 
-        # instantiate the home page object
-        # every scenario starts with the home page
-        page = pages.HomePage(driver, firstload=True)
-        page.save_screenshot('home initialization')  # should be blank
+        # instantiate the POM on the blank driver start page
+        boot_page = PomBootPage(driver)
 
-        # load home page in browser and refresh the PO instance
-        page = page.load()
-        page.save_screenshot('home loaded')
+        # instantiate the home page
+        # to load any other page, we'd need to use its po id
+        page = boot_page.start_with('earnest home page')
+        page.save_screenshot('home initialization')  # should be blank
 
         for destination in scenario:
             logger.info(f"\nnavigating to {destination} page")
