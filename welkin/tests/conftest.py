@@ -765,7 +765,12 @@ def browser_chrome():
         Launch the local browser, which will block other activities
         on the computer unless using headless.
 
-        This uses selenium webdriver manager, new with selenium 4.*.
+        We use selenium manager to automatically get the browser driver:
+        1. there must not be a driver in the PATH
+        2. SM will perform driver discovery on ChromeforTesting
+           (https://googlechromelabs.github.io/chrome-for-testing/)
+        3. default behavior calls the stable version (I think)
+        4. if not cached (~/.cache/selenium/chrome), then it's downloaded
 
         :return this_driver: configured Chrome browser driver
     """
@@ -785,6 +790,13 @@ def browser_chrome_headless():
     """
         This allows for full-page screenshots, as well as not blocking
         use of the local computer.
+
+        We use selenium manager to automatically get the browser driver:
+        1. there must not be a driver in the PATH
+        2. SM will perform driver discovery on ChromeforTesting
+           (https://googlechromelabs.github.io/chrome-for-testing/)
+        3. default behavior calls the stable version (I think)
+        4. if not cached (~/.cache/selenium/chrome), then it's downloaded
 
         :return this_driver: configured Chrome headless-browser driver
     """
