@@ -1,0 +1,789 @@
+2024-03-16 13:35:54,892 welkin.tests.conftest::set_logging_config() [INFO] 
+created log file at '/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt'.
+2024-03-16 13:35:54,892 root::initialize_logging() [INFO] 
+--> setting paths in namespace
+2024-03-16 13:35:54,892 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'folder': '/Users/derek/dev/welkin/welkin/output/240316-133554'
+2024-03-16 13:35:54,892 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'logfile': '/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt'
+2024-03-16 13:35:54,893 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'html report': '/Users/derek/dev/welkin/welkin/output/240316-133554/report.html'
+2024-03-16 13:35:54,893 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'testrun paths': '{'folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554'), 'logfile': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt'), 'html report': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/report.html')}'
+2024-03-16 13:35:54,997 welkin.tests.conftest::initialize_logging() [INFO] 
+namespace:
+{'test cases': {},
+ 'testrun paths': {'folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554'),
+                   'html report': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/report.html'),
+                   'logfile': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt')},
+ 'timestamp': '240316-133554'}
+2024-03-16 13:35:54,997 welkin.tests.conftest::pytest_configure() [INFO] sys.argv: ['/Users/derek/dev/v3/bin/pytest', 'tests/cb', '-k', 'test_dynamic_navigation', '--tb=short', '--browser=headless_chrome']
+2024-03-16 13:35:54,997 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'browser': 'headless_chrome'
+2024-03-16 13:35:54,997 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'tier': 'stage'
+2024-03-16 13:35:54,997 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'devtools_supported': 'True'
+2024-03-16 13:35:54,998 welkin.tests.conftest::applitools_run_config() [INFO] 
+---> namespace for applitools config: 
+{'browser': 'headless_chrome',
+ 'devtools_supported': True,
+ 'test cases': {},
+ 'testrun paths': {'folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554'),
+                   'html report': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/report.html'),
+                   'logfile': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt')},
+ 'tier': 'stage',
+ 'timestamp': '240316-133554'}
+2024-03-16 13:35:54,998 welkin.tests.conftest::applitools_run_config() [INFO] 
+use_grid: no
+2024-03-16 13:35:54,998 welkin.tests.conftest::applitools_run_config() [INFO] 
+execution_cloud: no
+2024-03-16 13:35:54,998 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'use ultrafast grid': 'False'
+2024-03-16 13:35:54,998 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'use execution cloud': 'False'
+2024-03-16 13:35:54,998 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'applitools': '{'use ultrafast grid': False, 'use execution cloud': False}'
+2024-03-16 13:35:54,998 welkin.tests.conftest::applitools_run_config() [INFO] 
+applitools namespace:
+{'applitools': {'use execution cloud': False, 'use ultrafast grid': False},
+ 'browser': 'headless_chrome',
+ 'devtools_supported': True,
+ 'test cases': {},
+ 'testrun paths': {'folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554'),
+                   'html report': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/report.html'),
+                   'logfile': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt')},
+ 'tier': 'stage',
+ 'timestamp': '240316-133554'}
+2024-03-16 13:35:55,020 welkin.tests.conftest::pytest_sessionstart() [INFO] ----------
+2024-03-16 13:35:55,063 welkin.tests.conftest::pytest_collection_finish() [INFO] no actions taken.
+2024-03-16 13:35:55,064 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+### Set up for test test_dynamic_navigation[scenario01] ###
+2024-03-16 13:35:55,064 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+referenced_fixtures: ['_verify_url', 'configure_test_session', 'cb', 'base_url', 'driver', 'scenario', 'request', 'browser']
+2024-03-16 13:35:55,064 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]
+2024-03-16 13:35:55,064 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+fixturenames: ['_verify_url', 'configure_test_session', 'cb', 'base_url', 'driver', 'scenario', 'request', 'browser']
+2024-03-16 13:35:55,064 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+testcase_folder: /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]
+2024-03-16 13:35:55,064 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+app types: is_api 0; is_webapp: 1
+2024-03-16 13:35:55,064 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/integrations
+2024-03-16 13:35:55,065 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'integrations': /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/integrations
+2024-03-16 13:35:55,065 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/downloads
+2024-03-16 13:35:55,065 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'downloads': /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/downloads
+2024-03-16 13:35:55,065 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/driver
+2024-03-16 13:35:55,065 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'driver': /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/driver
+2024-03-16 13:35:55,065 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/cookies
+2024-03-16 13:35:55,065 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'cookies': /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/cookies
+2024-03-16 13:35:55,065 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/screenshots
+2024-03-16 13:35:55,065 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'screenshots': /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/screenshots
+2024-03-16 13:35:55,066 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/accessibility
+2024-03-16 13:35:55,066 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'accessibility': /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/accessibility
+2024-03-16 13:35:55,066 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/webstorage
+2024-03-16 13:35:55,066 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'webstorage': /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/webstorage
+2024-03-16 13:35:55,066 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/network
+2024-03-16 13:35:55,066 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'network': /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/network
+2024-03-16 13:35:55,066 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/console
+2024-03-16 13:35:55,066 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'console': /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/console
+2024-03-16 13:35:55,067 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/metrics
+2024-03-16 13:35:55,067 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'metrics': /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/metrics
+2024-03-16 13:35:55,067 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'name': '1_dynamic_navigation[scenario01]'
+2024-03-16 13:35:55,067 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'integrations folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/integrations'
+2024-03-16 13:35:55,067 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'downloads folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/downloads'
+2024-03-16 13:35:55,067 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'driver folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/driver'
+2024-03-16 13:35:55,067 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'cookies folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/cookies'
+2024-03-16 13:35:55,067 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'screenshots folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/screenshots'
+2024-03-16 13:35:55,067 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'accessibility folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/accessibility'
+2024-03-16 13:35:55,067 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'webstorage folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/webstorage'
+2024-03-16 13:35:55,067 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'network folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/network'
+2024-03-16 13:35:55,067 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'console folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/console'
+2024-03-16 13:35:55,067 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'metrics folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/metrics'
+2024-03-16 13:35:55,067 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'current test case': '{'name': '1_dynamic_navigation[scenario01]', 'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/integrations'), 'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/downloads'), 'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/driver'), 'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/cookies'), 'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/screenshots'), 'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/accessibility'), 'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/webstorage'), 'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/network'), 'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/console'), 'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/metrics')}'
+2024-03-16 13:35:55,068 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+namespace after test folder creation:
+{'applitools': {'use execution cloud': False, 'use ultrafast grid': False},
+ 'browser': 'headless_chrome',
+ 'current test case': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/accessibility'),
+                       'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/console'),
+                       'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/cookies'),
+                       'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/downloads'),
+                       'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/driver'),
+                       'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/integrations'),
+                       'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/metrics'),
+                       'name': '1_dynamic_navigation[scenario01]',
+                       'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/network'),
+                       'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/screenshots'),
+                       'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/webstorage')},
+ 'devtools_supported': True,
+ 'test cases': {'1_dynamic_navigation[scenario01]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/webstorage')}},
+ 'testrun paths': {'folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554'),
+                   'html report': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/report.html'),
+                   'logfile': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt')},
+ 'tier': 'stage',
+ 'timestamp': '240316-133554'}
+2024-03-16 13:35:55,068 welkin.tests.conftest::pytest_runtest_setup() [WARNING] 
+### Changing log output path to the test case path. ###
+
+
+2024-03-16 13:35:55,068 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+##############################
+=====>> Testcase test_dynamic_navigation[scenario01] logged to /Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/testlog.txt
+##############################
+
+
+2024-03-16 13:36:10,874 welkin.tests.conftest::set_logging_config() [INFO] 
+created log file at '/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt'.
+2024-03-16 13:36:10,875 welkin.tests.conftest::pytest_runtest_teardown() [INFO] 
+### Reset logfile to /Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt ###
+
+
+
+2024-03-16 13:36:11,070 welkin.tests.conftest::driver() [INFO] Quitting 'headless_chrome' driver.
+2024-03-16 13:36:11,073 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+### Set up for test test_dynamic_navigation[scenario02] ###
+2024-03-16 13:36:11,074 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+referenced_fixtures: ['_verify_url', 'configure_test_session', 'cb', 'base_url', 'driver', 'scenario', 'request', 'browser']
+2024-03-16 13:36:11,074 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]
+2024-03-16 13:36:11,074 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+fixturenames: ['_verify_url', 'configure_test_session', 'cb', 'base_url', 'driver', 'scenario', 'request', 'browser']
+2024-03-16 13:36:11,074 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+testcase_folder: /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]
+2024-03-16 13:36:11,074 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+app types: is_api 0; is_webapp: 1
+2024-03-16 13:36:11,074 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/integrations
+2024-03-16 13:36:11,074 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'integrations': /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/integrations
+2024-03-16 13:36:11,074 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/downloads
+2024-03-16 13:36:11,074 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'downloads': /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/downloads
+2024-03-16 13:36:11,075 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/driver
+2024-03-16 13:36:11,075 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'driver': /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/driver
+2024-03-16 13:36:11,075 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/cookies
+2024-03-16 13:36:11,075 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'cookies': /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/cookies
+2024-03-16 13:36:11,075 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/screenshots
+2024-03-16 13:36:11,075 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'screenshots': /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/screenshots
+2024-03-16 13:36:11,075 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/accessibility
+2024-03-16 13:36:11,075 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'accessibility': /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/accessibility
+2024-03-16 13:36:11,075 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/webstorage
+2024-03-16 13:36:11,075 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'webstorage': /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/webstorage
+2024-03-16 13:36:11,076 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/network
+2024-03-16 13:36:11,076 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'network': /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/network
+2024-03-16 13:36:11,076 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/console
+2024-03-16 13:36:11,076 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'console': /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/console
+2024-03-16 13:36:11,076 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/metrics
+2024-03-16 13:36:11,076 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'metrics': /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/metrics
+2024-03-16 13:36:11,076 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'name': '2_dynamic_navigation[scenario02]'
+2024-03-16 13:36:11,076 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'integrations folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/integrations'
+2024-03-16 13:36:11,076 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'downloads folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/downloads'
+2024-03-16 13:36:11,076 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'driver folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/driver'
+2024-03-16 13:36:11,076 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'cookies folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/cookies'
+2024-03-16 13:36:11,076 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'screenshots folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/screenshots'
+2024-03-16 13:36:11,076 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'accessibility folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/accessibility'
+2024-03-16 13:36:11,076 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'webstorage folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/webstorage'
+2024-03-16 13:36:11,076 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'network folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/network'
+2024-03-16 13:36:11,077 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'console folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/console'
+2024-03-16 13:36:11,077 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'metrics folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/metrics'
+2024-03-16 13:36:11,077 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'current test case': '{'name': '2_dynamic_navigation[scenario02]', 'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/integrations'), 'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/downloads'), 'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/driver'), 'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/cookies'), 'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/screenshots'), 'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/accessibility'), 'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/webstorage'), 'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/network'), 'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/console'), 'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/metrics')}'
+2024-03-16 13:36:11,077 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+namespace after test folder creation:
+{'applitools': {'use execution cloud': False, 'use ultrafast grid': False},
+ 'browser': 'headless_chrome',
+ 'current test case': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/accessibility'),
+                       'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/console'),
+                       'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/cookies'),
+                       'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/downloads'),
+                       'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/driver'),
+                       'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/integrations'),
+                       'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/metrics'),
+                       'name': '2_dynamic_navigation[scenario02]',
+                       'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/network'),
+                       'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/screenshots'),
+                       'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/webstorage')},
+ 'devtools_supported': True,
+ 'test cases': {'1_dynamic_navigation[scenario01]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/webstorage')},
+                '2_dynamic_navigation[scenario02]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/webstorage')}},
+ 'testrun paths': {'folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554'),
+                   'html report': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/report.html'),
+                   'logfile': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt')},
+ 'this_test': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]'),
+ 'tier': 'stage',
+ 'timestamp': '240316-133554'}
+2024-03-16 13:36:11,078 welkin.tests.conftest::pytest_runtest_setup() [WARNING] 
+### Changing log output path to the test case path. ###
+
+
+2024-03-16 13:36:11,078 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+##############################
+=====>> Testcase test_dynamic_navigation[scenario02] logged to /Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/testlog.txt
+##############################
+
+
+2024-03-16 13:36:28,009 welkin.tests.conftest::set_logging_config() [INFO] 
+created log file at '/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt'.
+2024-03-16 13:36:28,009 welkin.tests.conftest::pytest_runtest_teardown() [INFO] 
+### Reset logfile to /Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt ###
+
+
+
+2024-03-16 13:36:28,200 welkin.tests.conftest::driver() [INFO] Quitting 'headless_chrome' driver.
+2024-03-16 13:36:28,203 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+### Set up for test test_dynamic_navigation[scenario03] ###
+2024-03-16 13:36:28,203 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+referenced_fixtures: ['_verify_url', 'configure_test_session', 'cb', 'base_url', 'driver', 'scenario', 'request', 'browser']
+2024-03-16 13:36:28,203 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]
+2024-03-16 13:36:28,203 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+fixturenames: ['_verify_url', 'configure_test_session', 'cb', 'base_url', 'driver', 'scenario', 'request', 'browser']
+2024-03-16 13:36:28,204 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+testcase_folder: /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]
+2024-03-16 13:36:28,204 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+app types: is_api 0; is_webapp: 1
+2024-03-16 13:36:28,204 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/integrations
+2024-03-16 13:36:28,204 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'integrations': /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/integrations
+2024-03-16 13:36:28,204 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/downloads
+2024-03-16 13:36:28,204 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'downloads': /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/downloads
+2024-03-16 13:36:28,204 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/driver
+2024-03-16 13:36:28,204 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'driver': /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/driver
+2024-03-16 13:36:28,204 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/cookies
+2024-03-16 13:36:28,204 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'cookies': /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/cookies
+2024-03-16 13:36:28,205 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/screenshots
+2024-03-16 13:36:28,205 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'screenshots': /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/screenshots
+2024-03-16 13:36:28,205 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/accessibility
+2024-03-16 13:36:28,205 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'accessibility': /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/accessibility
+2024-03-16 13:36:28,205 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/webstorage
+2024-03-16 13:36:28,205 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'webstorage': /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/webstorage
+2024-03-16 13:36:28,205 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/network
+2024-03-16 13:36:28,205 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'network': /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/network
+2024-03-16 13:36:28,205 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/console
+2024-03-16 13:36:28,205 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'console': /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/console
+2024-03-16 13:36:28,206 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/metrics
+2024-03-16 13:36:28,206 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'metrics': /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/metrics
+2024-03-16 13:36:28,206 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'name': '3_dynamic_navigation[scenario03]'
+2024-03-16 13:36:28,206 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'integrations folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/integrations'
+2024-03-16 13:36:28,206 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'downloads folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/downloads'
+2024-03-16 13:36:28,206 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'driver folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/driver'
+2024-03-16 13:36:28,206 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'cookies folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/cookies'
+2024-03-16 13:36:28,206 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'screenshots folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/screenshots'
+2024-03-16 13:36:28,206 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'accessibility folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/accessibility'
+2024-03-16 13:36:28,206 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'webstorage folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/webstorage'
+2024-03-16 13:36:28,206 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'network folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/network'
+2024-03-16 13:36:28,206 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'console folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/console'
+2024-03-16 13:36:28,206 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'metrics folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/metrics'
+2024-03-16 13:36:28,206 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'current test case': '{'name': '3_dynamic_navigation[scenario03]', 'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/integrations'), 'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/downloads'), 'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/driver'), 'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/cookies'), 'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/screenshots'), 'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/accessibility'), 'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/webstorage'), 'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/network'), 'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/console'), 'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/metrics')}'
+2024-03-16 13:36:28,207 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+namespace after test folder creation:
+{'applitools': {'use execution cloud': False, 'use ultrafast grid': False},
+ 'browser': 'headless_chrome',
+ 'current test case': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/accessibility'),
+                       'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/console'),
+                       'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/cookies'),
+                       'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/downloads'),
+                       'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/driver'),
+                       'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/integrations'),
+                       'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/metrics'),
+                       'name': '3_dynamic_navigation[scenario03]',
+                       'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/network'),
+                       'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/screenshots'),
+                       'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/webstorage')},
+ 'devtools_supported': True,
+ 'test cases': {'1_dynamic_navigation[scenario01]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/webstorage')},
+                '2_dynamic_navigation[scenario02]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/webstorage')},
+                '3_dynamic_navigation[scenario03]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/webstorage')}},
+ 'testrun paths': {'folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554'),
+                   'html report': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/report.html'),
+                   'logfile': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt')},
+ 'this_test': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]'),
+ 'tier': 'stage',
+ 'timestamp': '240316-133554'}
+2024-03-16 13:36:28,207 welkin.tests.conftest::pytest_runtest_setup() [WARNING] 
+### Changing log output path to the test case path. ###
+
+
+2024-03-16 13:36:28,208 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+##############################
+=====>> Testcase test_dynamic_navigation[scenario03] logged to /Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/testlog.txt
+##############################
+
+
+2024-03-16 13:36:43,496 welkin.tests.conftest::set_logging_config() [INFO] 
+created log file at '/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt'.
+2024-03-16 13:36:43,496 welkin.tests.conftest::pytest_runtest_teardown() [INFO] 
+### Reset logfile to /Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt ###
+
+
+
+2024-03-16 13:36:43,682 welkin.tests.conftest::driver() [INFO] Quitting 'headless_chrome' driver.
+2024-03-16 13:36:43,686 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+### Set up for test test_dynamic_navigation[scenario04] ###
+2024-03-16 13:36:43,686 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+referenced_fixtures: ['_verify_url', 'configure_test_session', 'cb', 'base_url', 'driver', 'scenario', 'request', 'browser']
+2024-03-16 13:36:43,686 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]
+2024-03-16 13:36:43,687 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+fixturenames: ['_verify_url', 'configure_test_session', 'cb', 'base_url', 'driver', 'scenario', 'request', 'browser']
+2024-03-16 13:36:43,687 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+testcase_folder: /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]
+2024-03-16 13:36:43,687 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+app types: is_api 0; is_webapp: 1
+2024-03-16 13:36:43,687 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/integrations
+2024-03-16 13:36:43,687 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'integrations': /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/integrations
+2024-03-16 13:36:43,687 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/downloads
+2024-03-16 13:36:43,687 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'downloads': /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/downloads
+2024-03-16 13:36:43,687 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/driver
+2024-03-16 13:36:43,687 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'driver': /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/driver
+2024-03-16 13:36:43,688 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/cookies
+2024-03-16 13:36:43,688 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'cookies': /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/cookies
+2024-03-16 13:36:43,688 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/screenshots
+2024-03-16 13:36:43,688 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'screenshots': /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/screenshots
+2024-03-16 13:36:43,688 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/accessibility
+2024-03-16 13:36:43,688 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'accessibility': /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/accessibility
+2024-03-16 13:36:43,688 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/webstorage
+2024-03-16 13:36:43,688 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'webstorage': /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/webstorage
+2024-03-16 13:36:43,689 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/network
+2024-03-16 13:36:43,689 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'network': /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/network
+2024-03-16 13:36:43,689 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/console
+2024-03-16 13:36:43,689 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'console': /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/console
+2024-03-16 13:36:43,689 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/metrics
+2024-03-16 13:36:43,689 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'metrics': /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/metrics
+2024-03-16 13:36:43,689 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'name': '4_dynamic_navigation[scenario04]'
+2024-03-16 13:36:43,689 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'integrations folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/integrations'
+2024-03-16 13:36:43,689 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'downloads folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/downloads'
+2024-03-16 13:36:43,689 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'driver folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/driver'
+2024-03-16 13:36:43,689 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'cookies folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/cookies'
+2024-03-16 13:36:43,689 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'screenshots folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/screenshots'
+2024-03-16 13:36:43,689 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'accessibility folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/accessibility'
+2024-03-16 13:36:43,689 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'webstorage folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/webstorage'
+2024-03-16 13:36:43,690 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'network folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/network'
+2024-03-16 13:36:43,690 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'console folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/console'
+2024-03-16 13:36:43,690 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'metrics folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/metrics'
+2024-03-16 13:36:43,690 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'current test case': '{'name': '4_dynamic_navigation[scenario04]', 'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/integrations'), 'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/downloads'), 'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/driver'), 'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/cookies'), 'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/screenshots'), 'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/accessibility'), 'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/webstorage'), 'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/network'), 'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/console'), 'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/metrics')}'
+2024-03-16 13:36:43,691 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+namespace after test folder creation:
+{'applitools': {'use execution cloud': False, 'use ultrafast grid': False},
+ 'browser': 'headless_chrome',
+ 'current test case': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/accessibility'),
+                       'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/console'),
+                       'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/cookies'),
+                       'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/downloads'),
+                       'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/driver'),
+                       'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/integrations'),
+                       'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/metrics'),
+                       'name': '4_dynamic_navigation[scenario04]',
+                       'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/network'),
+                       'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/screenshots'),
+                       'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/webstorage')},
+ 'devtools_supported': True,
+ 'test cases': {'1_dynamic_navigation[scenario01]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/webstorage')},
+                '2_dynamic_navigation[scenario02]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/webstorage')},
+                '3_dynamic_navigation[scenario03]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/webstorage')},
+                '4_dynamic_navigation[scenario04]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/webstorage')}},
+ 'testrun paths': {'folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554'),
+                   'html report': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/report.html'),
+                   'logfile': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt')},
+ 'this_test': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]'),
+ 'tier': 'stage',
+ 'timestamp': '240316-133554'}
+2024-03-16 13:36:43,691 welkin.tests.conftest::pytest_runtest_setup() [WARNING] 
+### Changing log output path to the test case path. ###
+
+
+2024-03-16 13:36:43,691 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+##############################
+=====>> Testcase test_dynamic_navigation[scenario04] logged to /Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/testlog.txt
+##############################
+
+
+2024-03-16 13:37:00,926 welkin.tests.conftest::set_logging_config() [INFO] 
+created log file at '/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt'.
+2024-03-16 13:37:00,926 welkin.tests.conftest::pytest_runtest_teardown() [INFO] 
+### Reset logfile to /Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt ###
+
+
+
+2024-03-16 13:37:01,101 welkin.tests.conftest::driver() [INFO] Quitting 'headless_chrome' driver.
+2024-03-16 13:37:01,104 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+### Set up for test test_dynamic_navigation[scenario05] ###
+2024-03-16 13:37:01,104 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+referenced_fixtures: ['_verify_url', 'configure_test_session', 'cb', 'base_url', 'driver', 'scenario', 'request', 'browser']
+2024-03-16 13:37:01,104 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]
+2024-03-16 13:37:01,104 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+fixturenames: ['_verify_url', 'configure_test_session', 'cb', 'base_url', 'driver', 'scenario', 'request', 'browser']
+2024-03-16 13:37:01,104 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+testcase_folder: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]
+2024-03-16 13:37:01,104 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+app types: is_api 0; is_webapp: 1
+2024-03-16 13:37:01,104 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/integrations
+2024-03-16 13:37:01,104 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'integrations': /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/integrations
+2024-03-16 13:37:01,105 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/downloads
+2024-03-16 13:37:01,105 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'downloads': /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/downloads
+2024-03-16 13:37:01,105 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/driver
+2024-03-16 13:37:01,105 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'driver': /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/driver
+2024-03-16 13:37:01,105 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/cookies
+2024-03-16 13:37:01,105 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'cookies': /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/cookies
+2024-03-16 13:37:01,105 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots
+2024-03-16 13:37:01,105 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'screenshots': /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots
+2024-03-16 13:37:01,105 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/accessibility
+2024-03-16 13:37:01,105 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'accessibility': /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/accessibility
+2024-03-16 13:37:01,106 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/webstorage
+2024-03-16 13:37:01,106 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'webstorage': /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/webstorage
+2024-03-16 13:37:01,106 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/network
+2024-03-16 13:37:01,106 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'network': /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/network
+2024-03-16 13:37:01,106 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/console
+2024-03-16 13:37:01,106 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'console': /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/console
+2024-03-16 13:37:01,106 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/metrics
+2024-03-16 13:37:01,106 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'metrics': /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/metrics
+2024-03-16 13:37:01,106 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'name': '5_dynamic_navigation[scenario05]'
+2024-03-16 13:37:01,106 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'integrations folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/integrations'
+2024-03-16 13:37:01,106 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'downloads folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/downloads'
+2024-03-16 13:37:01,106 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'driver folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/driver'
+2024-03-16 13:37:01,106 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'cookies folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/cookies'
+2024-03-16 13:37:01,106 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'screenshots folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots'
+2024-03-16 13:37:01,106 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'accessibility folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/accessibility'
+2024-03-16 13:37:01,107 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'webstorage folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/webstorage'
+2024-03-16 13:37:01,107 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'network folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/network'
+2024-03-16 13:37:01,107 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'console folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/console'
+2024-03-16 13:37:01,107 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'metrics folder': '/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/metrics'
+2024-03-16 13:37:01,107 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'current test case': '{'name': '5_dynamic_navigation[scenario05]', 'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/integrations'), 'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/downloads'), 'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/driver'), 'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/cookies'), 'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots'), 'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/accessibility'), 'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/webstorage'), 'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/network'), 'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/console'), 'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/metrics')}'
+2024-03-16 13:37:01,108 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+namespace after test folder creation:
+{'applitools': {'use execution cloud': False, 'use ultrafast grid': False},
+ 'browser': 'headless_chrome',
+ 'current test case': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/accessibility'),
+                       'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/console'),
+                       'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/cookies'),
+                       'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/downloads'),
+                       'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/driver'),
+                       'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/integrations'),
+                       'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/metrics'),
+                       'name': '5_dynamic_navigation[scenario05]',
+                       'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/network'),
+                       'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots'),
+                       'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/webstorage')},
+ 'devtools_supported': True,
+ 'test cases': {'1_dynamic_navigation[scenario01]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/webstorage')},
+                '2_dynamic_navigation[scenario02]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/webstorage')},
+                '3_dynamic_navigation[scenario03]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/webstorage')},
+                '4_dynamic_navigation[scenario04]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/webstorage')},
+                '5_dynamic_navigation[scenario05]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/webstorage')}},
+ 'testrun paths': {'folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554'),
+                   'html report': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/report.html'),
+                   'logfile': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt')},
+ 'this_test': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]'),
+ 'tier': 'stage',
+ 'timestamp': '240316-133554'}
+2024-03-16 13:37:01,108 welkin.tests.conftest::pytest_runtest_setup() [WARNING] 
+### Changing log output path to the test case path. ###
+
+
+2024-03-16 13:37:01,108 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+##############################
+=====>> Testcase test_dynamic_navigation[scenario05] logged to /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/testlog.txt
+##############################
+
+
+2024-03-16 13:37:17,440 welkin.tests.conftest::set_logging_config() [INFO] 
+created log file at '/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt'.
+2024-03-16 13:37:17,440 welkin.tests.conftest::pytest_runtest_teardown() [INFO] 
+### Reset logfile to /Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt ###
+
+
+
+2024-03-16 13:37:17,623 welkin.tests.conftest::driver() [INFO] Quitting 'headless_chrome' driver.
+2024-03-16 13:37:17,632 welkin.tests.conftest::pytest_sessionfinish() [INFO] No actions taken.

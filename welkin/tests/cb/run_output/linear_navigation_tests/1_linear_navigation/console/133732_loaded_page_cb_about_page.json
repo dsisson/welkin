@@ -1,0 +1,199 @@
+{
+    "_page": "https://www.caringbridge.org/about-us",
+    "console": {
+        "console": [
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/ - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610650206
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/ - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610650206
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/ - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610650206
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/ - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610650206
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/ - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610650206
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610650358
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610650358
+            },
+            {
+                "level": "SEVERE",
+                "message": "https://fonts.gstatic.com/s/lato/v24/S6uyw4BMUTPHjx4wXiWtFCc.woff2 - Failed to load resource: net::ERR_CONNECTION_CLOSED",
+                "source": "network",
+                "timestamp": 1710610650695
+            },
+            {
+                "level": "SEVERE",
+                "message": "https://fonts.gstatic.com/s/lato/v24/S6u9w4BMUTPHh6UVSwiPGQ3q5d0.woff2 - Failed to load resource: net::ERR_CONNECTION_CLOSED",
+                "source": "network",
+                "timestamp": 1710610650796
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651199
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651199
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651199
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651199
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651199
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651199
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651199
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651199
+            },
+            {
+                "level": "WARNING",
+                "message": "https://connect.facebook.net/signals/config/1718196178206916?v=2.9.150&r=stable&domain=www.caringbridge.org&hme=8b8eb2472f555e54a8b57f2b720f9bd3b1bc6aed031525376dd772ba51107995&ex_m=63%2C107%2C95%2C99%2C54%2C3%2C89%2C62%2C14%2C87%2C80%2C45%2C47%2C153%2C156%2C167%2C163%2C164%2C166%2C26%2C90%2C46%2C69%2C165%2C148%2C151%2C160%2C161%2C168%2C116%2C13%2C44%2C172%2C171%2C118%2C16%2C30%2C33%2C1%2C37%2C58%2C59%2C60%2C64%2C84%2C15%2C12%2C86%2C83%2C82%2C96%2C98%2C32%2C97%2C27%2C23%2C149%2C152%2C125%2C25%2C9%2C10%2C11%2C5%2C6%2C22%2C19%2C20%2C50%2C55%2C57%2C67%2C91%2C24%2C68%2C8%2C7%2C72%2C42%2C18%2C93%2C92%2C17%2C74%2C79%2C41%2C40%2C78%2C34%2C36%2C77%2C49%2C75%2C29%2C38%2C66%2C0%2C85%2C4%2C81%2C73%2C76%2C2%2C31%2C56%2C35%2C94%2C39%2C71%2C61%2C100%2C53%2C52%2C28%2C88%2C51%2C48%2C43%2C70%2C65%2C21%2C101 97 Unrecognized feature: 'attribution-reporting'.",
+                "source": "other",
+                "timestamp": 1710610651199
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651268
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651268
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651283
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651283
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651283
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651283
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651283
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651297
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651297
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651297
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651297
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651603
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651603
+            },
+            {
+                "level": "WARNING",
+                "message": "https://www.caringbridge.org/about-us - Third-party cookie will be blocked. Learn more in the Issues tab.",
+                "source": "other",
+                "timestamp": 1710610651603
+            }
+        ]
+    }
+}

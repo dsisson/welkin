@@ -1,0 +1,149 @@
+{
+    "_page": "https://www.caringbridge.org/how-it-works",
+    "metrics": [
+        {
+            "name": "Timestamp",
+            "value": 46668.276906
+        },
+        {
+            "name": "AudioHandlers",
+            "value": 0
+        },
+        {
+            "name": "AudioWorkletProcessors",
+            "value": 0
+        },
+        {
+            "name": "Documents",
+            "value": 16
+        },
+        {
+            "name": "Frames",
+            "value": 15
+        },
+        {
+            "name": "JSEventListeners",
+            "value": 181
+        },
+        {
+            "name": "LayoutObjects",
+            "value": 548
+        },
+        {
+            "name": "MediaKeySessions",
+            "value": 0
+        },
+        {
+            "name": "MediaKeys",
+            "value": 0
+        },
+        {
+            "name": "Nodes",
+            "value": 4888
+        },
+        {
+            "name": "Resources",
+            "value": 77
+        },
+        {
+            "name": "ContextLifecycleStateObservers",
+            "value": 29
+        },
+        {
+            "name": "V8PerContextDatas",
+            "value": 3
+        },
+        {
+            "name": "WorkerGlobalScopes",
+            "value": 0
+        },
+        {
+            "name": "UACSSResources",
+            "value": 0
+        },
+        {
+            "name": "RTCPeerConnections",
+            "value": 0
+        },
+        {
+            "name": "ResourceFetchers",
+            "value": 16
+        },
+        {
+            "name": "AdSubframes",
+            "value": 0
+        },
+        {
+            "name": "DetachedScriptStates",
+            "value": 5
+        },
+        {
+            "name": "ArrayBufferContents",
+            "value": 31
+        },
+        {
+            "name": "LayoutCount",
+            "value": 87
+        },
+        {
+            "name": "RecalcStyleCount",
+            "value": 111
+        },
+        {
+            "name": "LayoutDuration",
+            "value": 0.133236
+        },
+        {
+            "name": "RecalcStyleDuration",
+            "value": 0.063628
+        },
+        {
+            "name": "DevToolsCommandDuration",
+            "value": 0.404691
+        },
+        {
+            "name": "ScriptDuration",
+            "value": 1.510936
+        },
+        {
+            "name": "V8CompileDuration",
+            "value": 0.010955
+        },
+        {
+            "name": "TaskDuration",
+            "value": 2.925575
+        },
+        {
+            "name": "TaskOtherDuration",
+            "value": 0.802129
+        },
+        {
+            "name": "ThreadTime",
+            "value": 2.275903
+        },
+        {
+            "name": "ProcessTime",
+            "value": 3.717329
+        },
+        {
+            "name": "JSHeapUsedSize",
+            "value": 29180940
+        },
+        {
+            "name": "JSHeapTotalSize",
+            "value": 51683328
+        },
+        {
+            "name": "FirstMeaningfulPaint",
+            "value": 46666.863561
+        },
+        {
+            "name": "DomContentLoaded",
+            "value": 46666.798894
+        },
+        {
+            "name": "NavigationStart",
+            "value": 46666.429679
+        }
+    ]
+}

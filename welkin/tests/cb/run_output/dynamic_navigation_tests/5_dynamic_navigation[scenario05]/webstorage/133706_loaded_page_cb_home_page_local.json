@@ -1,0 +1,78 @@
+{
+    "QM_S": {
+        "shouldLogResources": false
+    },
+    "_page": "https://www.caringbridge.org/",
+    "_page object name": "cb home page",
+    "_precipitating event": "loaded page 'cb home page'",
+    "_storage type": "local",
+    "_uetsid": "ce198a90e3bb11eeb66fefdff051e113",
+    "_uetsid_exp": "Sun, 17 Mar 2024 17:37:05 GMT",
+    "_uetvid": "ce1a31e0e3bb11eebef20f27400fa922",
+    "_uetvid_exp": "Thu, 10 Apr 2025 17:37:05 GMT",
+    "lastExternalReferrer": "empty",
+    "lastExternalReferrerTime": 1710610625539,
+    "li_adsId": "58be7719-cd7a-454e-9efc-32d714fe7bd9",
+    "ub-emb-1cff1a4f-8c21-41f3-8d51-738bd2109ce5": {
+        "events": [],
+        "variantLetter": "l"
+    },
+    "ub-emb-2eab7987-5bb8-4634-babe-3cb8220f88a1": {
+        "events": [],
+        "variantLetter": "b"
+    },
+    "ub-emb-62540363-fac9-4f32-8894-8c8958977e2c": {
+        "events": [],
+        "variantLetter": "h"
+    },
+    "ub-emb-6bbc52be-f5bb-458a-b627-a9257792c84d": {
+        "events": [],
+        "variantLetter": "j"
+    },
+    "ub-emb-7a72b73f-138a-4eb2-93a7-5674403bc0f9": {
+        "events": [],
+        "variantLetter": "b"
+    },
+    "ub-emb-7d2a4ec3-0031-4497-b56c-2c5a70124ce0": {
+        "events": [],
+        "variantLetter": "b"
+    },
+    "ub-emb-84c2b0cc-7baa-4e06-b692-0684e4fc5b18": {
+        "events": [],
+        "variantLetter": "k"
+    },
+    "ub-emb-86d4ffb9-5ff2-458f-9528-fbba6e22df5f": {
+        "events": [],
+        "variantLetter": "h"
+    },
+    "ub-emb-98eb16de-c389-40f2-8534-2966efa708f5": {
+        "events": [],
+        "variantLetter": "g"
+    },
+    "ub-emb-d513a54b-458a-4c13-a9a4-34785213bb09": {
+        "events": [],
+        "variantLetter": "b"
+    },
+    "ub-emb-e3661fd6-7899-43a1-b356-11f10c519bc1": {
+        "events": [],
+        "variantLetter": "m"
+    },
+    "ub-emb-ef13ff4c-bfb9-4f40-8ee5-523053b7a721": {
+        "events": [],
+        "variantLetter": "k"
+    },
+    "ub-emb-id": "b1a08357d2b941c4af4cef0e8a1363e2",
+    "vwoSn": {
+        "cu": "https%3A%2F%2Fwww.caringbridge.org%2F",
+        "lt": 1710610765,
+        "r": "",
+        "v": "0.1.0"
+    },
+    "vwo_newSessionCreated": {
+        "cURL": "https://www.caringbridge.org/",
+        "sessionCookie": "0:1:::1",
+        "sessionId": 1710610765,
+        "user": "new",
+        "uuid": "D278D15D13628A4CCE87130611C2EF4F3"
+    }
+}

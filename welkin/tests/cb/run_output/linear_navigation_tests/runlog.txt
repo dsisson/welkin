@@ -1,0 +1,185 @@
+2024-03-16 13:37:23,239 welkin.tests.conftest::set_logging_config() [INFO] 
+created log file at '/Users/derek/dev/welkin/welkin/output/240316-133723/runlog.txt'.
+2024-03-16 13:37:23,239 root::initialize_logging() [INFO] 
+--> setting paths in namespace
+2024-03-16 13:37:23,239 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'folder': '/Users/derek/dev/welkin/welkin/output/240316-133723'
+2024-03-16 13:37:23,239 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'logfile': '/Users/derek/dev/welkin/welkin/output/240316-133723/runlog.txt'
+2024-03-16 13:37:23,239 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'html report': '/Users/derek/dev/welkin/welkin/output/240316-133723/report.html'
+2024-03-16 13:37:23,239 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'testrun paths': '{'folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723'), 'logfile': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/runlog.txt'), 'html report': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/report.html')}'
+2024-03-16 13:37:23,348 welkin.tests.conftest::initialize_logging() [INFO] 
+namespace:
+{'test cases': {},
+ 'testrun paths': {'folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723'),
+                   'html report': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/report.html'),
+                   'logfile': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/runlog.txt')},
+ 'timestamp': '240316-133723'}
+2024-03-16 13:37:23,349 welkin.tests.conftest::pytest_configure() [INFO] sys.argv: ['/Users/derek/dev/v3/bin/pytest', 'tests/cb', '-k', 'test_linear_navigation', '--tb=short', '--browser=headless_chrome']
+2024-03-16 13:37:23,349 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'browser': 'headless_chrome'
+2024-03-16 13:37:23,349 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'tier': 'stage'
+2024-03-16 13:37:23,349 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'devtools_supported': 'True'
+2024-03-16 13:37:23,349 welkin.tests.conftest::applitools_run_config() [INFO] 
+---> namespace for applitools config: 
+{'browser': 'headless_chrome',
+ 'devtools_supported': True,
+ 'test cases': {},
+ 'testrun paths': {'folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723'),
+                   'html report': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/report.html'),
+                   'logfile': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/runlog.txt')},
+ 'tier': 'stage',
+ 'timestamp': '240316-133723'}
+2024-03-16 13:37:23,349 welkin.tests.conftest::applitools_run_config() [INFO] 
+use_grid: no
+2024-03-16 13:37:23,349 welkin.tests.conftest::applitools_run_config() [INFO] 
+execution_cloud: no
+2024-03-16 13:37:23,349 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'use ultrafast grid': 'False'
+2024-03-16 13:37:23,349 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'use execution cloud': 'False'
+2024-03-16 13:37:23,349 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'applitools': '{'use ultrafast grid': False, 'use execution cloud': False}'
+2024-03-16 13:37:23,349 welkin.tests.conftest::applitools_run_config() [INFO] 
+applitools namespace:
+{'applitools': {'use execution cloud': False, 'use ultrafast grid': False},
+ 'browser': 'headless_chrome',
+ 'devtools_supported': True,
+ 'test cases': {},
+ 'testrun paths': {'folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723'),
+                   'html report': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/report.html'),
+                   'logfile': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/runlog.txt')},
+ 'tier': 'stage',
+ 'timestamp': '240316-133723'}
+2024-03-16 13:37:23,372 welkin.tests.conftest::pytest_sessionstart() [INFO] ----------
+2024-03-16 13:37:23,419 welkin.tests.conftest::pytest_collection_finish() [INFO] no actions taken.
+2024-03-16 13:37:23,419 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+### Set up for test test_linear_navigation ###
+2024-03-16 13:37:23,420 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+referenced_fixtures: ['_verify_url', 'configure_test_session', 'cb', 'base_url', 'driver', 'request', 'browser']
+2024-03-16 13:37:23,420 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation
+2024-03-16 13:37:23,420 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+fixturenames: ['_verify_url', 'configure_test_session', 'cb', 'base_url', 'driver', 'request', 'browser']
+2024-03-16 13:37:23,420 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+testcase_folder: /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation
+2024-03-16 13:37:23,420 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+app types: is_api 0; is_webapp: 1
+2024-03-16 13:37:23,420 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/integrations
+2024-03-16 13:37:23,420 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'integrations': /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/integrations
+2024-03-16 13:37:23,421 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/downloads
+2024-03-16 13:37:23,421 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'downloads': /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/downloads
+2024-03-16 13:37:23,421 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/driver
+2024-03-16 13:37:23,421 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'driver': /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/driver
+2024-03-16 13:37:23,421 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/cookies
+2024-03-16 13:37:23,421 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'cookies': /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/cookies
+2024-03-16 13:37:23,421 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/screenshots
+2024-03-16 13:37:23,421 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'screenshots': /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/screenshots
+2024-03-16 13:37:23,421 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/accessibility
+2024-03-16 13:37:23,422 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'accessibility': /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/accessibility
+2024-03-16 13:37:23,422 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/webstorage
+2024-03-16 13:37:23,422 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'webstorage': /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/webstorage
+2024-03-16 13:37:23,422 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/network
+2024-03-16 13:37:23,422 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'network': /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/network
+2024-03-16 13:37:23,422 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/console
+2024-03-16 13:37:23,422 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'console': /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/console
+2024-03-16 13:37:23,423 welkin.tests.conftest::create_test_output_subfolder() [INFO] 
+Created sub-folder: /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/metrics
+2024-03-16 13:37:23,423 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+created folder 'metrics': /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/metrics
+2024-03-16 13:37:23,423 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'name': '1_linear_navigation'
+2024-03-16 13:37:23,423 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'integrations folder': '/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/integrations'
+2024-03-16 13:37:23,423 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'downloads folder': '/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/downloads'
+2024-03-16 13:37:23,423 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'driver folder': '/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/driver'
+2024-03-16 13:37:23,423 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'cookies folder': '/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/cookies'
+2024-03-16 13:37:23,423 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'screenshots folder': '/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/screenshots'
+2024-03-16 13:37:23,423 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'accessibility folder': '/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/accessibility'
+2024-03-16 13:37:23,423 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'webstorage folder': '/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/webstorage'
+2024-03-16 13:37:23,423 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'network folder': '/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/network'
+2024-03-16 13:37:23,423 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'console folder': '/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/console'
+2024-03-16 13:37:23,423 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'metrics folder': '/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/metrics'
+2024-03-16 13:37:23,423 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'current test case': '{'name': '1_linear_navigation', 'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/integrations'), 'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/downloads'), 'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/driver'), 'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/cookies'), 'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/screenshots'), 'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/accessibility'), 'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/webstorage'), 'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/network'), 'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/console'), 'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/metrics')}'
+2024-03-16 13:37:23,424 welkin.tests.conftest::set_up_testcase_reporting() [INFO] 
+namespace after test folder creation:
+{'applitools': {'use execution cloud': False, 'use ultrafast grid': False},
+ 'browser': 'headless_chrome',
+ 'current test case': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/accessibility'),
+                       'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/console'),
+                       'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/cookies'),
+                       'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/downloads'),
+                       'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/driver'),
+                       'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/integrations'),
+                       'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/metrics'),
+                       'name': '1_linear_navigation',
+                       'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/network'),
+                       'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/screenshots'),
+                       'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/webstorage')},
+ 'devtools_supported': True,
+ 'test cases': {'1_linear_navigation': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/accessibility'),
+                                        'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/console'),
+                                        'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/cookies'),
+                                        'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/downloads'),
+                                        'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/driver'),
+                                        'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/integrations'),
+                                        'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/metrics'),
+                                        'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/network'),
+                                        'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/screenshots'),
+                                        'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/webstorage')}},
+ 'testrun paths': {'folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723'),
+                   'html report': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/report.html'),
+                   'logfile': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133723/runlog.txt')},
+ 'tier': 'stage',
+ 'timestamp': '240316-133723'}
+2024-03-16 13:37:23,424 welkin.tests.conftest::pytest_runtest_setup() [WARNING] 
+### Changing log output path to the test case path. ###
+
+
+2024-03-16 13:37:23,425 welkin.tests.conftest::pytest_runtest_setup() [INFO] 
+##############################
+=====>> Testcase test_linear_navigation logged to /Users/derek/dev/welkin/welkin/output/240316-133723/1_linear_navigation/testlog.txt
+##############################
+
+
+2024-03-16 13:37:46,160 welkin.tests.conftest::set_logging_config() [INFO] 
+created log file at '/Users/derek/dev/welkin/welkin/output/240316-133723/runlog.txt'.
+2024-03-16 13:37:46,160 welkin.tests.conftest::pytest_runtest_teardown() [INFO] 
+### Reset logfile to /Users/derek/dev/welkin/welkin/output/240316-133723/runlog.txt ###
+
+
+
+2024-03-16 13:37:46,340 welkin.tests.conftest::driver() [INFO] Quitting 'headless_chrome' driver.
+2024-03-16 13:37:46,344 welkin.tests.conftest::pytest_sessionfinish() [INFO] No actions taken.

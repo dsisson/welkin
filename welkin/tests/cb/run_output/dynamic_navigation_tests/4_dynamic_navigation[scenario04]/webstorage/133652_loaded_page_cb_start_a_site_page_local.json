@@ -1,0 +1,107 @@
+{
+    "QEventChannel": {
+        "id": -9997,
+        "timeStamp": 1710610612468,
+        "value": "web"
+    },
+    "QM_S": {
+        "event:38cfacd1e92e4bd6df014c0493915c3b": {
+            "i": 422,
+            "t": 1710610608869,
+            "v": ""
+        },
+        "event:74726a904f044ae7715dfca2ce32a2c3": {
+            "i": 36,
+            "t": 1710610610623,
+            "v": "global-nav-start-a-site"
+        },
+        "event:8b875776c1564d6211fbdf268a98744c": {
+            "i": 92,
+            "t": 1710610610623,
+            "v": ""
+        },
+        "exp": 1710612412568,
+        "lastRepeatUrl": "https://www.caringbridge.org/createwebsite",
+        "lastUrl": "https://www.caringbridge.org/",
+        "s": "13de4decc0e4a431aad42c8d4ee64820",
+        "shouldLogResources": false
+    },
+    "QM_U": {
+        "exp": 1742146612569,
+        "u": "fa39df278dffe5911722aea1cdde9d9c"
+    },
+    "_page": "https://www.caringbridge.org/createwebsite",
+    "_page object name": "cb start a site page",
+    "_precipitating event": "loaded page 'cb start a site page'",
+    "_storage type": "local",
+    "_uetsid": "c3bd6240e3bb11ee8a10d5b371f5ce21",
+    "_uetsid_exp": "Sun, 17 Mar 2024 17:36:51 GMT",
+    "_uetvid": "c3bdba10e3bb11eeb6d409a4f2dc581d",
+    "_uetvid_exp": "Thu, 10 Apr 2025 17:36:51 GMT",
+    "lastExternalReferrer": "empty",
+    "lastExternalReferrerTime": 1710610608099,
+    "li_adsId": "be50e501-75b8-4de1-a1ae-e475d5edb029",
+    "started_site": true,
+    "ub-emb-1cff1a4f-8c21-41f3-8d51-738bd2109ce5": {
+        "events": [],
+        "variantLetter": "l"
+    },
+    "ub-emb-2eab7987-5bb8-4634-babe-3cb8220f88a1": {
+        "events": [],
+        "variantLetter": "b"
+    },
+    "ub-emb-62540363-fac9-4f32-8894-8c8958977e2c": {
+        "events": [],
+        "variantLetter": "h"
+    },
+    "ub-emb-6bbc52be-f5bb-458a-b627-a9257792c84d": {
+        "events": [],
+        "variantLetter": "j"
+    },
+    "ub-emb-7a72b73f-138a-4eb2-93a7-5674403bc0f9": {
+        "events": [],
+        "variantLetter": "b"
+    },
+    "ub-emb-7d2a4ec3-0031-4497-b56c-2c5a70124ce0": {
+        "events": [],
+        "variantLetter": "b"
+    },
+    "ub-emb-84c2b0cc-7baa-4e06-b692-0684e4fc5b18": {
+        "events": [],
+        "variantLetter": "j"
+    },
+    "ub-emb-86d4ffb9-5ff2-458f-9528-fbba6e22df5f": {
+        "events": [],
+        "variantLetter": "j"
+    },
+    "ub-emb-98eb16de-c389-40f2-8534-2966efa708f5": {
+        "events": [],
+        "variantLetter": "g"
+    },
+    "ub-emb-d513a54b-458a-4c13-a9a4-34785213bb09": {
+        "events": [],
+        "variantLetter": "b"
+    },
+    "ub-emb-e3661fd6-7899-43a1-b356-11f10c519bc1": {
+        "events": [],
+        "variantLetter": "m"
+    },
+    "ub-emb-ef13ff4c-bfb9-4f40-8ee5-523053b7a721": {
+        "events": [],
+        "variantLetter": "k"
+    },
+    "ub-emb-id": "de17dada4af440729d66879b2886a4b1",
+    "vwoSn": {
+        "cu": "https%3A%2F%2Fwww.caringbridge.org%2F",
+        "lt": 1710610753,
+        "r": "",
+        "v": "0.1.0"
+    },
+    "vwo_newSessionCreated": {
+        "cURL": "https://www.caringbridge.org/",
+        "sessionCookie": "0:1:::1",
+        "sessionId": 1710610748,
+        "user": "new",
+        "uuid": "DB3F56D7FA48CED15DB90CF46E61944AD"
+    }
+}

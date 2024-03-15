@@ -1,0 +1,577 @@
+2024-03-16 13:37:01,109 welkin.tests.conftest::set_logging_config() [INFO] 
+created log file at '/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/testlog.txt'.
+2024-03-16 13:37:01,109 welkin.tests.conftest::update_namespace() [INFO] 
+added namespace 'this_test': '/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]'
+2024-03-16 13:37:01,110 welkin.tests.conftest::browser() [INFO] 
+this_browser: headless_chrome
+2024-03-16 13:37:01,110 welkin.tests.conftest::driver() [INFO] 
+Requested 'headless_chrome' driver.
+2024-03-16 13:37:01,112 welkin.tests.conftest::driver() [INFO] 
+---> namespace for applitools: 
+{'applitools': {'use execution cloud': False, 'use ultrafast grid': False},
+ 'browser': 'headless_chrome',
+ 'current test case': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/accessibility'),
+                       'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/console'),
+                       'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/cookies'),
+                       'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/downloads'),
+                       'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/driver'),
+                       'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/integrations'),
+                       'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/metrics'),
+                       'name': '5_dynamic_navigation[scenario05]',
+                       'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/network'),
+                       'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots'),
+                       'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/webstorage')},
+ 'devtools_supported': True,
+ 'test cases': {'1_dynamic_navigation[scenario01]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/1_dynamic_navigation[scenario01]/webstorage')},
+                '2_dynamic_navigation[scenario02]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/2_dynamic_navigation[scenario02]/webstorage')},
+                '3_dynamic_navigation[scenario03]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/3_dynamic_navigation[scenario03]/webstorage')},
+                '4_dynamic_navigation[scenario04]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/4_dynamic_navigation[scenario04]/webstorage')},
+                '5_dynamic_navigation[scenario05]': {'accessibility folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/accessibility'),
+                                                     'console folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/console'),
+                                                     'cookies folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/cookies'),
+                                                     'downloads folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/downloads'),
+                                                     'driver folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/driver'),
+                                                     'integrations folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/integrations'),
+                                                     'metrics folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/metrics'),
+                                                     'network folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/network'),
+                                                     'screenshots folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots'),
+                                                     'webstorage folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/webstorage')}},
+ 'testrun paths': {'folder': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554'),
+                   'html report': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/report.html'),
+                   'logfile': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/runlog.txt')},
+ 'this_test': PosixPath('/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]'),
+ 'tier': 'stage',
+ 'timestamp': '240316-133554'}
+2024-03-16 13:37:01,113 welkin.tests.conftest::base_chrome_services() [INFO] 
+driver log path: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/driver/driver.txt
+2024-03-16 13:37:01,113 welkin.tests.conftest::browser_chrome_headless() [INFO] 
+browser services:
+{'_path': None,
+ 'creation_flags': 0,
+ 'env': environ({'TERM_PROGRAM': 'Apple_Terminal', 'TERM': 'xterm-256color', 'SHELL': '/bin/bash', 'TMPDIR': '/var/folders/_t/6_mz6r3n5n56cg2qq8sj6_n00000gn/T/', 'TERM_PROGRAM_VERSION': '445', 'TERM_SESSION_ID': '3987E4C9-4997-42BE-8EB8-1150228473EF', 'USER': 'derek', 'SSH_AUTH_SOCK': '/private/tmp/com.apple.launchd.vaqQY4Z9ef/Listeners', 'VIRTUAL_ENV': '/Users/derek/dev/v3', 'PATH': '/Users/derek/dev/v3/bin:/Users/derek/.poetry/bin:/usr/local/bin/python3:/usr/local/bin:/usr/local/sbin:/Users/derek/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/derek/dev/venv:/Users/derek/dev/yoeddy:/Users/derek/dev/qa-wicked:/Users/derek/dev/welkin:/Users/derek/dev/heofon:/Users/derek/dev/beswican:/Users/derek/dev/sweord:/Users/derek/dev/meotod:/Users/derek/dev/suny485', 'LaunchInstanceID': '305FE4BD-6EA9-4D6C-B60A-1C5C079BE873', '__CFBundleIdentifier': 'com.apple.Terminal', 'PWD': '/Users/derek/dev/welkin/welkin', 'EDITOR': '/usr/bin/mate -w', 'LANG': 'en_US.UTF-8', 'XPC_FLAGS': '0x0', 'PS1': '(v3) \\h:\\W \\u\\$ ', 'XPC_SERVICE_NAME': '0', 'HOME': '/Users/derek', 'SHLVL': '1', 'PYTHONPATH': '/usr/local/bin/python3:/usr/local/bin:/usr/local/sbin:/Users/derek/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/derek/dev/venv:/Users/derek/dev/yoeddy:/Users/derek/dev/yoeddy:/Users/derek/dev/qa-wicked:/Users/derek/dev/welkin:/Users/derek/dev/heofon:/Users/derek/dev/beswican:/Users/derek/dev/sweord:/Users/derek/dev/meotod', 'LOGNAME': 'derek', 'APPLITOOLS_API_KEY': 'eklTsQw5K2E2HHKVB5u6Z1033r5WXUiTPScRx2kF2mVGM110', 'SECURITYSESSIONID': '186a3', '_': '/Users/derek/dev/v3/bin/pytest', '__CF_USER_TEXT_ENCODING': '0x1F5:0x0:0x0', 'PYTEST_CURRENT_TEST': 'welkin/tests/cb/test_caringbridge.py::CaringBridgeTests::test_dynamic_navigation[scenario05] (setup)'}),
+ 'log_output': -3,
+ 'popen_kw': {},
+ 'port': 50437,
+ 'service_args': ['--append-log',
+                  '--readable-timestamp',
+                  '--log-level=INFO',
+                  '--log-path=/Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/driver/driver.txt']}
+2024-03-16 13:37:01,113 welkin.tests.conftest::browser_chrome_headless() [INFO] 
+browser options:
+{
+    "_arguments": [
+        "--disable-extensions",
+        "--disable-features=Translate",
+        "--no-default-browser-check",
+        "--no-first-run",
+        "--ash-no-nudges",
+        "--disable-search-engine-choice-screen",
+        "--headless=new"
+    ],
+    "_binary_location": "",
+    "_caps": {
+        "browserName": "chrome",
+        "goog:loggingPrefs": {
+            "performance": "ALL"
+        },
+        "pageLoadStrategy": "normal"
+    },
+    "_debugger_address": null,
+    "_experimental_options": {},
+    "_extension_files": [],
+    "_extensions": [],
+    "_ignore_local_proxy": false,
+    "_proxy": null,
+    "mobile_options": null
+}
+2024-03-16 13:37:02,249 welkin.tests.conftest::driver() [INFO] 
+starting driver 
+'headless_chrome':
+chrome driver version: 122.0.6261.128 (f18a44fedeb29764b2b5336c120fdd90ef1a3f5c-refs/branch-heads/6261@{#1057})
+
+2024-03-16 13:37:02,379 welkin.tests.conftest::driver() [INFO] 
+useragent: 
+'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/122.0.0.0 Safari/537.36'
+2024-03-16 13:37:02,385 test_caringbridge::test_dynamic_navigation() [INFO] 
+############################################################
+testing navigation path: 
+Home --> How It Works--> Advice & Inspiration--> About Us
+############################################################
+
+2024-03-16 13:37:02,385 welkin.apps.cb.base_page::__init__() [INFO] 
+Instantiated boot PageObject.
+2024-03-16 13:37:02,385 welkin.apps.root_pageobject::resolve_pageobject() [INFO] 
+Path to routings module for this wrapper:
+welkin.apps.cb.routings
+2024-03-16 13:37:02,385 welkin.apps.root_pageobject::resolve_pageobject() [INFO] 
+Path to page object: welkin.apps.cb.noauth.pages --> 'cb home page'.
+2024-03-16 13:37:02,502 welkin.apps.cb.noauth.pages::__init__() [INFO] 
+Instantiated PageObject for cb home page.
+2024-03-16 13:37:06,049 welkin.apps.root_pageobject::verify_unload() [WARNING] 
+no unload checks found for POM boot page
+2024-03-16 13:37:06,049 welkin.apps.root_pageobject::resolve_pageobject() [INFO] 
+Path to routings module for this wrapper:
+welkin.apps.cb.routings
+2024-03-16 13:37:06,049 welkin.apps.root_pageobject::resolve_pageobject() [INFO] 
+Path to page object: welkin.apps.cb.noauth.pages --> 'cb home page'.
+2024-03-16 13:37:06,154 welkin.apps.cb.noauth.pages::__init__() [INFO] 
+Instantiated PageObject for cb home page.
+2024-03-16 13:37:06,154 welkin.apps.root_pageobject::verify_load() [INFO] 
+Load checks for 'cb home page':
+[(True, 'xpath', "//div[contains(text(), 'Share Your Story')]"), (True, 'xpath', "//div[contains(text(), 'Give Together')]")].
+2024-03-16 13:37:06,154 welkin.apps.root_pageobject::verify_load() [INFO] 
+====> load check: (True, 'xpath', "//div[contains(text(), 'Share Your Story')]") for 'cb home page'
+2024-03-16 13:37:06,191 welkin.framework.checks::expect_element_to_be_present() [INFO] 
+Verified page load for 'cb home page': '//div[contains(text(), 'Share Your Story')]' is visible.
+2024-03-16 13:37:06,191 welkin.apps.root_pageobject::verify_load() [INFO] 
+====> load check: (True, 'xpath', "//div[contains(text(), 'Give Together')]") for 'cb home page'
+2024-03-16 13:37:06,215 welkin.framework.checks::expect_element_to_be_present() [INFO] 
+Verified page load for 'cb home page': '//div[contains(text(), 'Give Together')]' is visible.
+2024-03-16 13:37:06,215 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610626.2156181,
+    "event": "loaded page 'cb home page'",
+    "on page": "cb home page"
+}
+2024-03-16 13:37:06,220 welkin.apps.root_pageobject::verify_self() [INFO] 
+Attempting to verify identity for 'cb home page': 'https://www.caringbridge.org/'.
+2024-03-16 13:37:06,220 welkin.apps.root_pageobject::verify_self() [INFO] 
+Identity checks for page 'cb home page':
+['check_url', 'check_title']
+2024-03-16 13:37:06,227 welkin.apps.root_pageobject::verify_self() [INFO] 
+Successfully verified identity for 'cb home page'
+2024-03-16 13:37:06,232 welkin.framework.utils_file::write_cookies_to_file() [INFO] 
+Saved cookies: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/cookies/133706_loaded_page_cb_home_page.txt.
+2024-03-16 13:37:06,232 welkin.apps.root_pageobject::save_chrome_metrics() [INFO] 
+Writing browser metrics logs.
+2024-03-16 13:37:06,232 welkin.framework.utils_selenium::get_metrics_log() [INFO] 
+Getting metrics log for page 'cb home page' at https://www.caringbridge.org/.
+2024-03-16 13:37:06,236 welkin.framework.utils_file::write_metrics_log_to_file() [INFO] 
+Saved browser metrics log: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/metrics/133706_loaded_page_cb_home_page.json.
+2024-03-16 13:37:06,236 welkin.framework.utils_selenium::get_network_traffic_logs() [INFO] 
+Getting network logs for page 'cb home page' at https://www.caringbridge.org/.
+2024-03-16 13:37:06,271 welkin.framework.utils_selenium::get_console_logs() [INFO] 
+Getting browser logs for page https://www.caringbridge.org/.
+2024-03-16 13:37:06,273 welkin.apps.root_pageobject::save_browser_logs() [INFO] Writing special logs.
+2024-03-16 13:37:06,338 welkin.framework.utils_file::write_network_log_to_file() [INFO] 
+Saved browser network log: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/network/133706_loaded_page_cb_home_page.json.
+2024-03-16 13:37:06,339 welkin.framework.utils_file::write_console_log_to_file() [INFO] 
+Saved console logs (and bad headers): /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/console/133706_loaded_page_cb_home_page.json.
+2024-03-16 13:37:06,351 welkin.framework.utils_file::_write_local_to_file() [INFO] Saved local storage log: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/webstorage/133706_loaded_page_cb_home_page_local.json.
+2024-03-16 13:37:06,351 welkin.framework.utils_file::_write_session_to_file() [INFO] Saved session storage log: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/webstorage/133706_loaded_page_cb_home_page_session.json.
+2024-03-16 13:37:06,945 welkin.apps.root_pageobject::save_accessibility_logs() [INFO] Writing accessibility logs to /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/accessibility/loaded_page_cb_home_page.json
+2024-03-16 13:37:06,960 welkin.apps.root_pageobject::save_screenshot() [INFO] Generating screenshot for 'home_loaded'.
+2024-03-16 13:37:07,357 welkin.framework.utils_selenium::take_and_save_screenshot() [INFO] 
+Saved screenshot: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots/133706_home_loaded.png.
+2024-03-16 13:37:07,357 test_caringbridge::test_dynamic_navigation() [INFO] 
+navigating to How It Works page
+2024-03-16 13:37:07,362 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610627.362544,
+    "event": "scroll to top of cb home page",
+    "on page": "cb home page"
+}
+2024-03-16 13:37:07,362 welkin.apps.root_pageobject::save_screenshot() [INFO] Generating screenshot for 'scroll_to_top_of_cb_home_page'.
+2024-03-16 13:37:07,723 welkin.framework.utils_selenium::take_and_save_screenshot() [INFO] 
+Saved screenshot: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots/133707_scroll_to_top_of_cb_home_page.png.
+2024-03-16 13:37:07,752 welkin.apps.cb.noauth.base_noauth::select_page_from_top_menu() [INFO] 
+stage1 str: 'How It Works'
+2024-03-16 13:37:07,765 welkin.apps.cb.noauth.base_noauth::select_page_from_top_menu() [INFO] 
+stage1 element text: 'How It Works'
+2024-03-16 13:37:07,765 welkin.apps.cb.noauth.base_noauth::select_page_from_top_menu() [INFO] 
+stage2 == stage1
+2024-03-16 13:37:07,765 welkin.apps.cb.noauth.base_noauth::select_page_from_top_menu() [INFO] 
+po_selector: 'cb how it works page'
+2024-03-16 13:37:07,765 welkin.apps.root_pageobject::_click_and_load_new_page() [INFO] Old url: https://www.caringbridge.org/
+2024-03-16 13:37:07,765 welkin.apps.root_pageobject::_click_and_load_new_page() [INFO] target url: None
+2024-03-16 13:37:08,499 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610628.499462,
+    "event": "clicked element 'How It Works destination link'",
+    "on page": "cb home page"
+}
+2024-03-16 13:37:08,510 welkin.apps.root_pageobject::_unhover() [WARNING] 
+Out-of bounds movement attempt '(-50, 5)'
+trying '(100, 100)'
+2024-03-16 13:37:08,879 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610628.87836,
+    "event": "unhovered: moved relative '(100, 100)'",
+    "on page": "cb home page"
+}
+2024-03-16 13:37:09,164 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610629.164329,
+    "event": "unhovered: moved relative '(0, 40)'",
+    "on page": "cb home page"
+}
+2024-03-16 13:37:09,171 welkin.apps.root_pageobject::_click_and_load_new_page() [INFO] New url: https://www.caringbridge.org/how-it-works
+2024-03-16 13:37:09,171 welkin.apps.root_pageobject::_click_and_load_new_page() [INFO] 
+Loading page object for 'cb how it works page'.
+2024-03-16 13:37:09,171 welkin.apps.root_pageobject::verify_unload() [INFO] 
+Unload checks for 'cb home page':
+[(False, 'xpath', "//div[contains(text(), 'Share Your Story')]"), (False, 'xpath', "//div[contains(text(), 'Give Together')]")].
+2024-03-16 13:37:09,171 welkin.apps.root_pageobject::verify_unload() [INFO] 
+====> unload check: (False, 'xpath', "//div[contains(text(), 'Share Your Story')]")
+2024-03-16 13:37:09,179 welkin.framework.checks::expect_element_to_be_gone() [INFO] 
+Verified page load for 'cb home page': '('xpath', "//div[contains(text(), 'Share Your Story')]")' was not found.
+2024-03-16 13:37:09,179 welkin.apps.root_pageobject::verify_unload() [INFO] 
+====> unload check: (False, 'xpath', "//div[contains(text(), 'Give Together')]")
+2024-03-16 13:37:09,187 welkin.framework.checks::expect_element_to_be_gone() [INFO] 
+Verified page load for 'cb home page': '('xpath', "//div[contains(text(), 'Give Together')]")' was not found.
+2024-03-16 13:37:09,187 welkin.apps.root_pageobject::save_screenshot() [INFO] Generating screenshot for 'unloaded_cb_home_page'.
+2024-03-16 13:37:09,397 welkin.framework.utils_selenium::take_and_save_screenshot() [INFO] 
+Saved screenshot: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots/133709_unloaded_cb_home_page.png.
+2024-03-16 13:37:09,397 welkin.apps.root_pageobject::resolve_pageobject() [INFO] 
+Path to routings module for this wrapper:
+welkin.apps.cb.routings
+2024-03-16 13:37:09,397 welkin.apps.root_pageobject::resolve_pageobject() [INFO] 
+Path to page object: welkin.apps.cb.noauth.pages --> 'cb how it works page'.
+2024-03-16 13:37:09,512 welkin.apps.cb.noauth.pages::__init__() [INFO] 
+Instantiated PageObject for cb how it works page.
+2024-03-16 13:37:09,512 welkin.apps.root_pageobject::verify_load() [INFO] 
+Load checks for 'cb how it works page':
+[(True, 'xpath', "//h1[contains(text(),'How It Works')]"), (True, 'xpath', "//h2[contains(text(), 'Choose Your Privacy Settings')]")].
+2024-03-16 13:37:09,512 welkin.apps.root_pageobject::verify_load() [INFO] 
+====> load check: (True, 'xpath', "//h1[contains(text(),'How It Works')]") for 'cb how it works page'
+2024-03-16 13:37:09,573 welkin.framework.checks::expect_element_to_be_present() [INFO] 
+Verified page load for 'cb how it works page': '//h1[contains(text(),'How It Works')]' is visible.
+2024-03-16 13:37:09,573 welkin.apps.root_pageobject::verify_load() [INFO] 
+====> load check: (True, 'xpath', "//h2[contains(text(), 'Choose Your Privacy Settings')]") for 'cb how it works page'
+2024-03-16 13:37:09,597 welkin.framework.checks::expect_element_to_be_present() [INFO] 
+Verified page load for 'cb how it works page': '//h2[contains(text(), 'Choose Your Privacy Settings')]' is visible.
+2024-03-16 13:37:09,597 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610629.5974889,
+    "event": "loaded page 'cb how it works page'",
+    "on page": "cb how it works page"
+}
+2024-03-16 13:37:09,601 welkin.apps.root_pageobject::verify_self() [INFO] 
+Attempting to verify identity for 'cb how it works page': 'https://www.caringbridge.org/how-it-works'.
+2024-03-16 13:37:09,601 welkin.apps.root_pageobject::verify_self() [INFO] 
+Identity checks for page 'cb how it works page':
+['check_url', 'check_title']
+2024-03-16 13:37:09,609 welkin.apps.root_pageobject::verify_self() [INFO] 
+Successfully verified identity for 'cb how it works page'
+2024-03-16 13:37:09,615 welkin.framework.utils_file::write_cookies_to_file() [INFO] 
+Saved cookies: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/cookies/133709_loaded_page_cb_how_it_works_page.txt.
+2024-03-16 13:37:09,615 welkin.apps.root_pageobject::save_chrome_metrics() [INFO] 
+Writing browser metrics logs.
+2024-03-16 13:37:09,615 welkin.framework.utils_selenium::get_metrics_log() [INFO] 
+Getting metrics log for page 'cb how it works page' at https://www.caringbridge.org/how-it-works.
+2024-03-16 13:37:09,618 welkin.framework.utils_file::write_metrics_log_to_file() [INFO] 
+Saved browser metrics log: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/metrics/133709_loaded_page_cb_how_it_works_page.json.
+2024-03-16 13:37:09,619 welkin.framework.utils_selenium::get_network_traffic_logs() [INFO] 
+Getting network logs for page 'cb how it works page' at https://www.caringbridge.org/how-it-works.
+2024-03-16 13:37:09,663 welkin.framework.utils_selenium::get_console_logs() [INFO] 
+Getting browser logs for page https://www.caringbridge.org/how-it-works.
+2024-03-16 13:37:09,667 welkin.apps.root_pageobject::save_browser_logs() [INFO] Writing special logs.
+2024-03-16 13:37:09,747 welkin.framework.utils_file::write_network_log_to_file() [INFO] 
+Saved browser network log: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/network/133709_loaded_page_cb_how_it_works_page.json.
+2024-03-16 13:37:09,749 welkin.framework.utils_file::write_console_log_to_file() [INFO] 
+Saved console logs (and bad headers): /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/console/133709_loaded_page_cb_how_it_works_page.json.
+2024-03-16 13:37:09,760 welkin.framework.utils_file::_write_local_to_file() [INFO] Saved local storage log: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/webstorage/133709_loaded_page_cb_how_it_works_page_local.json.
+2024-03-16 13:37:09,761 welkin.framework.utils_file::_write_session_to_file() [INFO] Saved session storage log: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/webstorage/133709_loaded_page_cb_how_it_works_page_session.json.
+2024-03-16 13:37:10,393 welkin.apps.root_pageobject::save_accessibility_logs() [INFO] Writing accessibility logs to /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/accessibility/loaded_page_cb_how_it_works_page.json
+2024-03-16 13:37:10,412 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610630.412367,
+    "event": "clicked How It Works destination link",
+    "on page": "cb home page"
+}
+2024-03-16 13:37:10,412 welkin.apps.root_pageobject::save_screenshot() [INFO] Generating screenshot for 'how_it_works_page_loaded'.
+2024-03-16 13:37:10,624 welkin.framework.utils_selenium::take_and_save_screenshot() [INFO] 
+Saved screenshot: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots/133710_how_it_works_page_loaded.png.
+2024-03-16 13:37:10,624 test_caringbridge::test_dynamic_navigation() [INFO] 
+navigating to Advice & Inspiration page
+2024-03-16 13:37:10,629 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610630.629795,
+    "event": "scroll to top of cb how it works page",
+    "on page": "cb how it works page"
+}
+2024-03-16 13:37:10,629 welkin.apps.root_pageobject::save_screenshot() [INFO] Generating screenshot for 'scroll_to_top_of_cb_how_it_works_page'.
+2024-03-16 13:37:10,839 welkin.framework.utils_selenium::take_and_save_screenshot() [INFO] 
+Saved screenshot: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots/133710_scroll_to_top_of_cb_how_it_works_page.png.
+2024-03-16 13:37:10,867 welkin.apps.cb.noauth.base_noauth::select_page_from_top_menu() [INFO] 
+stage1 str: 'Advice & Inspiration'
+2024-03-16 13:37:10,875 welkin.apps.cb.noauth.base_noauth::select_page_from_top_menu() [INFO] 
+stage1 element text: 'Advice & Inspiration'
+2024-03-16 13:37:10,875 welkin.apps.cb.noauth.base_noauth::select_page_from_top_menu() [INFO] 
+stage2 == stage1
+2024-03-16 13:37:10,875 welkin.apps.cb.noauth.base_noauth::select_page_from_top_menu() [INFO] 
+po_selector: 'cb resources page'
+2024-03-16 13:37:10,875 welkin.apps.root_pageobject::_click_and_load_new_page() [INFO] Old url: https://www.caringbridge.org/how-it-works
+2024-03-16 13:37:10,875 welkin.apps.root_pageobject::_click_and_load_new_page() [INFO] target url: None
+2024-03-16 13:37:12,438 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610632.438151,
+    "event": "clicked element 'Advice & Inspiration destination link'",
+    "on page": "cb how it works page"
+}
+2024-03-16 13:37:12,774 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610632.774869,
+    "event": "unhovered: moved relative '(-50, 5)'",
+    "on page": "cb how it works page"
+}
+2024-03-16 13:37:13,047 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610633.047031,
+    "event": "unhovered: moved relative '(0, 40)'",
+    "on page": "cb how it works page"
+}
+2024-03-16 13:37:13,055 welkin.apps.root_pageobject::_click_and_load_new_page() [INFO] New url: https://www.caringbridge.org/resources
+2024-03-16 13:37:13,055 welkin.apps.root_pageobject::_click_and_load_new_page() [INFO] 
+Loading page object for 'cb resources page'.
+2024-03-16 13:37:13,055 welkin.apps.root_pageobject::verify_unload() [INFO] 
+Unload checks for 'cb how it works page':
+[(False, 'xpath', "//h1[contains(text(),'How It Works')]"), (False, 'xpath', "//h2[contains(text(), 'Choose Your Privacy Settings')]")].
+2024-03-16 13:37:13,055 welkin.apps.root_pageobject::verify_unload() [INFO] 
+====> unload check: (False, 'xpath', "//h1[contains(text(),'How It Works')]")
+2024-03-16 13:37:13,064 welkin.framework.checks::expect_element_to_be_gone() [INFO] 
+Verified page load for 'cb how it works page': '('xpath', "//h1[contains(text(),'How It Works')]")' was not found.
+2024-03-16 13:37:13,064 welkin.apps.root_pageobject::verify_unload() [INFO] 
+====> unload check: (False, 'xpath', "//h2[contains(text(), 'Choose Your Privacy Settings')]")
+2024-03-16 13:37:13,071 welkin.framework.checks::expect_element_to_be_gone() [INFO] 
+Verified page load for 'cb how it works page': '('xpath', "//h2[contains(text(), 'Choose Your Privacy Settings')]")' was not found.
+2024-03-16 13:37:13,071 welkin.apps.root_pageobject::save_screenshot() [INFO] Generating screenshot for 'unloaded_cb_how_it_works_page'.
+2024-03-16 13:37:13,352 welkin.framework.utils_selenium::take_and_save_screenshot() [INFO] 
+Saved screenshot: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots/133713_unloaded_cb_how_it_works_page.png.
+2024-03-16 13:37:13,352 welkin.apps.root_pageobject::resolve_pageobject() [INFO] 
+Path to routings module for this wrapper:
+welkin.apps.cb.routings
+2024-03-16 13:37:13,352 welkin.apps.root_pageobject::resolve_pageobject() [INFO] 
+Path to page object: welkin.apps.cb.noauth.pages --> 'cb resources page'.
+2024-03-16 13:37:13,465 welkin.apps.cb.noauth.pages::__init__() [INFO] 
+Instantiated PageObject for cb resources page.
+2024-03-16 13:37:13,465 welkin.apps.root_pageobject::verify_load() [INFO] 
+Load checks for 'cb resources page':
+[(True, 'xpath', "//h1[contains(text(),'Advice & Inspiration')]"), (True, 'xpath', "//h2[contains(text(), 'Are you a CaringBridge Site Author or Co-Author?')]")].
+2024-03-16 13:37:13,465 welkin.apps.root_pageobject::verify_load() [INFO] 
+====> load check: (True, 'xpath', "//h1[contains(text(),'Advice & Inspiration')]") for 'cb resources page'
+2024-03-16 13:37:13,489 welkin.framework.checks::expect_element_to_be_present() [INFO] 
+Verified page load for 'cb resources page': '//h1[contains(text(),'Advice & Inspiration')]' is visible.
+2024-03-16 13:37:13,489 welkin.apps.root_pageobject::verify_load() [INFO] 
+====> load check: (True, 'xpath', "//h2[contains(text(), 'Are you a CaringBridge Site Author or Co-Author?')]") for 'cb resources page'
+2024-03-16 13:37:13,511 welkin.framework.checks::expect_element_to_be_present() [INFO] 
+Verified page load for 'cb resources page': '//h2[contains(text(), 'Are you a CaringBridge Site Author or Co-Author?')]' is visible.
+2024-03-16 13:37:13,511 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610633.511445,
+    "event": "loaded page 'cb resources page'",
+    "on page": "cb resources page"
+}
+2024-03-16 13:37:13,516 welkin.apps.root_pageobject::verify_self() [INFO] 
+Attempting to verify identity for 'cb resources page': 'https://www.caringbridge.org/resources'.
+2024-03-16 13:37:13,516 welkin.apps.root_pageobject::verify_self() [INFO] 
+Identity checks for page 'cb resources page':
+['check_url', 'check_title']
+2024-03-16 13:37:13,524 welkin.apps.root_pageobject::verify_self() [INFO] 
+Successfully verified identity for 'cb resources page'
+2024-03-16 13:37:13,531 welkin.framework.utils_file::write_cookies_to_file() [INFO] 
+Saved cookies: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/cookies/133713_loaded_page_cb_resources_page.txt.
+2024-03-16 13:37:13,531 welkin.apps.root_pageobject::save_chrome_metrics() [INFO] 
+Writing browser metrics logs.
+2024-03-16 13:37:13,531 welkin.framework.utils_selenium::get_metrics_log() [INFO] 
+Getting metrics log for page 'cb resources page' at https://www.caringbridge.org/resources.
+2024-03-16 13:37:13,534 welkin.framework.utils_file::write_metrics_log_to_file() [INFO] 
+Saved browser metrics log: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/metrics/133713_loaded_page_cb_resources_page.json.
+2024-03-16 13:37:13,535 welkin.framework.utils_selenium::get_network_traffic_logs() [INFO] 
+Getting network logs for page 'cb resources page' at https://www.caringbridge.org/resources.
+2024-03-16 13:37:13,572 welkin.framework.utils_selenium::get_console_logs() [INFO] 
+Getting browser logs for page https://www.caringbridge.org/resources.
+2024-03-16 13:37:13,574 welkin.apps.root_pageobject::save_browser_logs() [INFO] Writing special logs.
+2024-03-16 13:37:13,639 welkin.framework.utils_file::write_network_log_to_file() [INFO] 
+Saved browser network log: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/network/133713_loaded_page_cb_resources_page.json.
+2024-03-16 13:37:13,640 welkin.framework.utils_file::write_console_log_to_file() [INFO] 
+Saved console logs (and bad headers): /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/console/133713_loaded_page_cb_resources_page.json.
+2024-03-16 13:37:13,652 welkin.framework.utils_file::_write_local_to_file() [INFO] Saved local storage log: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/webstorage/133713_loaded_page_cb_resources_page_local.json.
+2024-03-16 13:37:13,652 welkin.framework.utils_file::_write_session_to_file() [INFO] Saved session storage log: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/webstorage/133713_loaded_page_cb_resources_page_session.json.
+2024-03-16 13:37:14,439 welkin.apps.root_pageobject::save_accessibility_logs() [INFO] Writing accessibility logs to /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/accessibility/loaded_page_cb_resources_page.json
+2024-03-16 13:37:14,470 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610634.470757,
+    "event": "clicked Advice & Inspiration destination link",
+    "on page": "cb how it works page"
+}
+2024-03-16 13:37:14,470 welkin.apps.root_pageobject::save_screenshot() [INFO] Generating screenshot for 'advice_&_inspiration_page_loaded'.
+2024-03-16 13:37:14,765 welkin.framework.utils_selenium::take_and_save_screenshot() [INFO] 
+Saved screenshot: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots/133714_advice_&_inspiration_page_loaded.png.
+2024-03-16 13:37:14,766 test_caringbridge::test_dynamic_navigation() [INFO] 
+navigating to About Us page
+2024-03-16 13:37:14,771 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610634.771588,
+    "event": "scroll to top of cb resources page",
+    "on page": "cb resources page"
+}
+2024-03-16 13:37:14,771 welkin.apps.root_pageobject::save_screenshot() [INFO] Generating screenshot for 'scroll_to_top_of_cb_resources_page'.
+2024-03-16 13:37:15,044 welkin.framework.utils_selenium::take_and_save_screenshot() [INFO] 
+Saved screenshot: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots/133714_scroll_to_top_of_cb_resources_page.png.
+2024-03-16 13:37:15,069 welkin.apps.cb.noauth.base_noauth::select_page_from_top_menu() [INFO] 
+stage1 str: 'About Us'
+2024-03-16 13:37:15,079 welkin.apps.cb.noauth.base_noauth::select_page_from_top_menu() [INFO] 
+stage1 element text: 'About Us'
+2024-03-16 13:37:15,079 welkin.apps.cb.noauth.base_noauth::select_page_from_top_menu() [INFO] 
+stage2 == stage1
+2024-03-16 13:37:15,080 welkin.apps.cb.noauth.base_noauth::select_page_from_top_menu() [INFO] 
+po_selector: 'cb about page'
+2024-03-16 13:37:15,080 welkin.apps.root_pageobject::_click_and_load_new_page() [INFO] Old url: https://www.caringbridge.org/resources
+2024-03-16 13:37:15,080 welkin.apps.root_pageobject::_click_and_load_new_page() [INFO] target url: None
+2024-03-16 13:37:15,374 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610635.374049,
+    "event": "clicked element 'About Us destination link'",
+    "on page": "cb resources page"
+}
+2024-03-16 13:37:15,706 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610635.706862,
+    "event": "unhovered: moved relative '(-50, 5)'",
+    "on page": "cb resources page"
+}
+2024-03-16 13:37:15,979 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610635.979014,
+    "event": "unhovered: moved relative '(0, 40)'",
+    "on page": "cb resources page"
+}
+2024-03-16 13:37:15,985 welkin.apps.root_pageobject::_click_and_load_new_page() [INFO] New url: https://www.caringbridge.org/about-us
+2024-03-16 13:37:15,985 welkin.apps.root_pageobject::_click_and_load_new_page() [INFO] 
+Loading page object for 'cb about page'.
+2024-03-16 13:37:15,985 welkin.apps.root_pageobject::verify_unload() [INFO] 
+Unload checks for 'cb resources page':
+[(False, 'xpath', "//h1[contains(text(),'Advice & Inspiration ')]"), (False, 'xpath', "//h2[contains(text(), 'Are you a CaringBridge Site Author or Co-Author?')]")].
+2024-03-16 13:37:15,985 welkin.apps.root_pageobject::verify_unload() [INFO] 
+====> unload check: (False, 'xpath', "//h1[contains(text(),'Advice & Inspiration ')]")
+2024-03-16 13:37:15,997 welkin.framework.checks::expect_element_to_be_gone() [INFO] 
+Verified page load for 'cb resources page': '('xpath', "//h1[contains(text(),'Advice & Inspiration ')]")' was not found.
+2024-03-16 13:37:15,997 welkin.apps.root_pageobject::verify_unload() [INFO] 
+====> unload check: (False, 'xpath', "//h2[contains(text(), 'Are you a CaringBridge Site Author or Co-Author?')]")
+2024-03-16 13:37:16,003 welkin.framework.checks::expect_element_to_be_gone() [INFO] 
+Verified page load for 'cb resources page': '('xpath', "//h2[contains(text(), 'Are you a CaringBridge Site Author or Co-Author?')]")' was not found.
+2024-03-16 13:37:16,003 welkin.apps.root_pageobject::save_screenshot() [INFO] Generating screenshot for 'unloaded_cb_resources_page'.
+2024-03-16 13:37:16,296 welkin.framework.utils_selenium::take_and_save_screenshot() [INFO] 
+Saved screenshot: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots/133716_unloaded_cb_resources_page.png.
+2024-03-16 13:37:16,296 welkin.apps.root_pageobject::resolve_pageobject() [INFO] 
+Path to routings module for this wrapper:
+welkin.apps.cb.routings
+2024-03-16 13:37:16,296 welkin.apps.root_pageobject::resolve_pageobject() [INFO] 
+Path to page object: welkin.apps.cb.noauth.pages --> 'cb about page'.
+2024-03-16 13:37:16,412 welkin.apps.cb.noauth.pages::__init__() [INFO] 
+Instantiated PageObject for cb about page.
+2024-03-16 13:37:16,412 welkin.apps.root_pageobject::verify_load() [INFO] 
+Load checks for 'cb about page':
+[(True, 'xpath', "//div[contains(concat(' ', normalize-space(@class), ' '), ' media-header-1 ')]//h1[contains(text(), 'Our Vision & Mission')]"), (True, 'xpath', "//h2[contains(text(), 'Impact & Reach')]")].
+2024-03-16 13:37:16,412 welkin.apps.root_pageobject::verify_load() [INFO] 
+====> load check: (True, 'xpath', "//div[contains(concat(' ', normalize-space(@class), ' '), ' media-header-1 ')]//h1[contains(text(), 'Our Vision & Mission')]") for 'cb about page'
+2024-03-16 13:37:16,438 welkin.framework.checks::expect_element_to_be_present() [INFO] 
+Verified page load for 'cb about page': '//div[contains(concat(' ', normalize-space(@class), ' '), ' media-header-1 ')]//h1[contains(text(), 'Our Vision & Mission')]' is visible.
+2024-03-16 13:37:16,438 welkin.apps.root_pageobject::verify_load() [INFO] 
+====> load check: (True, 'xpath', "//h2[contains(text(), 'Impact & Reach')]") for 'cb about page'
+2024-03-16 13:37:16,460 welkin.framework.checks::expect_element_to_be_present() [INFO] 
+Verified page load for 'cb about page': '//h2[contains(text(), 'Impact & Reach')]' is visible.
+2024-03-16 13:37:16,460 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610636.4608278,
+    "event": "loaded page 'cb about page'",
+    "on page": "cb about page"
+}
+2024-03-16 13:37:16,465 welkin.apps.root_pageobject::verify_self() [INFO] 
+Attempting to verify identity for 'cb about page': 'https://www.caringbridge.org/about-us'.
+2024-03-16 13:37:16,465 welkin.apps.root_pageobject::verify_self() [INFO] 
+Identity checks for page 'cb about page':
+['check_url', 'check_title']
+2024-03-16 13:37:16,473 welkin.apps.root_pageobject::verify_self() [INFO] 
+Successfully verified identity for 'cb about page'
+2024-03-16 13:37:16,479 welkin.framework.utils_file::write_cookies_to_file() [INFO] 
+Saved cookies: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/cookies/133716_loaded_page_cb_about_page.txt.
+2024-03-16 13:37:16,480 welkin.apps.root_pageobject::save_chrome_metrics() [INFO] 
+Writing browser metrics logs.
+2024-03-16 13:37:16,480 welkin.framework.utils_selenium::get_metrics_log() [INFO] 
+Getting metrics log for page 'cb about page' at https://www.caringbridge.org/about-us.
+2024-03-16 13:37:16,483 welkin.framework.utils_file::write_metrics_log_to_file() [INFO] 
+Saved browser metrics log: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/metrics/133716_loaded_page_cb_about_page.json.
+2024-03-16 13:37:16,484 welkin.framework.utils_selenium::get_network_traffic_logs() [INFO] 
+Getting network logs for page 'cb about page' at https://www.caringbridge.org/about-us.
+2024-03-16 13:37:16,526 welkin.framework.utils_selenium::get_console_logs() [INFO] 
+Getting browser logs for page https://www.caringbridge.org/about-us.
+2024-03-16 13:37:16,529 welkin.apps.root_pageobject::save_browser_logs() [INFO] Writing special logs.
+2024-03-16 13:37:16,596 welkin.framework.utils_file::write_network_log_to_file() [INFO] 
+Saved browser network log: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/network/133716_loaded_page_cb_about_page.json.
+2024-03-16 13:37:16,598 welkin.framework.utils_file::write_console_log_to_file() [INFO] 
+Saved console logs (and bad headers): /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/console/133716_loaded_page_cb_about_page.json.
+2024-03-16 13:37:16,609 welkin.framework.utils_file::_write_local_to_file() [INFO] Saved local storage log: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/webstorage/133716_loaded_page_cb_about_page_local.json.
+2024-03-16 13:37:16,609 welkin.framework.utils_file::_write_session_to_file() [INFO] Saved session storage log: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/webstorage/133716_loaded_page_cb_about_page_session.json.
+2024-03-16 13:37:17,093 welkin.apps.root_pageobject::save_accessibility_logs() [INFO] Writing accessibility logs to /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/accessibility/loaded_page_cb_about_page.json
+2024-03-16 13:37:17,117 welkin.apps.root_pageobject::set_event() [INFO] 
+browser interaction event:
+{
+    "_timestamp": 1710610637.117463,
+    "event": "clicked About Us destination link",
+    "on page": "cb resources page"
+}
+2024-03-16 13:37:17,117 welkin.apps.root_pageobject::save_screenshot() [INFO] Generating screenshot for 'about_us_page_loaded'.
+2024-03-16 13:37:17,438 welkin.framework.utils_selenium::take_and_save_screenshot() [INFO] 
+Saved screenshot: /Users/derek/dev/welkin/welkin/output/240316-133554/5_dynamic_navigation[scenario05]/screenshots/133717_about_us_page_loaded.png.
+2024-03-16 13:37:17,439 welkin.tests.conftest::pytest_runtest_teardown() [INFO] 
+### Tear down for test test_dynamic_navigation[scenario05] ###
+2024-03-16 13:37:17,439 welkin.tests.conftest::pytest_runtest_teardown() [INFO] 
+### Closing test case logfile ###
+
+
