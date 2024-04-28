@@ -69,9 +69,11 @@ def pytest_addoption(parser):
     parser.addoption('--browser',
                      action='store',
                      dest='browser',
-                     choices=['chrome', 'headless_chrome'],
+                     choices=['chrome', 'headless_chrome',
+                              'firefox', 'headless_firefox'],
                      default='chrome',
-                     help='Specify the browser to use: "chrome", "headless_chrome".')
+                     help='Specify the browser to use: "chrome", "headless_chrome", '
+                          '"firefox", "headless_firefox".')
 
     parser.addoption('--tier',
                      action='store',
@@ -732,9 +734,28 @@ def base_chrome_capabilities(webdriver):
     return options
 
 
+def base_firefox_capabilities(webdriver):
+    """
+        Set the base options for all firefox-derived browsers.
+
+        see
+
+        :param webdriver: webdriver package
+        :return options: options object
+    """
+    options = webdriver.FirefoxOptions()
+
+    # TODO: figure out the capabilities to match Chrome's
+
+    # get path to driver log; this is a PosixPath object
+    folder = pytest.custom_namespace['current test case']['driver folder']
+
+    return options
+
+
 def base_chrome_services(webdriver):
     """
-        Set the Chrome service to write the browser/driver log tp
+        Set the Chrome service to write the browser/driver log to
         the test case's `driver` folder file.
 
         see https://www.selenium.dev/documentation/webdriver/browsers/chrome/
@@ -757,6 +778,28 @@ def base_chrome_services(webdriver):
     # set the service output configuration
     service = webdriver.ChromeService(service_args=args,
                                       log_output=log_path)
+    return service
+
+
+def base_firefox_services(webdriver):
+    """
+        Set the geckodriver service to write the browser/driver log to
+        the test case's `driver` folder file.
+
+        see https://www.selenium.dev/selenium/docs/api/py/webdriver_firefox/selenium.webdriver.firefox.service.html
+
+        :param webdriver: webdriver package
+        :return service: Firefox service object
+    """
+    # get path to driver log; this is a PosixPath object
+    folder = pytest.custom_namespace['current test case']['driver folder']
+
+    # set the file output & cast to a string
+    log_path = str(folder / 'driver.txt')
+    logger.info(f"\ndriver log path: {log_path}")
+
+    # set the service output configuration
+    service = webdriver.firefox.service.Service(log_output=log_path)
     return service
 
 
@@ -786,6 +829,24 @@ def browser_chrome():
     return this_driver
 
 
+def browser_firefox():
+    """
+        Launch the local Firefox browser.
+
+        :return this_driver: configured Firefox browser driver
+    """
+    from selenium import webdriver
+
+    service = base_firefox_services(webdriver)
+    logger.info(f"\nbrowser services:\n{utils.plog(service.__dict__)}")
+
+    options = base_firefox_capabilities(webdriver)
+    logger.info(f"\nbrowser options: \n{utils.plog(options.__dict__)}")
+
+    this_driver = webdriver.Firefox(service=service, options=options)
+    return this_driver
+
+
 def browser_chrome_headless():
     """
         This allows for full-page screenshots, as well as not blocking
@@ -812,6 +873,24 @@ def browser_chrome_headless():
     this_driver = webdriver.Chrome(service=service, options=options)
     return this_driver
 
+
+def browser_firefox_headless():
+    """
+        Launch the local Firefox browser in headless mode.
+
+        :return this_driver: configured Firefox headless browser driver
+    """
+    from selenium import webdriver
+
+    service = base_firefox_services(webdriver)
+    logger.info(f"\nbrowser services:\n{utils.plog(service.__dict__)}")
+
+    options = base_firefox_capabilities(webdriver)
+    options.add_argument('--headless')
+    logger.info(f"\nbrpowser options: \n{utils.plog(options.__dict__)}")
+
+    this_driver = webdriver.Firefox(service=service, options=options)
+    return this_driver
 
 @pytest.fixture(scope="function")
 def driver(request, browser):
@@ -850,8 +929,8 @@ def driver(request, browser):
     # #############################################################
     # Run on applitools execution cloud with visual testing
     # #############################################################
-    logger.info(f"\n---> namespace for applitools: "
-                f"\n{utils.plog(pytest.custom_namespace)}")
+    #logger.info(f"\n---> namespace for applitools: "
+    #            f"\n{utils.plog(pytest.custom_namespace)}")
 
     if use_execution_cloud:
         # This means that tests will be run on the Applitools Execution cloud
@@ -893,6 +972,31 @@ def driver(request, browser):
         yield driver
         driver.quit()
         logger.info(f"Quitting '{browser}' driver.")
+
+    # #############################################################
+    # Run locally with Firefox browser
+    # #############################################################
+    elif browser in ['firefox', "headless_firefox"]:
+        if browser == 'firefox':
+            driver = browser_firefox()
+        elif browser == 'headless_firefox':
+            driver = browser_firefox_headless()
+        driver_version = driver.capabilities['moz:geckodriverVersion']
+        logger.info(f"\nstarting driver \n'{browser}':"
+                    f"\nfirefox driver version: {driver_version}\n")
+
+        # set the default window dimensions; can be over-ridden at the POM layer
+        driver.set_window_size(1030, 2200)
+        # implicit waits set the remote driver's properties, which may not
+        # be over-rideable with explicit local waits
+        # driver.implicitly_wait(10)  # default wait for 10 seconds
+        user_agent = driver.execute_script("return navigator.userAgent;")
+        logger.info(f"\nuseragent: \n'{user_agent}'")
+
+        yield driver
+        driver.quit()
+        logger.info(f"Quitting '{browser}' driver.")
+
 
     # #############################################################
     # ERROR out

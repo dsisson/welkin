@@ -4,6 +4,7 @@ import json
 import pytest
 
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 from selenium.common.exceptions import WebDriverException
 
 from welkin.framework import utils_webstorage
@@ -28,7 +29,7 @@ def take_and_save_screenshot(driver, filename=''):
 
     # full-screen screenshots are enabled by
     if pytest.custom_namespace['browser'] in ['firefox', 'safari']:
-        body = driver.find_element_by_tag_name('body')
+        body = driver.find_element(By.TAG_NAME, 'body')
         body_png = body.screenshot_as_png
         with open(path, 'wb') as file:
             file.write(body_png)
