@@ -317,6 +317,24 @@ class RootPageObject(object):
         load_checks = self.load_checks
         logger.info(f"\nLoad checks for '{self.name}':\n{load_checks}.")
 
+        # scroll to the bottom of the page because of JS weirdness
+        utils_selenium.scroll_to_bottom_of_page(self.driver)
+        self.save_screenshot(f"bottom of {self.name}")
+
+        # then scroll back up to the top
+        utils_selenium.scroll_to_top_of_page(self.driver)
+
+        # unhover the nav bar
+        from selenium.webdriver.common.action_chains import ActionChains
+        pos = self.driver.get_window_position()
+        logger.info(f"\nwindow position: {pos}")
+        new_pos = (pos['x'] + 1,  pos['y'] + 1)
+        logger.info(f"\nnew position: {new_pos}")
+        ActionChains(self.driver).move_by_offset(new_pos[0], new_pos[1]).perform()
+        event = f"cleanup unhover for {self.name}"
+        self.set_event(event)
+        self.save_screenshot(f"cleanup unhover")
+
         # loop over the load checks and collect the results
         for check in load_checks:
             if verbose:
