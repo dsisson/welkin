@@ -23,15 +23,17 @@ Page objects themselves have _design patterns_.
 
 The typical package structure for a POM wrapper is:
 ```
-apps
+app name
     |- root_pageobject.py
     |- wrapper for app
         |- routings.py
         |- base_page.py
         |- noauth (for pages that do not require authentication)
-            |- base_noauth.py
+            |- base_noauth.py (functionality common to all noauth pages)
+            |- pages.py
         |- auth  (for pages that DO require authentication)
             |- base_auth.py
+            |- pages.py
 ```
 
 ### Hierarchical class structure

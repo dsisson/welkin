@@ -164,24 +164,33 @@ class RootPageObject(object):
 
         # unload steps, if needed
         self.verify_unload(screenshot=True, verbose=True)
+        # Note: page *unload* is arguably an interaction event, but we don't
+        # check or log page state for that. If a particular app's page
+        # transitions are difficult, revisit this.
 
         # get the pageobject for the expected new page
         # at this point, we do NOT know if the browser loaded the page correctly!
         new_pageobject_instance = self.resolve_pageobject(
             po_id, cross_auth_boundary=False, **opts)
 
-        # perform any page load checks that are specified in the PO class
-        # >> using the new page object! <<
-        new_pageobject_instance.verify_load(screenshot=True, verbose=True)
+        # check that browser readyState is "complete". Because this check lags
+        # the interaction step that triggered the new page, this is likely to
+        # already be true unless there was an error.
+        if utils_selenium.get_readystate(self.driver, state='complete'):
+            # assume that the PO logic is correct and accurate, and that
+            # the page has completed loading
+            event = f"loaded page '{po_id}'"
+            self.set_event(event, page_name=new_pageobject_instance.name)
+        else:
+            # if the browser is not ready, we have a problem
+            msg = f"\nBrowser apparently not ready after loading page '{po_id}'."
+            logger.error(msg)
+            raise PageLoadException(errors=msg)
 
-        # Note: page *unload* is arguably an interaction event, but we don't
-        # check or log page state for that. If a particular app's page
-        # transitions are difficult, revisit this.
-
-        # assume that the PO logic is correct and accurate, and that
-        # the page has completed loading
-        event = f"loaded page '{po_id}'"
-        self.set_event(event, page_name=new_pageobject_instance.name)
+        # perform any element-based page load checks that are specified in
+        # the PO class >> using the new page object! <<
+        # Note: element-based load checks may not be necessary anymore.
+        # new_pageobject_instance.verify_load_by_elements(screenshot=True, verbose=True)
 
         # perform any page identity checks that are specified in the PO class
         # >> using the new page object! <<
@@ -277,10 +286,11 @@ class RootPageObject(object):
             self.save_screenshot(f"unloaded {self.name}")
             return True
 
-    def verify_load(self, waitfor=30, screenshot=False, verbose=False):
+    def verify_load_by_elements(self, waitfor=30, screenshot=False, verbose=False):
         """
             Check that the current page displayed in the browser
-            has completed loading.
+            has completed loading, based on loading specific elements defined
+            in the page object class.
 
             Each page object *may* have a list of specific load validation
             checks, called `load_checks`. This list contains tuples of methods
