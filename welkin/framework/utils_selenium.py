@@ -5,12 +5,57 @@ import pytest
 
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import WebDriverException
 
 from welkin.framework import utils_webstorage
 from welkin.framework.exceptions import ControlInteractionException
 
 logger = logging.getLogger(__name__)
+
+
+def get_time_to_loadevent(driver, secs=True):
+    """
+        Get the performance timing for page load from the browser
+        and log it.
+
+        :param driver: webdriver instance
+        :param secs: bool, default True, to return time in seconds,
+                           else False for msecs
+        :return: float, time in seconds or msecs
+    """
+    msecs_start = driver.execute_script("return window.performance.timing.navigationStart")
+    msecs_loadevent = driver.execute_script("return window.performance.timing.loadEventEnd")
+
+    logger.info(f"\nstamp_start as msecs: {msecs_start}"
+                f"\nstamp_loadevent as msecs: {msecs_loadevent}")
+    if secs:
+        return (msecs_loadevent - msecs_start) / 1000
+    else:
+        return msecs_loadevent - msecs_start
+
+
+def get_readystate(driver, state='complete'):
+    """
+        Wait for the page to load by checking the document.readyState
+        property of the current page.
+
+        The possible states are:
+            + 'complete' (the default value)
+            + 'loading'
+            + 'interactive' (doc has loaded and DOM is ready, but sub-resources
+                             like images, stylesheets, and frames are still loading)
+            + 'uninitialized' (the document is still loading)
+
+        :param driver: webdriver instance
+        :param state: str enum, default 'complete', the state to check for
+        :return: Bool, True if the state is as expected, else False
+    """
+    logger.info(f"\n getting readyState for {state}")
+    # return driver.execute_script("return document.readyState") == state
+    return WebDriverWait(driver, 10).until(
+        lambda driver: driver.execute_script("return document.readyState") == state
+    )
 
 
 def take_and_save_screenshot(driver, filename=''):
