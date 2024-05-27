@@ -129,7 +129,7 @@ class RootPageObject(object):
             Every time the browser changes its state, we must update our
             expectations about the browser state. To do this, we must force
             reloads of the page object model when ever we take a state-changing
-            interaction. We do this by loadig and returning an updated page
+            interaction. We do this by loading and returning an updated page
             object on taking test actions.
 
             This method load_pageobject() is responsible for managing the model's
@@ -196,23 +196,27 @@ class RootPageObject(object):
         # >> using the new page object! <<
         new_pageobject_instance.verify_self(verbose=True)
 
-        # perform a series of file-writes
-        # write the cookies to a file
+        # perform a series of data collection and file-writes for the NEW page
+        # which has NOT YET been instantiated as a page object
+
+        # write the cookies FOR THE NEW PAGE to a file
         new_pageobject_instance.save_cookies(filename=event)
 
-        # write Chrome browser metrics log to file
+        # write Chrome browser metrics log FOR THE NEW PAGE to a file
         if 'chrome' in pytest.custom_namespace['browser']:
             new_pageobject_instance.save_chrome_metrics(filename=event)
 
-        # write browser console and performance logs to files
+        # write browser console and performance logs FOR THE NEW PAGE to files
         new_pageobject_instance.save_browser_logs(filename=event)
 
-        # write webstorage to files
+        # write webstorage FOR THE NEW PAGE to files
         new_pageobject_instance.save_webstorage(event=event, set_this_event=False)
 
-        # generate and write accessibility logs to file
-        new_pageobject_instance.save_accessibility_logs(filename=event)
+        # generate and write accessibility logs FOR THE NEW PAGE to file
+        new_pageobject_instance.generate_accessibility_review(filename=po_id)
 
+        # with this return, the page opbject model is now in sync
+        # with the browser
         return new_pageobject_instance
 
     def verify_unload(self, screenshot=False, verbose=False):
@@ -572,9 +576,9 @@ class RootPageObject(object):
                                              pageobject_name=self.name,
                                              event=event)
 
-    def save_accessibility_logs(self, filename=''):
+    def generate_accessibility_review(self, filename=''):
         """
-            Perform and save accessibility checks basd on the axe engine.
+            Perform and save accessibility checks based on the axe engine.
 
             The checks are run automatically for web pages handled
             by a welkin page object model. Results are written to the
@@ -602,19 +606,25 @@ class RootPageObject(object):
         # inject axe.core into page
         axe.inject()
 
+        event = f"Axe.core JS injected into page code for '{self.name}'"
+        self.set_event(event)
+
         # run the axe accessibility checks
         axe_results = axe.run()
         # axe.run() caused the page to scroll to the bottom; scroll back to top
         utils_selenium.scroll_to_top_of_page(self.driver)
+        event = f"Forced page scroll to top of page '{self.name}'"
+        self.set_event(event)
 
         # set the cleaned file name
         fname = filename if filename else self.name
 
         # write the results to a file
-        path = pytest.custom_namespace['current test case']['accessibility folder']
-        filename = f"{path}/{utils.path_proof_name(fname)}.json"
-        logger.info(f"Writing accessibility logs to {filename}")
-        axe.write_results(axe_results, filename)
+        utils_file.write_axe_log_to_file(axe_results, fname)
+        # path = pytest.custom_namespace['current test case']['accessibility folder']
+        # filename = f"{path}/{utils.path_proof_name(fname)}.json"
+        # logger.info(f"Writing accessibility logs to {filename}")
+        # axe.write_results(axe_results, filename)
 
     def set_event(self, event_name, page_name=None):
         """
