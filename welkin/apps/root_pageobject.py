@@ -587,14 +587,11 @@ class RootPageObject(object):
             NOTE: these checks may slow down the perceived page performance
             around page load in the context of test runs.
 
-            TODO: refine the generated accessibility data: we really just
-            want to report problems.
-
             The filename can be specified by the calling code, but the
             expectation is that this is either:
-            1. an event string, because the trigger for running these checks
-               could be a page object load or reload
-            2. the default of the page object's name
+                1. an event string, because the trigger for running these
+                   checks could be a page object load or reload
+                2. the default of the page object's name
 
             :param filename: str filename for the log file;
                              defaults to PO name
@@ -616,15 +613,17 @@ class RootPageObject(object):
         event = f"Forced page scroll to top of page '{self.name}'"
         self.set_event(event)
 
+        # we don't want the full report, just the violations & some metadata,
+        # so remove the unwanted stuff from the results
+        unwanted_sections = ['passes', 'incomplete', 'inapplicable']
+        for section in unwanted_sections:
+            axe_results.pop(section)
+
         # set the cleaned file name
         fname = filename if filename else self.name
 
         # write the results to a file
         utils_file.write_axe_log_to_file(axe_results, fname)
-        # path = pytest.custom_namespace['current test case']['accessibility folder']
-        # filename = f"{path}/{utils.path_proof_name(fname)}.json"
-        # logger.info(f"Writing accessibility logs to {filename}")
-        # axe.write_results(axe_results, filename)
 
     def set_event(self, event_name, page_name=None):
         """
