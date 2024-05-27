@@ -270,3 +270,18 @@ def write_sdk_response_to_file(response, sdk_app, fname=''):
     path = pytest.custom_namespace['current test case']['integrations folder'] / filename
     with open(path, 'a') as f:
         f.write(utils.plog(response))
+
+
+def write_axe_log_to_file(axe_results, fname):
+    """
+        Save the axe accessibility audit results to a json file.
+
+        :param axe_results: dict, axe accessibility audit results
+        :param fname: str, first part of filename
+        :return: None
+    """
+    filename = f"{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.json"
+    path = pytest.custom_namespace['current test case']['accessibility folder'] / filename
+    logger.info(f"\nWriting accessibility logs to {filename}")
+    with open(path, 'a') as f:
+        f.write(utils.plog(axe_results))
