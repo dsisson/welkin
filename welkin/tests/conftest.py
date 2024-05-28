@@ -710,7 +710,7 @@ def browser(request):
     return this_browser
 
 
-def base_chrome_capabilities(webdriver):
+def base_chrome_options(webdriver):
     """
         Set the base options for all chrome-derived browsers.
 
@@ -734,7 +734,7 @@ def base_chrome_capabilities(webdriver):
     return options
 
 
-def base_firefox_capabilities(webdriver):
+def base_firefox_options(webdriver):
     """
         Set the base options for all firefox-derived browsers.
 
@@ -746,6 +746,8 @@ def base_firefox_capabilities(webdriver):
     options = webdriver.FirefoxOptions()
 
     # TODO: figure out the capabilities to match Chrome's
+    # options.add_argument('--remote-debugging-port=9222')
+    options.log.level = 'trace'
 
     # get path to driver log; this is a PosixPath object
     folder = pytest.custom_namespace['current test case']['driver folder']
@@ -822,7 +824,7 @@ def browser_chrome():
     service = base_chrome_services(webdriver)
     logger.info(f"\nbrowser services:\n{utils.plog(service.__dict__)}")
 
-    options = base_chrome_capabilities(webdriver)
+    options = base_chrome_options(webdriver)
     logger.info(f"\nbrowser options:\n{utils.plog(options.__dict__)}")
 
     this_driver = webdriver.Chrome(service=service, options=options)
@@ -840,7 +842,7 @@ def browser_firefox():
     service = base_firefox_services(webdriver)
     logger.info(f"\nbrowser services:\n{utils.plog(service.__dict__)}")
 
-    options = base_firefox_capabilities(webdriver)
+    options = base_firefox_options(webdriver)
     logger.info(f"\nbrowser options: \n{utils.plog(options.__dict__)}")
 
     this_driver = webdriver.Firefox(service=service, options=options)
@@ -866,7 +868,7 @@ def browser_chrome_headless():
     service = base_chrome_services(webdriver)
     logger.info(f"\nbrowser services:\n{utils.plog(service.__dict__)}")
 
-    options = base_chrome_capabilities(webdriver)
+    options = base_chrome_options(webdriver)
     options.add_argument('--headless=new')
     logger.info(f"\nbrowser options:\n{utils.plog(options.__dict__)}")
 
@@ -885,7 +887,7 @@ def browser_firefox_headless():
     service = base_firefox_services(webdriver)
     logger.info(f"\nbrowser services:\n{utils.plog(service.__dict__)}")
 
-    options = base_firefox_capabilities(webdriver)
+    options = base_firefox_options(webdriver)
     options.add_argument('--headless')
     logger.info(f"\nbrpowser options: \n{utils.plog(options.__dict__)}")
 
@@ -935,7 +937,7 @@ def driver(request, browser):
     if use_execution_cloud:
         # This means that tests will be run on the Applitools Execution cloud
         from selenium import webdriver
-        options = base_chrome_capabilities(webdriver)
+        options = base_chrome_options(webdriver)
         logger.info(f"\nbrowser options:\n{utils.plog(options.__dict__)}")
 
         driver = webdriver.Remote(
