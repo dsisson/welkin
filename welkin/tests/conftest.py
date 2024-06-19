@@ -96,6 +96,12 @@ def pytest_addoption(parser):
                      default='no',
                      help='Use Applitools execution cloud? "yes" or "no"')
 
+    parser.addoption('--dotgov_key',
+                     action='store',
+                     dest='data_dot_gov',
+                     default=None,
+                     help='Provide the str API key for data.gov.')
+
 
 # 1.0
 def pytest_configure(config):
@@ -629,7 +635,7 @@ def set_up_testcase_reporting(testcase_folder, fixturenames):
         integrations = ['auth']  # not used, but helps with context  # noqa: F841
         drivers = ['driver']
         web_apps = ['duckduckgo', 'sweetshop']
-        apis = ['colourlovers', 'dadjokes', 'genderizer']
+        apis = ['colourlovers', 'dadjokes', 'genderizer', 'data_dot_gov']
 
         # set up config for folder requirements
         required_folders = {
@@ -1369,3 +1375,15 @@ def sweetshop(request):
         that have actual users with real credentials in AWS.
     """
     pass
+
+
+@pytest.fixture(scope='session')
+def data_dot_gov(request):
+    """
+        This test fixture is a trigger for setting up authentication
+        management for the data.gov api.
+
+    """
+    api_key = request.config.option.data_dot_gov
+    logger.info('\ndata.gov api_key: %s' % api_key)
+    return api_key
