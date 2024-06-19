@@ -28,17 +28,6 @@ class RootEndpoint(object):
         """
         return str(uuid.uuid4())
 
-    def set_headers(self):
-        """
-            Create the core set of headers to be used on all API requests.
-
-            :return: None
-        """
-        self.headers = {
-            'Content-Type': 'application/json',
-            'X-RequestID': self.generate_uuid(),
-        }
-
     def get(self, url, expect_status=200, expect_errors=False, use_session=True,
             params=None, verbose=False, **kwargs):
         """

@@ -130,7 +130,7 @@ def _write_local_to_file(data, event, pageobject_name, source_url, output_url):
     """
         Write the local storage to a json file in the webstorage folder.
 
-        Note: several sweord key-value pairs will be inserted into that data.
+        Note: several welkin key-value pairs will be inserted into that data.
 
         :param data: dict of local storage log pulled from the browser
         :param event: str, descriptor for an interaction with the React app
@@ -154,7 +154,7 @@ def _write_session_to_file(data, event, pageobject_name, source_url, output_url)
     """
         Write the session storage to a json file in the webstorage folder.
 
-        Note: several sweord key-value pairs will be inserted into that data.
+        Note: several welkin key-value pairs will be inserted into that data.
 
         :param data: dict of session storage log pulled from the browser
         :param event: str, descriptor for an interaction with the React app
