@@ -285,3 +285,90 @@ def write_axe_log_to_file(axe_results, fname):
     logger.info(f"\nWriting accessibility logs to {filename}")
     with open(path, 'a') as f:
         f.write(utils.plog(axe_results))
+
+
+def write_axe_failures_to_csv(axe_results, fname):
+    """
+        Save the axe accessibility failures to a csv file.
+
+        :param axe_results: dict, axe accessibility audit results
+        :param fname: str, first part of filename
+        :return: None
+    """
+    import csv
+    filename = f"{time.strftime('%H%M%S')}_{utils.path_proof_name(fname)}.csv"
+    path = pytest.custom_namespace['current test case']['accessibility folder'] / filename
+
+    def process_json(data, writer, current_level=None, max_depth=None):
+        """
+            Recursively process JSON data to write to a CSV file. This converts
+            a JSON structure into a representation of that hierarchical structure
+            in a CSV file. It's not perfect, but it allows for viewing the data
+            in a spreadsheet program.
+
+            :param data: dict, json object
+            :param writer: CSV writer object
+            :param current_level: int, depth in json structure
+            :param max_depth: int, max depth in json structure
+            :return: None
+        """
+        if current_level is None:
+            current_level = []
+        if max_depth is None:
+            max_depth = [0]
+
+        max_depth[0] = max(max_depth[0], len(current_level) + 1)
+
+        if isinstance(data, dict):
+            for key, value in data.items():
+                if isinstance(value, (dict, list)):
+                    row = current_level + [str(key)] + [''] * (max_depth[0] - len(current_level) - 1)
+                    writer.writerow(row)
+                    process_json(value, writer, current_level + [str(key)], max_depth)
+                else:
+                    row = current_level + [str(key), str(value)] + [''] * (max_depth[0] - len(current_level) - 2)
+                    writer.writerow(row)
+        elif isinstance(data, list):
+            for index, item in enumerate(data):
+                if isinstance(item, (dict, list)):
+                    row = current_level + [f"[{str(index)}]"] + [''] * (max_depth[0] - len(current_level) - 1)
+                    writer.writerow(row)
+                    process_json(item, writer, current_level + [f"[{str(index)}]"], max_depth)
+                else:
+                    row = current_level + [f"[{str(index)}]", str(item)] + [''] * (max_depth[0] - len(current_level) - 2)
+                    writer.writerow(row)
+        else:
+            row = current_level + [str(data)] + [''] * (max_depth[0] - len(current_level) - 1)
+            writer.writerow(row)
+
+    def json_to_csv(json_data, csv_filename):
+        """
+            Write JSON data to a CSV file.
+
+            :param json_data: dict, axe accessibility audit results
+            :param csv_filename: str, full local path to ouput path in
+                                      testrun/testcase/accessibility folder
+            :return: None
+        """
+        try:
+            with open(csv_filename, 'w', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+
+                max_depth = [0]
+                process_json(json_data, writer, max_depth=max_depth)
+         
+                # Write header row
+                header = [f'Level {i + 1}' for i in range(max_depth[0])]
+                csvfile.seek(0)
+                content = csvfile.read()
+                csvfile.seek(0)
+                csvfile.write(','.join(header) + '\n' + content)
+        except IOError as e:
+            print(f"An error occurred while writing to the CSV file: {e}")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+        else:
+            print(f"Successfully created CSV file: {csv_filename}")
+
+    logger.info(f"\nWriting axe failures logs to {path}")
+    json_to_csv(axe_results, path)

@@ -2,7 +2,6 @@ import logging
 import importlib
 import time
 import pytest
-from axe_selenium_python import Axe
 
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -21,7 +20,7 @@ from welkin.framework.exceptions import ControlInteractionException
 
 from welkin.framework import checks
 from welkin.framework import utils, utils_file
-from welkin.framework import utils_selenium
+from welkin.framework import utils_selenium, utils_accessibility
 
 logger = logging.getLogger(__name__)
 
@@ -576,13 +575,9 @@ class RootPageObject(object):
                                              pageobject_name=self.name,
                                              event=event)
 
-    def generate_accessibility_review(self, filename=''):
+    def generate_accessibility_review(self, filename=None):
         """
-            Perform and save accessibility checks based on the axe engine.
-
-            The checks are run automatically for web pages handled
-            by a welkin page object model. Results are written to the
-            current test runs output/accessibility folder.
+            Wrapper for the accessibility review functionality.
 
             NOTE: these checks may slow down the perceived page performance
             around page load in the context of test runs.
@@ -597,33 +592,7 @@ class RootPageObject(object):
                              defaults to PO name
             :return: None
         """
-        # instantiate axe
-        axe = Axe(self.driver)
-
-        # inject axe.core into page
-        axe.inject()
-
-        event = f"Axe.core JS injected into page code for '{self.name}'"
-        self.set_event(event)
-
-        # run the axe accessibility checks
-        axe_results = axe.run()
-        # axe.run() caused the page to scroll to the bottom; scroll back to top
-        utils_selenium.scroll_to_top_of_page(self.driver)
-        event = f"Forced page scroll to top of page '{self.name}'"
-        self.set_event(event)
-
-        # we don't want the full report, just the violations & some metadata,
-        # so remove the unwanted stuff from the results
-        unwanted_sections = ['passes', 'incomplete', 'inapplicable']
-        for section in unwanted_sections:
-            axe_results.pop(section)
-
-        # set the cleaned file name
-        fname = filename if filename else self.name
-
-        # write the results to a file
-        utils_file.write_axe_log_to_file(axe_results, fname)
+        utils_accessibility.generate_axe_review(pageobject=self, filename=filename)
 
     def set_event(self, event_name, page_name=None):
         """
