@@ -198,6 +198,7 @@ Temporary Items
 .idea/vcs.xml
 .idea/welkin.iml
 .idea/inspectionProfiles/
+/.idea/csv-editor.xml
 
 # Welkin artifacts
 output/
