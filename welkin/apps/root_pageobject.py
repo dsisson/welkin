@@ -178,7 +178,10 @@ class RootPageObject(object):
         if utils_selenium.get_readystate(self.driver, state='complete'):
             # assume that the PO logic is correct and accurate, and that
             # the page has completed loading
-            event = f"loaded page '{po_id}'"
+            if po_id == last_page:
+                event = f"reloaded page '{po_id}'"
+            else:
+                event = f"loaded page '{po_id}'"
             self.set_event(event, page_name=new_pageobject_instance.name)
         else:
             # if the browser is not ready, we have a problem
