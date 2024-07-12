@@ -106,3 +106,20 @@ def plog(content):
                 pass
 
     return formatted_content
+
+
+def get_env_variable(var_name):
+    """
+        Get the value of an environment variable.
+
+        :param var_name: str, the name of the environment variable
+        :return: str, the value of the environment variable
+    """
+    import os
+    value = os.getenv(var_name)
+    if value:
+        return value
+    else:
+        msg = f"Environment variable {var_name} not found."
+        logger.error(msg)
+        raise ValueError(msg)

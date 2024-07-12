@@ -635,7 +635,8 @@ def set_up_testcase_reporting(testcase_folder, fixturenames):
         integrations = ['auth']  # not used, but helps with context  # noqa: F841
         drivers = ['driver']
         web_apps = ['duckduckgo', 'sweetshop']
-        apis = ['colourlovers', 'dadjokes', 'genderizer', 'data_dot_gov']
+        apis = ['colourlovers', 'dadjokes', 'genderizer',
+                'data_dot_gov', 'merriam_webster']
 
         # set up config for folder requirements
         required_folders = {
@@ -1378,11 +1379,31 @@ def sweetshop(request):
 
 
 @pytest.fixture(scope='session')
+def merriam_webster(request):
+    """
+        This test fixture is a trigger for setting up authentication
+        management for the Merriam-Webster api.
+
+        Pull in the app's api-key from the local ENV (via .bash_profile).
+
+        :param request: pytest request object
+        :return api_key: str, api key for Merriam-Webster
+    """
+    api_key = utils.get_env_variable('MERRIAM_WEBSTER_API_KEY')
+    return api_key
+
+
+@pytest.fixture(scope='session')
 def data_dot_gov(request):
     """
         This test fixture is a trigger for setting up authentication
         management for the data.gov api.
 
+        Pull in the api-key from the CLI; that has to be part for
+        every invocation.
+
+        :param request: pytest request object
+        :return api_key: str, api key for data.gov
     """
     api_key = request.config.option.data_dot_gov
     logger.info('\ndata.gov api_key: %s' % api_key)
