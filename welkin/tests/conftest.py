@@ -634,7 +634,7 @@ def set_up_testcase_reporting(testcase_folder, fixturenames):
         # #############################################
         integrations = ['auth']  # not used, but helps with context  # noqa: F841
         drivers = ['driver']
-        web_apps = ['duckduckgo', 'sweetshop']
+        web_apps = ['duckduckgo', 'sweetshop', 'wordly']
         apis = ['colourlovers', 'dadjokes', 'genderizer',
                 'data_dot_gov', 'merriam_webster']
 
@@ -1408,3 +1408,15 @@ def data_dot_gov(request):
     api_key = request.config.option.data_dot_gov
     logger.info('\ndata.gov api_key: %s' % api_key)
     return api_key
+
+
+@pytest.fixture(scope='session')
+def wordly(request):
+    """
+        This test fixture is a trigger for setting up authentication
+        management for the Wordly marketing app.
+
+        Note: not really, this is just an example to use for real apps
+        that have actual users with real credentials in AWS.
+    """
+    pass
