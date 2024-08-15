@@ -30,7 +30,7 @@ class BaseWrapperPageObject(RootPageObject):
            information.
     """
     # the path to the routings file for this app wrapper
-    routings_path = 'welkin.apps.wordly.'
+    routings_path = 'welkin.apps.wordly.site.'
 
 
 class PomBootPage(BaseWrapperPageObject):

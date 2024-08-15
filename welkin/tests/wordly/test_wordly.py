@@ -1,7 +1,7 @@
 import pytest
 import logging
 
-from welkin.apps.wordly.base_page import PomBootPage
+from welkin.apps.wordly.site.base_page import PomBootPage
 
 logger = logging.getLogger(__name__)
 

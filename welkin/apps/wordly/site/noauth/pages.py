@@ -1,6 +1,6 @@
 import logging
 
-from welkin.apps.wordly.noauth.base_noauth import NoAuthBasePageObject
+from welkin.apps.wordly.site.noauth.base_noauth import NoAuthBasePageObject
 
 logger = logging.getLogger(__name__)
 INIT_MSG = 'Instantiated PageObject for %s.'

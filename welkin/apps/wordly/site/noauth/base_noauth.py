@@ -4,7 +4,7 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import MoveTargetOutOfBoundsException
 
-from welkin.apps.wordly.base_page import BaseWrapperPageObject
+from welkin.apps.wordly.site.base_page import BaseWrapperPageObject
 from welkin.framework.utils_selenium import scroll_to_top_of_page
 
 logger = logging.getLogger(__name__)

@@ -1,5 +1,5 @@
 # path to the no-authentication modules
-NOAUTH_PATH = 'welkin.apps.wordly.noauth.'
+NOAUTH_PATH = 'welkin.apps.wordly.site.noauth.'
 AUTH_PATH = None  # not implemented for this wrapper
 
 # mapping page object names to classes
