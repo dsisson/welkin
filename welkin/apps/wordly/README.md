@@ -1,7 +1,41 @@
 # About This Pull Request
 
-This pull request is a working proof-of-concept of an advanced end-to-end test automation framework for the Wordly marketing site. This framework demonstrates the role of advanced modeling in a modern automation approach. Granted, this is a marketing site, and so is not reflective of core product engineering work, but the value of this approach is that this POC already can run very advanced tests, so it's already an effective learning tool, ready to run.   
+## 1. Wordly API Test Automation
+Note to self: don't "stress" test the APIs, especially the media transcription APIs!
 
+### Setup
+Save the api key locally as WORDLY_DEV_API_KEY in your bash profile.
+
+### Design Approaches
+This is an endpoint object model using simple inheritance to model the Wordly API endpoints. The core functionality is:
+* The framework is built on top of Pytest, which supports collecting, running, executing, and reporting on test methods.
+* HTTP is managed through the Python Requests package. Verbs are wrapped at several levels, which allows handy abstractions at the test method level and allows for systematic negative testing. For example, I can set up tests to include failures and the expected failure codes. 
+* The API is wrapped in the endpoint object model, which allows me to treat the wrapper as an internal framework API from the test methods. This supports long-form scenarios across endpoint surfaces (and with web apps) in the context of single test methods.
+* I've written several test methods that are parametrized. This is certainly the direction I would take with the end-to-end tests, so that they are data-driven.
+* I've added rudimentary payload schema validation to a few endpoints.
+* I've added rudimentary test data and business object models. The idea with these is that they add power to the parametrization, and set up tests as "expectation engines".
+
+This code as written is 100% an exploratory approach to getting the test framework to work. This does not reflect what a carefully planned approach would look like. 
+
+Note: I've included a zipped file of the test run output.
+
+### Not Enough Time To
+* wrap all of the endpoints and verbs
+* go deep on schemas
+* go deep on test data and business object models
+* go deep on parametrization
+* demonstrate effective test planning towards coverage
+* strip the api key from any logging
+* deal with asynch support
+* add higher abstractions that roll-up macro actions, for example "do a GET and check for this id in the response". This facilitates cleaner end-to-end scenario syntax.
+ 
+
+
+## 2. Wordly Marketing Site
+
+(from the original POC pull request)
+
+This pull request is a working proof-of-concept of an advanced end-to-end test automation framework for the Wordly marketing site. This framework demonstrates the role of advanced modeling in a modern automation approach. Granted, this is a marketing site, and so is not reflective of core product engineering work, but the value of this approach is that this POC already can run very advanced tests, so it's already an effective learning tool, ready to run.   
 This PR includes:
 * a wrapper for the Wordly marketing site. This wrapper uses an advanced page object model built on my router design pattern.
 * configuration changes to support the wrapper as a test fixture.
@@ -28,7 +62,7 @@ While these two test cases doesn't specifically check more than the ability to m
 I'm happy to provide test artefacts if you're interested. The site performed fairly well, with no errors caught, beyond some accessibility problems. I did see design inconsistencies.
 
 
-# About this application wrapper 
+### About this application wrapper 
 
 Welkin is a functional end-to-end test automation framework written in Python, using pytest. 
 
@@ -36,7 +70,6 @@ I wrote Welkin as a
 * teaching tool for custom test automation and the use of xunit-style test runners
 * scaffolding I can use to quickly build out a substantially custom test framework
 * light-weight automation prototyping tool: automation is about experimentation, and there is no perfect tool; the critical thing is to get information fast and not over-invest or get bogged down  
-
 
 The core Welkin system supports:
 * Browser interaction event tracking (to support model updates to keep in sync with DOM changes). This is designed specifically to support DOM-manipulation frameworks like React. With Welkin, I can snapshot and inspect the UI app's state and data after every/any interaction. 

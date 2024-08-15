@@ -105,7 +105,7 @@ class RootEndpoint(object):
         # parsed_results = self._parse_response(res, expect_status, expect_errors, **kwargs)
         return res
 
-    def post(self, url, expect_status=200, expect_errors=False, use_session=True,
+    def post(self, apiurl, expect_status=200, expect_errors=False, use_session=True,
              params=None, verbose=False, **kwargs):
         """
             Perform an HTTP POST action, and return the request response object.
@@ -125,21 +125,21 @@ class RootEndpoint(object):
                 `expect_errors` argument to True. This triggers code flows to
                 evaluate an error response as an expected response.
 
-            :param url: str url for the HTTP request
+            :param apiurl: str url for the HTTP request
             :param expect_status: int, the expected valid HTTP status code
             :param expect_errors: bool, True if we expect application errors
             :param kwargs: dict, keys & values to get dumped to json
             :return res: requests Response object
         """
         # make the request
-        logger.info(f"Posting url: {url}")
+        logger.info(f"Posting url: {apiurl}")
         logger.info(f"\nHeaders: {utils.plog(self.headers)}")
         if verbose:
             logger.info(f"\nparams: {utils.plog(params)}")
         if params:
             if use_session:
                 res = self.session.post(
-                    url,
+                    apiurl,
                     headers=self.headers,
                     data=json.dumps(kwargs),
                     verify=True,
@@ -148,7 +148,7 @@ class RootEndpoint(object):
             else:
                 logger.warning("\nChoosing not to use the requests session object.")
                 res = requests.post(
-                    url,
+                    apiurl,
                     headers=self.headers,
                     data=json.dumps(kwargs),
                     verify=True,
@@ -157,14 +157,14 @@ class RootEndpoint(object):
         else:
             if use_session:
                 res = self.session.post(
-                    url,
+                    apiurl,
                     headers=self.headers,
                     data=json.dumps(kwargs),
                     verify=True)
             else:
                 logger.warning("\nChoosing not to use the requests session object.")
                 res = requests.post(
-                    url,
+                    apiurl,
                     headers=self.headers,
                     data=json.dumps(kwargs),
                     verify=True)
@@ -172,7 +172,7 @@ class RootEndpoint(object):
         if params:
             final_url = res.url
         else:
-            final_url = url
+            final_url = apiurl
 
         logger.info(f"\nResponse code: {res.status_code}")
         logger.info(f"\nResponse json:\n{utils.plog(res.json())}")

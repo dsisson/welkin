@@ -636,7 +636,7 @@ def set_up_testcase_reporting(testcase_folder, fixturenames):
         drivers = ['driver']
         web_apps = ['duckduckgo', 'sweetshop', 'wordly']
         apis = ['colourlovers', 'dadjokes', 'genderizer',
-                'data_dot_gov', 'merriam_webster']
+                'data_dot_gov', 'merriam_webster', 'wordly_api']
 
         # set up config for folder requirements
         required_folders = {
@@ -1420,3 +1420,17 @@ def wordly(request):
         that have actual users with real credentials in AWS.
     """
     pass
+
+@pytest.fixture(scope='session')
+def wordly_api(request):
+    """
+        This test fixture is a trigger for setting up authentication
+        management for the Wordly api.
+
+        Pull in the app's api-key from the local ENV (via .bash_profile).
+
+        :param request: pytest request object
+        :return api_key: str, api key for Wordly API
+    """
+    api_key = utils.get_env_variable('WORDLY_DEV_API_KEY')
+    return api_key
